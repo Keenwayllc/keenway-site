@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Keenway | Deliver Better.</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <style>
@@ -28,10 +30,13 @@
             background-color: var(--brand-black);
             color: var(--white);
             height: 100vh;
+            height: 100dvh; /* Dynamic viewport height for mobile browsers */
             display: flex;
             flex-direction: column;
             overflow: hidden;
             position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Video Background */
@@ -277,18 +282,235 @@
         }
 
 
+        /* Tablet and below */
+        @media (max-width: 1024px) {
+            main {
+                max-width: 90%;
+                margin-top: 5vh;
+            }
+
+            h1 {
+                font-size: clamp(2rem, 7vw, 3.5rem);
+            }
+
+            .subtext {
+                font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+            }
+        }
+
+        /* Mobile landscape */
+        @media (max-width: 896px) and (orientation: landscape) {
+            header {
+                padding: 0.75rem 1.5rem;
+            }
+
+            main {
+                margin-top: 2vh;
+                padding: 1rem;
+            }
+
+            .hero-badge {
+                margin-bottom: 1rem;
+            }
+
+            .hero-badge img {
+                height: 32px !important;
+            }
+
+            h1 {
+                font-size: clamp(1.5rem, 5vw, 2.5rem);
+                margin-bottom: 1rem;
+            }
+
+            .subtext {
+                margin-bottom: 1.5rem;
+            }
+
+            .cta-group {
+                gap: 0.75rem;
+            }
+
+            .btn-main, .btn-outline {
+                padding: 0.75rem 1.75rem;
+                font-size: 1rem;
+            }
+
+            footer {
+                padding: 1rem;
+            }
+        }
+
+        /* Tablets */
         @media (max-width: 768px) {
-            header { padding: 1rem; }
-            .google-play-badge { height: 40px; }
-            main { padding-top: 4rem; }
-            .video-credits { font-size: 0.5rem; }
+            header {
+                padding: 1rem 1.5rem;
+            }
+
+            .logo-img {
+                height: 28px;
+            }
+
+            .google-play-badge {
+                height: 42px;
+            }
+
+            main {
+                padding: 1.5rem;
+                margin-top: 3vh;
+            }
+
+            .hero-badge img {
+                height: 40px !important;
+            }
+
+            h1 {
+                font-size: clamp(2rem, 6vw, 3rem);
+                margin-bottom: 1.25rem;
+            }
+
+            .subtext {
+                font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+                margin-bottom: 2rem;
+            }
+
+            .btn-main, .btn-outline {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+
+            .video-credits {
+                font-size: 0.55rem;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+        }
+
+        /* Mobile phones */
+        @media (max-width: 480px) {
+            header {
+                padding: 0.875rem 1rem;
+            }
+
+            .logo-img {
+                height: 24px;
+            }
+
+            .google-play-badge {
+                height: 36px;
+            }
+
+            main {
+                padding: 1rem;
+                margin-top: 2vh;
+            }
+
+            .hero-badge {
+                margin-bottom: 1.5rem;
+            }
+
+            .hero-badge img {
+                height: 36px !important;
+            }
+
+            h1 {
+                font-size: clamp(1.75rem, 9vw, 2.5rem);
+                margin-bottom: 1rem;
+                letter-spacing: -0.02em;
+            }
+
+            .subtext {
+                font-size: clamp(0.875rem, 4vw, 1rem);
+                margin-bottom: 1.75rem;
+                max-width: 100%;
+                line-height: 1.5;
+            }
+
+            .cta-group {
+                gap: 0.875rem;
+                width: 100%;
+            }
+
+            .btn-main, .btn-outline {
+                width: 100%;
+                max-width: 280px;
+                padding: 0.95rem 1.5rem;
+                font-size: 0.95rem;
+                min-height: 44px; /* iOS touch target */
+            }
+
+            footer {
+                padding: 1.5rem 1rem;
+                gap: 0.75rem;
+            }
+
+            .footer-links {
+                gap: 1.5rem;
+            }
+
+            .footer-links a {
+                font-size: 0.65rem;
+            }
+
+            .copyright {
+                font-size: 0.6rem;
+            }
+
+            .video-credits {
+                font-size: 0.5rem;
+                bottom: 1rem;
+                right: 1rem;
+            }
+        }
+
+        /* Small mobile phones */
+        @media (max-width: 360px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .subtext {
+                font-size: 0.85rem;
+            }
+
+            .btn-main, .btn-outline {
+                padding: 0.875rem 1.25rem;
+                font-size: 0.9rem;
+            }
+
+            .video-credits {
+                font-size: 0.45rem;
+            }
+        }
+
+        /* Safe area for iPhone notch */
+        @supports (padding: max(0px)) {
+            body {
+                padding-left: max(0px, env(safe-area-inset-left));
+                padding-right: max(0px, env(safe-area-inset-right));
+            }
+
+            header {
+                padding-top: max(1rem, env(safe-area-inset-top));
+            }
+
+            footer {
+                padding-bottom: max(1rem, env(safe-area-inset-bottom));
+            }
+        }
+
+        /* Prevent text size adjustment on mobile */
+        html {
+            -webkit-text-size-adjust: 100%;
+            -moz-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
         }
     </style>
 <body>
-    <video id="bg-video" autoplay muted playsinline>
+    <video id="bg-video" autoplay muted playsinline webkit-playsinline preload="auto">
         <source src="freeway.mp4" type="video/mp4">
     </video>
-    <video id="bg-video-2" muted playsinline>
+    <video id="bg-video-2" muted playsinline webkit-playsinline preload="auto">
         <source src="405.mp4" type="video/mp4">
     </video>
     
