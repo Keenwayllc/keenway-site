@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coming Soon | Keenway</title>
+    <style>
+      :root {
+        --brand-orange: #e35205;
+        --brand-orange-hover: #c94804;
+        --slate-900: #0f172a;
+        --slate-500: #64748b;
+        --slate-400: #94a3b8;
+        --slate-200: #e2e8f0;
+        --slate-100: #f1f5f9;
+        --slate-50: #f8fafc;
+        --white: #ffffff;
+        --shadow:
+          0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+          "Segoe UI Symbol";
+      }
+
+      body {
+        background-color: var(--white);
+        color: var(--slate-900);
+        min-height: 100vh;
+      }
+
+      .container {
+        display: grid;
+        grid-template-columns: 1fr;
+        min-height: 100vh;
+      }
+
+      @media (min-width: 1024px) {
+        .container {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      /* Left Column: Content Area */
+      .content-area {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem;
+        position: relative;
+        z-index: 10;
+      }
+
+      @media (min-width: 1024px) {
+        .content-area {
+          padding: 3rem;
+          background-color: var(--white);
+        }
+      }
+
+      .logo-section {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 1.5rem 0;
+      }
+
+      .logo-container {
+        text-align: center;
+      }
+
+      .logo {
+        width: 180px;
+        height: auto;
+        display: block;
+        margin: 0 auto 0.5rem;
+      }
+
+      .tagline {
+        font-size: 10px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--slate-400);
+      }
+
+      .card-container {
+        width: 100%;
+        max-width: 440px;
+        margin: auto;
+        text-align: center;
+      }
+
+      .card {
+        background: var(--white);
+        padding: 2.5rem 2rem;
+        border-radius: 1.5rem;
+        border: 1px solid var(--slate-100);
+      }
+
+      @media (min-width: 1024px) {
+        .card {
+          padding: 3rem 2.5rem;
+          box-shadow: var(--shadow);
+        }
+      }
+
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: -0.025em;
+        margin-bottom: 0.5rem;
+        color: var(--slate-900);
+      }
+
+      .subtext {
+        font-size: 0.9375rem;
+        font-weight: 500;
+        color: var(--slate-500);
+        margin-bottom: 2.5rem;
+        line-height: 1.5;
+      }
+
+      .btn-primary {
+        display: block;
+        width: 100%;
+        background-color: var(--brand-orange);
+        color: var(--white);
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        padding: 1rem;
+        border-radius: 1rem;
+        text-decoration: none;
+        font-size: 0.875rem;
+        box-shadow: 0 10px 15px -3px rgba(227, 82, 5, 0.2);
+        transition: var(--transition);
+        margin-bottom: 1.5rem;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--brand-orange-hover);
+        transform: translateY(-1px);
+      }
+
+      .btn-secondary {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--brand-orange);
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .btn-secondary:hover {
+        color: var(--brand-orange-hover);
+      }
+
+      .divider {
+        height: 1px;
+        background-color: var(--slate-50);
+        margin: 2rem 0;
+        width: 100%;
+      }
+
+      .scheduling-text {
+        font-size: 10px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--slate-400);
+      }
+
+      .scheduling-link {
+        color: var(--slate-900);
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .scheduling-link:hover {
+        color: var(--brand-orange);
+      }
+
+      .footer {
+        width: 100%;
+        padding-top: 2rem;
+        font-size: 10px;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--slate-300);
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .footer a {
+        color: inherit;
+        text-decoration: none;
+        transition: var(--transition);
+      }
+
+      .footer a:hover {
+        color: var(--slate-500);
+      }
+
+      /* Right Column: Hero Panel */
+      .hero-panel {
+        display: none;
+        position: relative;
+        background-color: var(--slate-900);
+        color: var(--white);
+        padding: 4rem;
+        overflow: hidden;
+        flex-direction: column;
+        justify-content: flex-end;
+        text-align: left;
+      }
+
+      @media (min-width: 1024px) {
+        .hero-panel {
+          display: flex;
+        }
+      }
+
+      .hero-image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0.6;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 10;
+        max-width: 480px;
+      }
+
+      .hero-title {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        letter-spacing: -0.025em;
+        line-height: 1.1;
+      }
+
+      .hero-subtitle {
+        font-size: 1.25rem;
+        font-weight: 300;
+        color: var(--slate-200);
+      }
+
+      /* Mobile Adjustments */
+      @media (max-width: 1023px) {
+        .content-area {
+          min-height: 100vh;
+        }
+        .hero-panel-mobile {
+          display: block;
+          height: 300px;
+          position: relative;
+          background-color: var(--slate-900);
+          width: 100%;
+        }
+        .container {
+          display: block;
+        }
+      }
+
+      @media (min-width: 1024px) {
+        .hero-panel-mobile {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Main Content -->
+      <main class="content-area">
+        <!-- Logo area -->
+        <div class="logo-section">
+          <div class="logo-container">
+            <!-- Note: Local paths assume these files exist in the same directory or are accessible -->
+            <img src="/keenway-logo-full.png" alt="Keenway" class="logo" />
+            <span class="tagline">Deliver Better.</span>
+          </div>
+        </div>
+
+        <!-- Card area -->
+        <div class="card-container">
+          <div class="card">
+            <h1>Coming Soon</h1>
+            <p class="subtext">
+              We're redesigning GoKeenway.com.<br />The new site launches soon.
+            </p>
+
+            <a href="mailto:info@gokeenway.com" class="btn-primary"
+              >Get Updates</a
+            >
+            <a href="https://app.gokeenway.com/login" class="btn-secondary"
+              >Go to Login</a
+            >
+
+            <div class="divider"></div>
+
+            <p class="scheduling-text">
+              Need a delivery now?
+              <a href="https://app.gokeenway.com" class="scheduling-link"
+                >Schedule Here</a
+              >
+            </p>
+          </div>
+        </div>
+
+        <!-- Footer area -->
+        <footer class="footer">
+          <a href="#">Terms</a>
+          <span>|</span>
+          <a href="#">Privacy</a>
+          <span>|</span>
+          <span>&copy; 2026 Keenway</span>
+        </footer>
+      </main>
+
+      <!-- Right Hero Panel (Desktop) -->
+      <aside class="hero-panel">
+        <img src="/hero.jpg" alt="Logistics Background" class="hero-image" />
+        <div class="hero-content">
+          <h2 class="hero-title">Deliver Better.</h2>
+          <p class="hero-subtitle">
+            Unified Logistics and Last Mile Solutions tailored for your
+            business.
+          </p>
+        </div>
+      </aside>
+
+      <!-- Hero Panel (Mobile Stacked Below) -->
+      <div class="hero-panel-mobile">
+        <img src="/hero.jpg" alt="Logistics Background" class="hero-image" />
+      </div>
+    </div>
+  </body>
+</html>
