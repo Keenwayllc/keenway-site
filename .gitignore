@@ -1,0 +1,9 @@
+# Local development
+.DS_Store
+node_modules/
+.next/
+out/
+build/
+.env*
+.vercel
+*.log
