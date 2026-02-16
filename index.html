@@ -29,24 +29,37 @@
         }
 
         body {
-            background-color: var(--white);
-            color: var(--slate-900);
+            background-color: var(--brand-black);
+            color: var(--white);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* Particle Background Viewport */
-        #bg-canvas {
+        /* Video Background */
+        #bg-video {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
+            object-fit: cover;
             z-index: 0;
+            opacity: 0.7;
+        }
+
+        /* Video Overlay */
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(227, 82, 5, 0.15));
+            z-index: 1;
             pointer-events: none;
-            opacity: 0.4;
         }
 
         header {
@@ -58,8 +71,8 @@
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(20px);
         }
 
         .logo-link {
@@ -75,7 +88,7 @@
 
         nav a {
             text-decoration: none;
-            color: var(--slate-600);
+            color: var(--white);
             font-size: 0.875rem;
             font-weight: 500;
             margin: 0 1.25rem;
@@ -106,15 +119,10 @@
 
         .container {
             flex: 1;
-            display: grid;
-            grid-template-columns: 1fr;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             min-height: 100vh;
-        }
-
-        @media (min-width: 1024px) {
-            .container {
-                grid-template-columns: 1fr 1fr;
-            }
         }
 
         main {
@@ -142,16 +150,18 @@
             letter-spacing: -0.04em;
             margin-bottom: 2rem;
             max-width: 900px;
-            color: var(--brand-black);
+            color: var(--white);
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
         }
 
         .subtext {
             font-size: clamp(1.125rem, 2vw, 1.35rem);
-            color: var(--slate-600);
+            color: var(--slate-100);
             max-width: 600px;
             margin-bottom: 3rem;
             line-height: 1.5;
             font-weight: 400;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 1px 3px rgba(0, 0, 0, 0.6);
         }
 
         .cta-group {
@@ -179,18 +189,21 @@
         }
 
         .btn-outline {
-            background-color: var(--slate-100);
-            color: var(--slate-900);
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--white);
             padding: 1rem 2rem;
             border-radius: 9999px;
             font-weight: 700;
             text-decoration: none;
             font-size: 1rem;
             transition: var(--transition);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .btn-outline:hover {
-            background-color: var(--slate-200);
+            background-color: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
         }
 
         footer {
@@ -200,6 +213,7 @@
             align-items: center;
             gap: 1.5rem;
             z-index: 10;
+            position: relative;
         }
 
         .footer-links {
@@ -208,7 +222,7 @@
         }
 
         .footer-links a {
-            color: var(--slate-400);
+            color: var(--slate-100);
             text-decoration: none;
             font-size: 0.875rem;
             font-weight: 500;
@@ -220,56 +234,8 @@
         }
 
         .copyright {
-            color: var(--slate-400);
+            color: var(--slate-100);
             font-size: 0.875rem;
-        }
-
-        /* Right Hero Panel (Desktop) */
-        .hero-panel {
-            display: none;
-            position: relative;
-            background-color: var(--slate-900);
-            color: var(--white);
-            padding: 4rem;
-            overflow: hidden;
-            flex-direction: column;
-            justify-content: flex-end;
-            text-align: left;
-        }
-
-        @media (min-width: 1024px) {
-            .hero-panel {
-                display: flex;
-            }
-        }
-
-        .hero-image {
-            position: absolute;
-            inset: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.6;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 10;
-            max-width: 480px;
-        }
-
-        .hero-title {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            letter-spacing: -0.025em;
-            line-height: 1.1;
-        }
-
-        .hero-subtitle {
-            font-size: 1.25rem;
-            font-weight: 300;
-            color: var(--slate-200);
         }
 
         /* Mobile Adjustments */
@@ -277,27 +243,17 @@
             header nav {
                 display: none;
             }
-            .hero-panel-mobile {
-                display: block;
-                height: 300px;
-                position: relative;
-                background-color: var(--slate-900);
-                width: 100%;
-            }
             main {
                 padding-top: 8rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .hero-panel-mobile {
-                display: none;
             }
         }
     </style>
 </head>
 <body>
-    <canvas id="bg-canvas"></canvas>
+    <video id="bg-video" autoplay muted loop playsinline>
+        <source src="freeway.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
 
     <header>
         <a href="#" class="logo-link">
@@ -321,26 +277,12 @@
             </div>
             <h1>Experience better logistics with our next-generation platform</h1>
             <p class="subtext">Deliver with confidence. Join the fleet that moves the world forward. Our new site is launching soon.</p>
-            
+
             <div class="cta-group">
                 <a href="mailto:info@gokeenway.com" class="btn-main">Get Updates</a>
                 <a href="https://app.gokeenway.com/login" class="btn-outline">Go to Login</a>
             </div>
         </main>
-
-        <!-- Right Hero Panel (Desktop) -->
-        <aside class="hero-panel">
-            <img src="hero.jpg" alt="Logistics Background" class="hero-image">
-            <div class="hero-content">
-                <h2 class="hero-title">Deliver Better.</h2>
-                <p class="hero-subtitle">Unified Logistics and Last Mile Solutions tailored for your business.</p>
-            </div>
-        </aside>
-
-        <!-- Hero Panel (Mobile Stacked Below) -->
-        <div class="hero-panel-mobile">
-            <img src="hero.jpg" alt="Logistics Background" class="hero-image">
-        </div>
     </div>
 
     <footer>
@@ -354,62 +296,5 @@
         </div>
     </footer>
 
-    <script>
-        const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.vx = (Math.random() - 0.5) * 0.5;
-                this.vy = (Math.random() - 0.5) * 0.5;
-                this.size = Math.random() * 2 + 1;
-                this.color = Math.random() > 0.5 ? '#E35205' : '#94a3b8';
-            }
-            update() {
-                this.x += this.vx;
-                this.y += this.vy;
-                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
-            }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = this.color;
-                ctx.fill();
-            }
-        }
-
-        function init() {
-            resize();
-            particles = [];
-            for (let i = 0; i < 100; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animate);
-        }
-
-        window.addEventListener('resize', init);
-        init();
-        animate();
-    </script>
 </body>
 </html>
