@@ -327,7 +327,7 @@
         // Video rotation configuration
         const videoData = [
             { src: 'freeway.mp4', author: 'EGOR AVSYUKOV', url: 'https://www.pexels.com/@egor-avsyukov-1478201' },
-            { src: '405.mp4', author: 'KEWEENWAY', url: '#' }, // Defaulting to company if specific author unknown
+            { src: '405.mp4', author: 'KEENWAY', url: '#' }, 
             { src: 'street.mp4', author: 'KEENWAY', url: '#' }
         ];
         let currentIndex = 0;
@@ -341,8 +341,13 @@
             const active = isUsingVideo1 ? v1 : v2;
             const next = isUsingVideo1 ? v2 : v1;
 
-            // Calculate when to start the crossfade (2 seconds before end)
             const checkTime = () => {
+                // Safely check duration - if not ready, retry in 1s
+                if (isNaN(active.duration)) {
+                    setTimeout(checkTime, 1000);
+                    return;
+                }
+                
                 if (active.duration - active.currentTime < 2) {
                     active.removeEventListener('timeupdate', checkTime);
                     triggerTransition();
@@ -362,20 +367,14 @@
             next.src = current.src;
             next.load();
 
-            next.setSinkId && next.setSinkId(""); 
-            
             next.play().then(() => {
-                // Update credits
                 authorLink.textContent = current.author;
                 authorLink.href = current.url;
 
-                // Perform the visual crossfade
                 active.style.opacity = '0';
                 next.style.opacity = '0.85'; 
                 
                 isUsingVideo1 = !isUsingVideo1;
-                
-                // Set up the next rotation
                 setupCrossfade();
             }).catch(err => {
                 console.error("Video play failed:", err);
@@ -385,13 +384,13 @@
             });
         }
 
-        // Initialize first transition monitor
-        v1.addEventListener('loadedmetadata', setupCrossfade);
-        
-        // Start initial play
-        v1.play();
+        // Initialize with a slight delay to ensure metadata is ready or handled by checkTime
+        v1.play().then(() => {
+            setupCrossfade();
+        });
     </script>
 </body>
 </html>
+
 
 
