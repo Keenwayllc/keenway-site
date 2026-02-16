@@ -327,8 +327,8 @@
         // Video rotation configuration
         const videoData = [
             { src: 'freeway.mp4', author: 'EGOR AVSYUKOV', url: 'https://www.pexels.com/@egor-avsyukov-1478201' },
-            { src: '405.mp4', author: 'KEENWAY', url: '#' }, 
-            { src: 'street.mp4', author: 'KEENWAY', url: '#' }
+            { src: '405.mp4', author: 'EGOR AVSYUKOV', url: 'https://www.pexels.com/@egor-avsyukov-1478201' }, 
+            { src: 'street.mp4', author: 'EGOR AVSYUKOV', url: 'https://www.pexels.com/@egor-avsyukov-1478201' }
         ];
         let currentIndex = 0;
         let isUsingVideo1 = true;
@@ -339,22 +339,20 @@
 
         function setupCrossfade() {
             const active = isUsingVideo1 ? v1 : v2;
-            const next = isUsingVideo1 ? v2 : v1;
-
-            const checkTime = () => {
-                // Safely check duration - if not ready, retry in 1s
-                if (isNaN(active.duration)) {
-                    setTimeout(checkTime, 1000);
-                    return;
-                }
-                
-                if (active.duration - active.currentTime < 2) {
-                    active.removeEventListener('timeupdate', checkTime);
+            
+            // Check every 250ms for the end of the video
+            const checkInterval = setInterval(() => {
+                if (active.duration && active.duration - active.currentTime < 2.5) {
+                    clearInterval(checkInterval);
                     triggerTransition();
                 }
-            };
+            }, 250);
 
-            active.addEventListener('timeupdate', checkTime);
+            // Backup ended event
+            active.onended = () => {
+                clearInterval(checkInterval);
+                triggerTransition();
+            };
         }
 
         function triggerTransition() {
@@ -364,31 +362,37 @@
             currentIndex = (currentIndex + 1) % videoData.length;
             const current = videoData[currentIndex];
             
+            // Load the next video source
             next.src = current.src;
             next.load();
 
             next.play().then(() => {
-                authorLink.textContent = current.author;
-                authorLink.href = current.url;
-
+                // Fade effect
                 active.style.opacity = '0';
                 next.style.opacity = '0.85'; 
                 
+                // Update credits
+                authorLink.textContent = current.author;
+                authorLink.href = current.url;
+
                 isUsingVideo1 = !isUsingVideo1;
                 setupCrossfade();
             }).catch(err => {
-                console.error("Video play failed:", err);
+                console.warn("Video transition playback failed, retrying...", err);
                 active.currentTime = 0;
                 active.play();
                 setupCrossfade();
             });
         }
 
-        // Initialize with a slight delay to ensure metadata is ready or handled by checkTime
+        // Start the engine
         v1.play().then(() => {
             setupCrossfade();
+        }).catch(err => {
+            console.error("Initial play failed. User interaction might be required.", err);
         });
     </script>
+
 </body>
 </html>
 
