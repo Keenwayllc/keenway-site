@@ -27,14 +27,11 @@
         }
 
         body {
-            background-color: var(--brand-black);
-            color: var(--white);
-            height: 100vh;
-            height: 100dvh; /* Dynamic viewport height for mobile browsers */
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
             position: relative;
+            background-image: url('hero.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -507,10 +504,10 @@
         }
     </style>
 <body>
-    <video id="bg-video" autoplay muted playsinline webkit-playsinline preload="auto">
+    <video id="bg-video" autoplay muted playsinline webkit-playsinline preload="auto" poster="hero.jpg">
         <source src="405.mp4" type="video/mp4">
     </video>
-    <video id="bg-video-2" muted playsinline webkit-playsinline preload="auto">
+    <video id="bg-video-2" muted playsinline webkit-playsinline preload="auto" poster="hero.jpg">
         <source src="street.mp4" type="video/mp4">
     </video>
     
@@ -615,10 +612,20 @@
         }
 
         // Start the engine
+        console.log("Initializing background video: " + videoData[0].src);
+        v1.load();
         v1.play().then(() => {
+            console.log("Initial video playing successfully.");
             setupCrossfade();
         }).catch(err => {
-            console.error("Initial play failed. User interaction might be required.", err);
+            console.error("Initial play failed. Browser might be blocking autoplay.", err);
+            // Fallback for click to play
+            document.body.addEventListener('click', () => {
+                v1.play().then(() => {
+                    console.log("Initial video playing after user interaction.");
+                    setupCrossfade();
+                });
+            }, { once: true });
         });
     </script>
 
