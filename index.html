@@ -6,17 +6,13 @@
     <title>Keenway | Deliver Better.</title>
     <link rel="icon" type="image/png" href="favicon.png">
     <style>
-
         :root {
             --brand-orange: #E35205;
             --brand-orange-hover: #c94804;
             --brand-black: #000000;
             --brand-black-hover: #1a1a1a;
-            --slate-900: #0f172a;
-            --slate-600: #475569;
-            --slate-400: #94a3b8;
-            --slate-100: #f1f5f9;
             --white: #ffffff;
+            --slate-100: #f1f5f9;
             --font-main: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -57,9 +53,46 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.6));
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.65));
             z-index: 1;
             pointer-events: none;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 32px;
+            width: auto;
+        }
+
+        .google-play-link {
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .google-play-badge {
+            height: 48px;
+            width: auto;
+            transition: var(--transition);
+        }
+
+        .google-play-link:hover .google-play-badge {
+            transform: translateY(-2px);
         }
 
         .container {
@@ -67,54 +100,46 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow-y: auto;
+            position: relative;
+            z-index: 10;
         }
 
         main {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             text-align: center;
             padding: 2rem;
-            position: relative;
-            z-index: 10;
+            max-width: 800px;
         }
-
 
         .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
             margin-bottom: 2rem;
-            filter: drop-shadow(0 0 20px rgba(227, 82, 5, 0.3));
+            filter: drop-shadow(0 0 20px rgba(227, 82, 5, 0.4));
         }
-
 
         h1 {
             font-size: clamp(2.5rem, 8vw, 4.5rem);
             font-weight: 800;
             line-height: 1.1;
             letter-spacing: -0.04em;
-            margin-bottom: 2rem;
-            max-width: 900px;
+            margin-bottom: 1.5rem;
             color: var(--white);
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6);
+            text-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .subtext {
-            font-size: clamp(1.125rem, 2vw, 1.35rem);
-            color: var(--slate-100);
-            max-width: 600px;
+            font-size: clamp(1rem, 1.8vw, 1.2rem);
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 580px;
             margin-bottom: 3rem;
-            line-height: 1.5;
+            line-height: 1.6;
             font-weight: 400;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8), 0 1px 3px rgba(0, 0, 0, 0.6);
         }
 
         .cta-group {
             display: flex;
-            gap: 1rem;
+            gap: 1.25rem;
             flex-wrap: wrap;
             justify-content: center;
         }
@@ -122,36 +147,37 @@
         .btn-main {
             background-color: var(--brand-orange);
             color: var(--white);
-            padding: 1rem 2rem;
+            padding: 1rem 2.5rem;
             border-radius: 9999px;
             font-weight: 700;
             text-decoration: none;
-            font-size: 1rem;
+            font-size: 1.125rem;
             transition: var(--transition);
-            box-shadow: 0 10px 20px -5px rgba(227, 82, 5, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(227, 82, 5, 0.4);
         }
 
         .btn-main:hover {
             background-color: var(--brand-orange-hover);
             transform: scale(1.02);
+            box-shadow: 0 15px 30px -5px rgba(227, 82, 5, 0.5);
         }
 
         .btn-outline {
-            background-color: rgba(255, 255, 255, 0.2);
+            background-color: rgba(255, 255, 255, 0.15);
             color: var(--white);
-            padding: 1rem 2rem;
+            padding: 1rem 2.5rem;
             border-radius: 9999px;
             font-weight: 700;
             text-decoration: none;
-            font-size: 1rem;
+            font-size: 1.125rem;
             transition: var(--transition);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .btn-outline:hover {
-            background-color: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.5);
+            background-color: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.4);
         }
 
         footer {
@@ -170,7 +196,7 @@
         }
 
         .footer-links a {
-            color: var(--slate-100);
+            color: rgba(255, 255, 255, 0.5);
             text-decoration: none;
             font-size: 0.875rem;
             font-weight: 500;
@@ -182,18 +208,15 @@
         }
 
         .copyright {
-            color: var(--slate-100);
+            color: rgba(255, 255, 255, 0.4);
             font-size: 0.875rem;
+            letter-spacing: 0.05em;
         }
 
-        /* Mobile Adjustments */
-        @media (max-width: 1023px) {
-            header nav {
-                display: none;
-            }
-            main {
-                padding-top: 8rem;
-            }
+        @media (max-width: 768px) {
+            header { padding: 1rem; }
+            .google-play-badge { height: 40px; }
+            main { padding-top: 4rem; }
         }
     </style>
 </head>
@@ -207,8 +230,6 @@
         <a href="#" class="logo-link">
             <img src="keenway-logo-white.png" alt="Keenway" class="logo-img">
         </a>
-
-
         <a href="https://play.google.com/store/apps/details?id=com.gokeenway.driver" target="_blank" rel="noopener noreferrer" class="google-play-link">
             <img src="google-play-badge.png" alt="Get it on Google Play" class="google-play-badge">
         </a>
@@ -219,7 +240,6 @@
             <div class="hero-badge">
                 <img src="keenway-logo-white.png" alt="Keenway" style="height: 48px; width: auto;">
             </div>
-
             <h1>Welcome to Keenway</h1>
             <p class="subtext">We're building something better. Our new site is coming soon. Need to book a delivery right now? Register or login to get started.</p>
 
