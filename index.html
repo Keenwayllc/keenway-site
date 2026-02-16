@@ -58,6 +58,44 @@
             display: none;
         }
 
+        /* Video Credits */
+        .video-credits {
+            position: fixed;
+            bottom: 1rem;
+            right: 1rem;
+            z-index: 5;
+            font-size: 0.625rem;
+            color: rgba(255, 255, 255, 0.4);
+            text-align: right;
+            line-height: 1.4;
+            pointer-events: none;
+        }
+
+        .video-credits a {
+            color: rgba(255, 255, 255, 0.5);
+            text-decoration: none;
+            pointer-events: auto;
+        }
+
+        .video-credits a:hover {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Secondary video for crossfade */
+        #bg-video-2 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            opacity: 0;
+            filter: contrast(1.1) saturate(1.2) brightness(0.9);
+            animation: cinematicZoom 60s ease-in-out infinite alternate;
+            transition: opacity 2s ease-in-out;
+        }
+
 
         header {
             position: fixed;
@@ -220,14 +258,64 @@
             header { padding: 1rem; }
             .google-play-badge { height: 40px; }
             main { padding-top: 4rem; }
+            .video-credits { font-size: 0.5rem; }
         }
     </style>
+    <script>
+        // Video crossfade rotation
+        const videos = [
+            'freeway.mp4',
+            '405.mp4',
+            'street.mp4'
+        ];
+
+        let currentVideoIndex = 0;
+        let isVideo1Active = true;
+
+        const video1 = document.getElementById('bg-video');
+        const video2 = document.getElementById('bg-video-2');
+
+        function switchVideo() {
+            const activeVideo = isVideo1Active ? video1 : video2;
+            const inactiveVideo = isVideo1Active ? video2 : video1;
+
+            // Load next video
+            currentVideoIndex = (currentVideoIndex + 1) % videos.length;
+            inactiveVideo.querySelector('source').src = videos[currentVideoIndex];
+            inactiveVideo.load();
+
+            // Start playing the next video
+            inactiveVideo.play().then(() => {
+                // Crossfade
+                activeVideo.style.opacity = '0';
+                inactiveVideo.style.opacity = '0.85';
+
+                // Toggle active video
+                isVideo1Active = !isVideo1Active;
+            });
+        }
+
+        // Listen for video end events
+        video1.addEventListener('ended', switchVideo);
+        video2.addEventListener('ended', switchVideo);
+
+        // Ensure first video starts
+        video1.play();
+    </script>
 </head>
 <body>
-    <video id="bg-video" autoplay muted loop playsinline>
+    <video id="bg-video" autoplay muted playsinline>
         <source src="freeway.mp4" type="video/mp4">
     </video>
+    <video id="bg-video-2" muted playsinline>
+        <source src="405.mp4" type="video/mp4">
+    </video>
     <div class="video-overlay"></div>
+
+    <div class="video-credits">
+        Video by Egor Avsyukov<br>
+        <a href="https://www.pexels.com/video/city-illuminated-at-night-10681533/" target="_blank" rel="noopener noreferrer">Pexels</a>
+    </div>
 
     <header>
         <a href="#" class="logo-link">
