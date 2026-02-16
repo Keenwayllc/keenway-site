@@ -1,357 +1,335 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Coming Soon | Keenway</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keenway | Deliver Better.</title>
     <style>
-      :root {
-        --brand-orange: #e35205;
-        --brand-orange-hover: #c94804;
-        --slate-900: #0f172a;
-        --slate-500: #64748b;
-        --slate-400: #94a3b8;
-        --slate-200: #e2e8f0;
-        --slate-100: #f1f5f9;
-        --slate-50: #f8fafc;
-        --white: #ffffff;
-        --shadow:
-          0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
-        --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family:
-          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-          Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-          "Segoe UI Symbol";
-      }
-
-      body {
-        background-color: var(--white);
-        color: var(--slate-900);
-        min-height: 100vh;
-      }
-
-      .container {
-        display: grid;
-        grid-template-columns: 1fr;
-        min-height: 100vh;
-      }
-
-      @media (min-width: 1024px) {
-        .container {
-          grid-template-columns: 1fr 1fr;
+        :root {
+            --brand-orange: #E35205;
+            --brand-orange-hover: #c94804;
+            --brand-black: #000000;
+            --brand-black-hover: #1a1a1a;
+            --slate-900: #0f172a;
+            --slate-600: #475569;
+            --slate-400: #94a3b8;
+            --slate-100: #f1f5f9;
+            --white: #ffffff;
+            --font-main: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-      }
 
-      /* Left Column: Content Area */
-      .content-area {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        padding: 2rem;
-        position: relative;
-        z-index: 10;
-      }
-
-      @media (min-width: 1024px) {
-        .content-area {
-          padding: 3rem;
-          background-color: var(--white);
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: var(--font-main);
         }
-      }
 
-      .logo-section {
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        padding: 1.5rem 0;
-      }
-
-      .logo-container {
-        text-align: center;
-      }
-
-      .logo {
-        width: 180px;
-        height: auto;
-        display: block;
-        margin: 0 auto 0.5rem;
-      }
-
-      .tagline {
-        font-size: 10px;
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        color: var(--slate-400);
-      }
-
-      .card-container {
-        width: 100%;
-        max-width: 440px;
-        margin: auto;
-        text-align: center;
-      }
-
-      .card {
-        background: var(--white);
-        padding: 2.5rem 2rem;
-        border-radius: 1.5rem;
-        border: 1px solid var(--slate-100);
-      }
-
-      @media (min-width: 1024px) {
-        .card {
-          padding: 3rem 2.5rem;
-          box-shadow: var(--shadow);
+        body {
+            background-color: var(--white);
+            color: var(--slate-900);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
         }
-      }
 
-      h1 {
-        font-size: 1.5rem;
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: -0.025em;
-        margin-bottom: 0.5rem;
-        color: var(--slate-900);
-      }
-
-      .subtext {
-        font-size: 0.9375rem;
-        font-weight: 500;
-        color: var(--slate-500);
-        margin-bottom: 2.5rem;
-        line-height: 1.5;
-      }
-
-      .btn-primary {
-        display: block;
-        width: 100%;
-        background-color: var(--brand-orange);
-        color: var(--white);
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        padding: 1rem;
-        border-radius: 1rem;
-        text-decoration: none;
-        font-size: 0.875rem;
-        box-shadow: 0 10px 15px -3px rgba(227, 82, 5, 0.2);
-        transition: var(--transition);
-        margin-bottom: 1.5rem;
-      }
-
-      .btn-primary:hover {
-        background-color: var(--brand-orange-hover);
-        transform: translateY(-1px);
-      }
-
-      .btn-secondary {
-        display: inline-block;
-        font-size: 10px;
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        color: var(--brand-orange);
-        text-decoration: none;
-        transition: var(--transition);
-      }
-
-      .btn-secondary:hover {
-        color: var(--brand-orange-hover);
-      }
-
-      .divider {
-        height: 1px;
-        background-color: var(--slate-50);
-        margin: 2rem 0;
-        width: 100%;
-      }
-
-      .scheduling-text {
-        font-size: 10px;
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        color: var(--slate-400);
-      }
-
-      .scheduling-link {
-        color: var(--slate-900);
-        text-decoration: none;
-        transition: var(--transition);
-      }
-
-      .scheduling-link:hover {
-        color: var(--brand-orange);
-      }
-
-      .footer {
-        width: 100%;
-        padding-top: 2rem;
-        font-size: 10px;
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        color: var(--slate-300);
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-      }
-
-      .footer a {
-        color: inherit;
-        text-decoration: none;
-        transition: var(--transition);
-      }
-
-      .footer a:hover {
-        color: var(--slate-500);
-      }
-
-      /* Right Column: Hero Panel */
-      .hero-panel {
-        display: none;
-        position: relative;
-        background-color: var(--slate-900);
-        color: var(--white);
-        padding: 4rem;
-        overflow: hidden;
-        flex-direction: column;
-        justify-content: flex-end;
-        text-align: left;
-      }
-
-      @media (min-width: 1024px) {
-        .hero-panel {
-          display: flex;
+        /* Particle Background Viewport */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.4;
         }
-      }
 
-      .hero-image {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0.6;
-      }
-
-      .hero-content {
-        position: relative;
-        z-index: 10;
-        max-width: 480px;
-      }
-
-      .hero-title {
-        font-size: 3rem;
-        font-weight: 700;
-        margin-bottom: 1.5rem;
-        letter-spacing: -0.025em;
-        line-height: 1.1;
-      }
-
-      .hero-subtitle {
-        font-size: 1.25rem;
-        font-weight: 300;
-        color: var(--slate-200);
-      }
-
-      /* Mobile Adjustments */
-      @media (max-width: 1023px) {
-        .content-area {
-          min-height: 100vh;
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
         }
-        .hero-panel-mobile {
-          display: block;
-          height: 300px;
-          position: relative;
-          background-color: var(--slate-900);
-          width: 100%;
-        }
-        .container {
-          display: block;
-        }
-      }
 
-      @media (min-width: 1024px) {
-        .hero-panel-mobile {
-          display: none;
+        .logo-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
         }
-      }
+
+        .logo-img {
+            height: 32px;
+            width: auto;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--slate-600);
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin: 0 1.25rem;
+            transition: var(--transition);
+        }
+
+        nav a:hover {
+            color: var(--brand-orange);
+        }
+
+        .btn-download {
+            background-color: var(--brand-black);
+            color: var(--white);
+            padding: 0.625rem 1.25rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition);
+        }
+
+        .btn-download:hover {
+            background-color: var(--brand-black-hover);
+            transform: translateY(-1px);
+        }
+
+        main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-badge img {
+            height: 24px;
+        }
+
+        .hero-badge span {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--slate-900);
+            letter-spacing: -0.01em;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            margin-bottom: 2rem;
+            max-width: 900px;
+            color: var(--brand-black);
+        }
+
+        .subtext {
+            font-size: clamp(1.125rem, 2vw, 1.35rem);
+            color: var(--slate-600);
+            max-width: 600px;
+            margin-bottom: 3rem;
+            line-height: 1.5;
+            font-weight: 400;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-main {
+            background-color: var(--brand-orange);
+            color: var(--white);
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px -5px rgba(227, 82, 5, 0.3);
+        }
+
+        .btn-main:hover {
+            background-color: var(--brand-orange-hover);
+            transform: scale(1.02);
+        }
+
+        .btn-outline {
+            background-color: var(--slate-100);
+            color: var(--slate-900);
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--slate-200);
+        }
+
+        footer {
+            padding: 3rem 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            z-index: 10;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--slate-400);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--brand-orange);
+        }
+
+        .copyright {
+            color: var(--slate-400);
+            font-size: 0.875rem;
+        }
+
+        @media (max-width: 768px) {
+            header nav {
+                display: none;
+            }
+            main {
+                padding-top: 8rem;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <div class="container">
-      <!-- Main Content -->
-      <main class="content-area">
-        <!-- Logo area -->
-        <div class="logo-section">
-          <div class="logo-container">
-            <!-- Note: Local paths assume these files exist in the same directory or are accessible -->
-            <img src="/keenway-logo-full.png" alt="Keenway" class="logo" />
-            <span class="tagline">Deliver Better.</span>
-          </div>
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <header>
+        <a href="#" class="logo-link">
+            <img src="/keenway-logo-full.png" alt="Keenway" class="logo-img">
+        </a>
+        <nav>
+            <a href="https://app.gokeenway.com/login">Product</a>
+            <a href="#">Resources</a>
+            <a href="#">Pricing</a>
+        </nav>
+        <a href="https://app.gokeenway.com/login" class="btn-download">
+            Download App
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+        </a>
+    </header>
+
+    <main>
+        <div class="hero-badge">
+            <img src="/keenway-icon.png" alt="Icon">
+            <span>Keenway</span>
         </div>
-
-        <!-- Card area -->
-        <div class="card-container">
-          <div class="card">
-            <h1>Coming Soon</h1>
-            <p class="subtext">
-              We're redesigning GoKeenway.com.<br />The new site launches soon.
-            </p>
-
-            <a href="mailto:info@gokeenway.com" class="btn-primary"
-              >Get Updates</a
-            >
-            <a href="https://app.gokeenway.com/login" class="btn-secondary"
-              >Go to Login</a
-            >
-
-            <div class="divider"></div>
-
-            <p class="scheduling-text">
-              Need a delivery now?
-              <a href="https://app.gokeenway.com" class="scheduling-link"
-                >Schedule Here</a
-              >
-            </p>
-          </div>
+        <h1>Experience better logistics with our next-generation platform</h1>
+        <p class="subtext">Deliver with confidence. Join the fleet that moves the world forward. Our new site is launching soon.</p>
+        
+        <div class="cta-group">
+            <a href="mailto:info@gokeenway.com" class="btn-main">Get Updates</a>
+            <a href="https://app.gokeenway.com/login" class="btn-outline">Go to Login</a>
         </div>
+    </main>
 
-        <!-- Footer area -->
-        <footer class="footer">
-          <a href="#">Terms</a>
-          <span>|</span>
-          <a href="#">Privacy</a>
-          <span>|</span>
-          <span>&copy; 2026 Keenway</span>
-        </footer>
-      </main>
-
-      <!-- Right Hero Panel (Desktop) -->
-      <aside class="hero-panel">
-        <img src="/hero.jpg" alt="Logistics Background" class="hero-image" />
-        <div class="hero-content">
-          <h2 class="hero-title">Deliver Better.</h2>
-          <p class="hero-subtitle">
-            Unified Logistics and Last Mile Solutions tailored for your
-            business.
-          </p>
+    <footer>
+        <div class="footer-links">
+            <a href="https://app.gokeenway.com/terms">Terms</a>
+            <a href="https://app.gokeenway.com/privacy">Privacy</a>
+            <a href="mailto:info@gokeenway.com">Support</a>
         </div>
-      </aside>
+        <div class="copyright">
+            &copy; 2026 Keenway. Deliver Better.
+        </div>
+    </footer>
 
-      <!-- Hero Panel (Mobile Stacked Below) -->
-      <div class="hero-panel-mobile">
-        <img src="/hero.jpg" alt="Logistics Background" class="hero-image" />
-      </div>
-    </div>
-  </body>
+    <script>
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+                this.color = Math.random() > 0.5 ? '#E35205' : '#94a3b8';
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            resize();
+            particles = [];
+            for (let i = 0; i < 100; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', init);
+        init();
+        animate();
+    </script>
+</body>
 </html>
