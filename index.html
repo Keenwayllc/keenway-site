@@ -56,27 +56,25 @@
         /* Video Credits - App Style */
         .video-credits {
             position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
+            bottom: 2rem;
+            right: 2rem;
             z-index: 50;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             color: rgba(255, 255, 255, 0.4);
             text-align: right;
             line-height: 1.4;
             pointer-events: none;
-            background: rgba(0, 0, 0, 0.2);
-            padding: 0.5rem 0.75rem;
-            border-radius: 4px;
-            backdrop-filter: blur(4px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
             transition: var(--transition);
         }
 
         .video-credits a {
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: underline;
             pointer-events: auto;
             font-weight: 500;
+            transition: var(--transition);
         }
 
         .video-credits a:hover {
@@ -283,9 +281,8 @@
         <source src="405.mp4" type="video/mp4">
     </video>
     
-    <div class="video-credits">
-        Video by Egor Avsyukov<br>
-        <a href="https://www.pexels.com/video/city-illuminated-at-night-10681533/" target="_blank" rel="noopener noreferrer">Pexels</a>
+    <div class="video-credits" id="video-credits">
+        VIDEO BY <a href="https://www.pexels.com/@egor-avsyukov-1478201" target="_blank" rel="noopener noreferrer" id="author-link">EGOR AVSYUKOV</a>
     </div>
 
     <header>
@@ -324,12 +321,17 @@
 
     <script>
         // Video rotation configuration
-        const videos = ['freeway.mp4', '405.mp4', 'street.mp4'];
+        const videoData = [
+            { src: 'freeway.mp4', author: 'EGOR AVSYUKOV', url: 'https://www.pexels.com/@egor-avsyukov-1478201' },
+            { src: '405.mp4', author: 'KEWEENWAY', url: '#' }, // Defaulting to company if specific author unknown
+            { src: 'street.mp4', author: 'KEENWAY', url: '#' }
+        ];
         let currentIndex = 0;
         let isUsingVideo1 = true;
 
         const v1 = document.getElementById('bg-video');
         const v2 = document.getElementById('bg-video-2');
+        const authorLink = document.getElementById('author-link');
 
         function setupCrossfade() {
             const active = isUsingVideo1 ? v1 : v2;
@@ -350,16 +352,22 @@
             const active = isUsingVideo1 ? v1 : v2;
             const next = isUsingVideo1 ? v2 : v1;
 
-            currentIndex = (currentIndex + 1) % videos.length;
-            next.src = videos[currentIndex];
+            currentIndex = (currentIndex + 1) % videoData.length;
+            const current = videoData[currentIndex];
+            
+            next.src = current.src;
             next.load();
 
-            next.setSinkId && next.setSinkId(""); // Handle some browser audio quirks if needed
+            next.setSinkId && next.setSinkId(""); 
             
             next.play().then(() => {
+                // Update credits
+                authorLink.textContent = current.author;
+                authorLink.href = current.url;
+
                 // Perform the visual crossfade
                 active.style.opacity = '0';
-                next.style.opacity = '0.85'; // Match our cinematic opacity
+                next.style.opacity = '0.85'; 
                 
                 isUsingVideo1 = !isUsingVideo1;
                 
@@ -367,7 +375,6 @@
                 setupCrossfade();
             }).catch(err => {
                 console.error("Video play failed:", err);
-                // Fallback: just restart the active one if something breaks
                 active.currentTime = 0;
                 active.play();
                 setupCrossfade();
