@@ -769,7 +769,7 @@
             Keenway&trade;&mdash;&copy; 2026 &nbsp;|&nbsp; Engineered by Keenway Technologies
         </div>
         <div class="video-credits" id="video-credits">
-            VIDEO BY <a href="https://www.pexels.com/@egor-avsyukov-1478201" target="_blank" rel="noopener noreferrer" id="author-link">EGOR AVSYUKOV</a>
+            VIDEOS BY <a href="https://www.pexels.com/video/nighttime-highway-traffic-timelapse-with-bokeh-effect-35471093/" target="_blank" rel="noopener noreferrer">LEONARD FERHATI</a> &middot; <a href="https://www.pexels.com/video/city-illuminated-at-night-10681533/" target="_blank" rel="noopener noreferrer">EGOR AVSYUKOV</a> &middot; <a href="https://www.pexels.com/video/aerial-view-of-traffic-on-city-highway-31455842/" target="_blank" rel="noopener noreferrer">AHMET ARIKAYA</a>
         </div>
     </footer>
 
@@ -832,16 +832,16 @@
     <script>
         // ... (Background video logic remains unchanged) ...
         const videoData = [
-            { src: 'street.mp4', author: 'EGOR AVSYUKOV', url: 'https://www.pexels.com/@egor-avsyukov-1478201' },
-            { src: '405.mp4', author: 'EGOR AVSYUKOV', url: 'https://www.pexels.com/@egor-avsyukov-1478201' }, 
-            { src: 'freeway.mp4', author: 'EGOR AVSYUKOV', url: 'https://www.pexels.com/@egor-avsyukov-1478201' }
+            { src: 'street.mp4', author: 'LEONARD FERHATI', url: 'https://www.pexels.com/video/nighttime-highway-traffic-timelapse-with-bokeh-effect-35471093/' },
+            { src: '405.mp4', author: 'EGOR AVSYUKOV', url: 'https://www.pexels.com/video/city-illuminated-at-night-10681533/' }, 
+            { src: 'freeway.mp4', author: 'AHMET ARIKAYA', url: 'https://www.pexels.com/video/aerial-view-of-traffic-on-city-highway-31455842/' }
         ];
         let currentIndex = 0;
         let isUsingVideo1 = true;
 
         const v1 = document.getElementById('bg-video');
         const v2 = document.getElementById('bg-video-2');
-        const authorLink = document.getElementById('author-link');
+        // Credits are now static in the footer (all 3 creators listed)
 
         function setupCrossfade() {
             const active = isUsingVideo1 ? v1 : v2;
@@ -870,8 +870,7 @@
             next.play().then(() => {
                 active.style.opacity = '0';
                 next.style.opacity = '0.85'; 
-                authorLink.textContent = current.author;
-                authorLink.href = current.url;
+                // Credits are static — all three creators listed in the footer
                 isUsingVideo1 = !isUsingVideo1;
                 setupCrossfade();
             }).catch(err => {
