@@ -1,1156 +1,1388 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
     <title>Keenway | Deliver Better.</title>
-    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="icon" type="image/png" href="favicon.png" />
     <style>
-        :root {
-            --brand-orange: #E35205;
-            --brand-orange-hover: #c94804;
-            --brand-black: #000000;
-            --brand-black-hover: #1a1a1a;
-            --white: #ffffff;
-            --slate-100: #f1f5f9;
-            --font-main: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      :root {
+        --brand-orange: #e35205;
+        --brand-orange-hover: #c94804;
+        --brand-black: #000000;
+        --brand-black-hover: #1a1a1a;
+        --white: #ffffff;
+        --slate-100: #f1f5f9;
+        --font-main:
+          -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto,
+          sans-serif;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: var(--font-main);
+      }
+
+      body {
+        position: relative;
+        background-color: var(--brand-black);
+        height: 100vh;
+        height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Video Background */
+      #bg-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        opacity: 0.85;
+        filter: contrast(1.1) saturate(1.2) brightness(0.9);
+        animation: cinematicZoom 60s ease-in-out infinite alternate;
+      }
+
+      @keyframes cinematicZoom {
+        from {
+          transform: scale(1);
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: var(--font-main);
+        to {
+          transform: scale(1.1);
         }
+      }
 
-        body {
-            position: relative;
-            background-color: var(--brand-black);
-            height: 100vh;
-            height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            overflow-x: hidden;
-            overflow-y: auto;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
+      .video-credits {
+        position: relative;
+        z-index: 50;
+        font-size: 0.6rem;
+        color: rgba(255, 255, 255, 0.4);
+        text-align: center;
+        line-height: 1.4;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        transition: var(--transition);
+      }
 
-        /* Video Background */
-        #bg-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-            opacity: 0.85;
-            filter: contrast(1.1) saturate(1.2) brightness(0.9);
-            animation: cinematicZoom 60s ease-in-out infinite alternate;
-        }
+      .video-credits a {
+        color: rgba(255, 255, 255, 0.4);
+        text-decoration: underline;
+        pointer-events: auto;
+        font-weight: 500;
+        transition: var(--transition);
+      }
 
-        @keyframes cinematicZoom {
-            from { transform: scale(1); }
-            to { transform: scale(1.1); }
-        }
+      .video-credits a:hover {
+        color: var(--white);
+      }
 
-        .video-credits {
-            position: relative;
-            z-index: 50;
-            font-size: 0.6rem;
-            color: rgba(255, 255, 255, 0.4);
-            text-align: center;
-            line-height: 1.4;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            transition: var(--transition);
-        }
+      /* Secondary video for crossfade */
+      #bg-video-2 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        opacity: 0;
+        filter: contrast(1.1) saturate(1.2) brightness(0.9);
+        animation: cinematicZoom 60s ease-in-out infinite alternate;
+        transition: opacity 2s ease-in-out;
+      }
 
-        .video-credits a {
-            color: rgba(255, 255, 255, 0.4);
-            text-decoration: underline;
-            pointer-events: auto;
-            font-weight: 500;
-            transition: var(--transition);
-        }
+      /* Video Overlay - Cinematic Vignette */
+      .video-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle,
+          rgba(0, 0, 0, 0.1) 0%,
+          rgba(0, 0, 0, 0.6) 100%
+        );
+        z-index: 1;
+        pointer-events: none;
+      }
 
-        .video-credits a:hover {
-            color: var(--white);
-        }
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
 
-        /* Secondary video for crossfade */
-        #bg-video-2 {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 0;
-            opacity: 0;
-            filter: contrast(1.1) saturate(1.2) brightness(0.9);
-            animation: cinematicZoom 60s ease-in-out infinite alternate;
-            transition: opacity 2s ease-in-out;
-        }
+      .logo-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+      }
 
-        /* Video Overlay - Cinematic Vignette */
-        .video-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%);
-            z-index: 1;
-            pointer-events: none;
-        }
+      .logo-img {
+        height: 32px;
+        width: auto;
+      }
 
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
+      .google-play-link {
+        display: inline-block;
+        text-decoration: none;
+      }
 
+      .google-play-badge {
+        height: 48px;
+        width: auto;
+        transition: var(--transition);
+      }
 
-        .logo-link {
-            display: flex;
-            align-items: center;
-            text-decoration: none;
-        }
+      .google-play-link:hover .google-play-badge {
+        transform: translateY(-2px);
+      }
 
-        .logo-img {
-            height: 32px;
-            width: auto;
-        }
+      .container {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 10;
+      }
 
-        .google-play-link {
-            display: inline-block;
-            text-decoration: none;
-        }
+      main {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        text-align: left;
+        padding: 2rem;
+        margin-top: 10vh;
+        max-width: 1200px;
+        width: 100%;
+        gap: 4rem;
+      }
 
-        .google-play-badge {
-            height: 48px;
-            width: auto;
-            transition: var(--transition);
-        }
+      .hero-content {
+        flex: 1;
+        max-width: 650px;
+      }
 
-        .google-play-link:hover .google-play-badge {
-            transform: translateY(-2px);
-        }
+      .hero-badge {
+        margin-bottom: 2rem;
+        filter: drop-shadow(0 0 20px rgba(227, 82, 5, 0.4));
+      }
 
-        .container {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            z-index: 10;
-        }
+      h1 {
+        font-size: clamp(2.5rem, 8vw, 4.5rem);
+        font-weight: 900;
+        line-height: 1.1;
+        letter-spacing: -0.04em;
+        margin-bottom: 1.5rem;
+        color: var(--white);
+        text-shadow:
+          0 4px 12px rgba(0, 0, 0, 0.8),
+          0 0 40px rgba(0, 0, 0, 0.4);
+      }
 
+      .subtext {
+        font-size: clamp(1rem, 1.8vw, 1.2rem);
+        color: var(--white);
+        max-width: 580px;
+        margin-bottom: 3rem;
+        line-height: 1.6;
+        font-weight: 500;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+      }
+
+      .cta-group {
+        display: flex;
+        gap: 1.25rem;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+      }
+
+      .btn-main {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: var(--brand-orange);
+        color: var(--white);
+        padding: 1.1rem 2.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.125rem;
+        transition: var(--transition);
+        box-shadow: 0 10px 25px -5px rgba(227, 82, 5, 0.4);
+      }
+
+      .btn-main:hover {
+        background-color: var(--brand-orange-hover);
+        transform: scale(1.02);
+        box-shadow: 0 15px 30px -5px rgba(227, 82, 5, 0.5);
+      }
+
+      .btn-outline {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.15);
+        color: var(--white);
+        padding: 1.1rem 2.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.125rem;
+        transition: var(--transition);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .btn-outline:hover {
+        background-color: rgba(255, 255, 255, 0.25);
+        border-color: rgba(255, 255, 255, 0.4);
+      }
+
+      footer {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        z-index: 10;
+        position: relative;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.3);
+        text-decoration: none;
+        font-size: 0.7rem;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover {
+        color: var(--brand-orange);
+      }
+
+      .copyright {
+        color: rgba(255, 255, 255, 0.25);
+        font-size: 0.65rem;
+        letter-spacing: 0.1em;
+        font-weight: 300;
+        text-transform: uppercase;
+      }
+
+      .mailing-address {
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 0.7rem;
+        letter-spacing: 0.05em;
+        font-weight: 300;
+        text-align: center;
+        line-height: 1.5;
+        max-width: 90%;
+      }
+
+      /* Tablet and below */
+      @media (max-width: 1024px) {
         main {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-between;
-            text-align: left;
-            padding: 2rem;
-            margin-top: 10vh;
-            max-width: 1200px;
-            width: 100%;
-            gap: 4rem;
+          flex-direction: column;
+          text-align: center;
+          max-width: 90%;
+          margin-top: 5vh;
+          gap: 2rem;
+        }
+
+        .cta-group {
+          justify-content: center;
         }
 
         .hero-content {
-            flex: 1;
-            max-width: 650px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
         }
 
-        .hero-badge {
-            margin-bottom: 2rem;
-            filter: drop-shadow(0 0 20px rgba(227, 82, 5, 0.4));
+        .quote-form-container {
+          max-width: 600px;
+          margin-top: 2rem;
         }
 
         h1 {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 900;
-            line-height: 1.1;
-            letter-spacing: -0.04em;
-            margin-bottom: 1.5rem;
-            color: var(--white);
-            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.4);
+          font-size: clamp(2rem, 7vw, 3.5rem);
         }
 
         .subtext {
-            font-size: clamp(1rem, 1.8vw, 1.2rem);
-            color: var(--white);
-            max-width: 580px;
-            margin-bottom: 3rem;
-            line-height: 1.6;
-            font-weight: 500;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+          font-size: clamp(0.95rem, 1.6vw, 1.1rem);
+        }
+      }
+
+      /* Mobile landscape */
+      @media (max-width: 896px) and (orientation: landscape) {
+        header {
+          padding: 0.75rem 1.5rem;
         }
 
+        main {
+          margin-top: 2vh;
+          padding: 1rem;
+        }
+
+        .hero-badge {
+          margin-bottom: 1rem;
+        }
+
+        .hero-badge img {
+          height: 32px !important;
+        }
+
+        h1 {
+          font-size: clamp(1.5rem, 5vw, 2.5rem);
+          margin-bottom: 1rem;
+        }
+
+        .subtext {
+          margin-bottom: 1.5rem;
+        }
 
         .cta-group {
-            display: flex;
-            gap: 1.25rem;
-            flex-wrap: wrap;
-            justify-content: flex-start;
+          gap: 0.75rem;
         }
 
-        .btn-main {
-            background-color: var(--brand-orange);
-            color: var(--white);
-            padding: 1.1rem 2.5rem;
-            border-radius: 8px;
-            font-weight: 700;
-            text-decoration: none;
-            font-size: 1.125rem;
-            transition: var(--transition);
-            box-shadow: 0 10px 25px -5px rgba(227, 82, 5, 0.4);
-        }
-
-        .btn-main:hover {
-            background-color: var(--brand-orange-hover);
-            transform: scale(1.02);
-            box-shadow: 0 15px 30px -5px rgba(227, 82, 5, 0.5);
-        }
-
+        .btn-main,
         .btn-outline {
-            background-color: rgba(255, 255, 255, 0.15);
-            color: var(--white);
-            padding: 1.1rem 2.5rem;
-            border-radius: 8px;
-            font-weight: 700;
-            text-decoration: none;
-            font-size: 1.125rem;
-            transition: var(--transition);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .btn-outline:hover {
-            background-color: rgba(255, 255, 255, 0.25);
-            border-color: rgba(255, 255, 255, 0.4);
+          padding: 0.75rem 1.75rem;
+          font-size: 1rem;
         }
 
         footer {
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            z-index: 10;
-            position: relative;
+          padding: 1rem;
+        }
+      }
+
+      /* Tablets */
+      @media (max-width: 768px) {
+        header {
+          padding: 1rem 1.5rem;
+        }
+
+        .logo-img {
+          height: 28px;
+        }
+
+        .google-play-badge {
+          height: 42px;
+        }
+
+        main {
+          padding: 1.5rem;
+          margin-top: 3vh;
+        }
+
+        .hero-badge img {
+          height: 40px !important;
+        }
+
+        h1 {
+          font-size: clamp(2rem, 6vw, 3rem);
+          margin-bottom: 1.25rem;
+        }
+
+        .subtext {
+          font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+          margin-bottom: 2rem;
+        }
+
+        .btn-main,
+        .btn-outline {
+          padding: 1rem 2rem;
+          font-size: 1rem;
+        }
+
+        .video-credits {
+          font-size: 0.55rem;
+        }
+      }
+
+      /* Mobile phones */
+      @media (max-width: 480px) {
+        header {
+          padding: 0.875rem 1rem;
+        }
+
+        body {
+          height: auto !important;
+          min-height: 100vh;
+          min-height: 100dvh;
+        }
+
+        .container {
+          flex: none;
+          align-items: flex-start;
+          padding-top: 80px;
+        }
+
+        .logo-img {
+          height: 24px;
+        }
+
+        .google-play-badge {
+          height: 36px;
+        }
+
+        main {
+          padding: 1rem;
+          margin-top: 0;
+          gap: 1rem;
+        }
+
+        .hero-badge {
+          margin-bottom: 0.75rem;
+        }
+
+        .hero-badge img {
+          height: 30px !important;
+        }
+
+        h1 {
+          font-size: clamp(1.4rem, 6.5vw, 2rem);
+          margin-bottom: 0.4rem;
+          letter-spacing: -0.02em;
+        }
+
+        .subtext {
+          font-size: clamp(0.75rem, 3.2vw, 0.9rem);
+          margin-bottom: 0.75rem;
+          max-width: 100%;
+          line-height: 1.4;
+        }
+
+        .cta-group {
+          gap: 0.75rem;
+          width: 100%;
+          flex-direction: row;
+        }
+
+        .btn-main,
+        .btn-outline {
+          width: auto;
+          flex: 1;
+          max-width: 180px;
+          padding: 0.65rem 1rem;
+          font-size: 0.85rem;
+          min-height: 44px;
+        }
+
+        footer {
+          padding: 1.5rem 1rem;
+          gap: 0.75rem;
+          text-align: center;
         }
 
         .footer-links {
-            display: flex;
-            gap: 2rem;
+          gap: 1.5rem;
+          justify-content: center;
         }
 
         .footer-links a {
-            color: rgba(255, 255, 255, 0.3);
-            text-decoration: none;
-            font-size: 0.7rem;
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: var(--brand-orange);
-        }
-
-        .copyright {
-            color: rgba(255, 255, 255, 0.25);
-            font-size: 0.65rem;
-            letter-spacing: 0.1em;
-            font-weight: 300;
-            text-transform: uppercase;
+          font-size: 0.65rem;
         }
 
         .mailing-address {
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 0.7rem;
-            letter-spacing: 0.05em;
-            font-weight: 300;
-            text-align: center;
-            line-height: 1.5;
-            max-width: 90%;
+          font-size: 0.6rem;
+          max-width: 100%;
+          padding: 0 0.5rem;
         }
 
-
-        /* Tablet and below */
-        @media (max-width: 1024px) {
-            main {
-                flex-direction: column;
-                text-align: center;
-                max-width: 90%;
-                margin-top: 5vh;
-                gap: 2rem;
-            }
-
-            .cta-group {
-                justify-content: center;
-            }
-
-            .hero-content {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .quote-form-container {
-                max-width: 600px;
-                margin-top: 2rem;
-            }
-
-            h1 {
-                font-size: clamp(2rem, 7vw, 3.5rem);
-            }
-
-            .subtext {
-                font-size: clamp(0.95rem, 1.6vw, 1.1rem);
-            }
+        .copyright {
+          font-size: 0.55rem;
+          text-align: center;
         }
 
-        /* Mobile landscape */
-        @media (max-width: 896px) and (orientation: landscape) {
-            header {
-                padding: 0.75rem 1.5rem;
-            }
+        .video-credits {
+          font-size: 0.5rem;
+        }
+      }
 
-            main {
-                margin-top: 2vh;
-                padding: 1rem;
-            }
-
-            .hero-badge {
-                margin-bottom: 1rem;
-            }
-
-            .hero-badge img {
-                height: 32px !important;
-            }
-
-            h1 {
-                font-size: clamp(1.5rem, 5vw, 2.5rem);
-                margin-bottom: 1rem;
-            }
-
-            .subtext {
-                margin-bottom: 1.5rem;
-            }
-
-            .cta-group {
-                gap: 0.75rem;
-            }
-
-            .btn-main, .btn-outline {
-                padding: 0.75rem 1.75rem;
-                font-size: 1rem;
-            }
-
-            footer {
-                padding: 1rem;
-            }
+      /* Small mobile phones */
+      @media (max-width: 360px) {
+        h1 {
+          font-size: 1.5rem;
         }
 
-        /* Tablets */
-        @media (max-width: 768px) {
-            header {
-                padding: 1rem 1.5rem;
-            }
-
-            .logo-img {
-                height: 28px;
-            }
-
-            .google-play-badge {
-                height: 42px;
-            }
-
-            main {
-                padding: 1.5rem;
-                margin-top: 3vh;
-            }
-
-            .hero-badge img {
-                height: 40px !important;
-            }
-
-            h1 {
-                font-size: clamp(2rem, 6vw, 3rem);
-                margin-bottom: 1.25rem;
-            }
-
-            .subtext {
-                font-size: clamp(0.9rem, 1.5vw, 1.05rem);
-                margin-bottom: 2rem;
-            }
-
-            .btn-main, .btn-outline {
-                padding: 1rem 2rem;
-                font-size: 1rem;
-            }
-
-            .video-credits {
-                font-size: 0.55rem;
-            }
+        .subtext {
+          font-size: 0.85rem;
         }
 
-        /* Mobile phones */
-        @media (max-width: 480px) {
-            header {
-                padding: 0.875rem 1rem;
-            }
-
-            body {
-                height: auto !important;
-                min-height: 100vh;
-                min-height: 100dvh;
-            }
-
-            .container {
-                flex: none;
-                align-items: flex-start;
-                padding-top: 80px;
-            }
-
-            .logo-img {
-                height: 24px;
-            }
-
-            .google-play-badge {
-                height: 36px;
-            }
-
-            main {
-                padding: 1rem;
-                margin-top: 0;
-                gap: 1rem;
-            }
-
-
-            .hero-badge {
-                margin-bottom: 0.75rem;
-            }
-
-            .hero-badge img {
-                height: 30px !important;
-            }
-
-            h1 {
-                font-size: clamp(1.4rem, 6.5vw, 2rem);
-                margin-bottom: 0.4rem;
-                letter-spacing: -0.02em;
-            }
-
-            .subtext {
-                font-size: clamp(0.75rem, 3.2vw, 0.9rem);
-                margin-bottom: 0.75rem;
-                max-width: 100%;
-                line-height: 1.4;
-            }
-
-            .cta-group {
-                gap: 0.75rem;
-                width: 100%;
-                flex-direction: row;
-            }
-
-            .btn-main, .btn-outline {
-                width: auto;
-                flex: 1;
-                max-width: 180px;
-                padding: 0.65rem 1rem;
-                font-size: 0.85rem;
-                min-height: 44px;
-            }
-
-            footer {
-                padding: 1.5rem 1rem;
-                gap: 0.75rem;
-                text-align: center;
-            }
-
-            .footer-links {
-                gap: 1.5rem;
-                justify-content: center;
-            }
-
-            .footer-links a {
-                font-size: 0.65rem;
-            }
-
-            .mailing-address {
-                font-size: 0.6rem;
-                max-width: 100%;
-                padding: 0 0.5rem;
-            }
-
-            .copyright {
-                font-size: 0.55rem;
-                text-align: center;
-            }
-
-            .video-credits {
-                font-size: 0.5rem;
-            }
+        .btn-main,
+        .btn-outline {
+          padding: 0.875rem 1.25rem;
+          font-size: 0.9rem;
         }
 
-        /* Small mobile phones */
-        @media (max-width: 360px) {
-            h1 {
-                font-size: 1.5rem;
-            }
+        .video-credits {
+          font-size: 0.45rem;
+        }
+      }
 
-            .subtext {
-                font-size: 0.85rem;
-            }
-
-            .btn-main, .btn-outline {
-                padding: 0.875rem 1.25rem;
-                font-size: 0.9rem;
-            }
-
-            .video-credits {
-                font-size: 0.45rem;
-            }
+      /* Safe area for iPhone notch */
+      @supports (padding: max(0px)) {
+        body {
+          padding-left: max(0px, env(safe-area-inset-left));
+          padding-right: max(0px, env(safe-area-inset-right));
         }
 
-        /* Safe area for iPhone notch */
-        @supports (padding: max(0px)) {
-            body {
-                padding-left: max(0px, env(safe-area-inset-left));
-                padding-right: max(0px, env(safe-area-inset-right));
-            }
-
-            header {
-                padding-top: max(1rem, env(safe-area-inset-top));
-            }
-
-            footer {
-                padding-bottom: max(1rem, env(safe-area-inset-bottom));
-            }
+        header {
+          padding-top: max(1rem, env(safe-area-inset-top));
         }
 
-        /* Quote Form */
+        footer {
+          padding-bottom: max(1rem, env(safe-area-inset-bottom));
+        }
+      }
+
+      /* Quote Form */
+      .quote-form-container {
+        margin-top: 0;
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px;
+        padding: 2.5rem;
+        width: 100%;
+        max-width: 480px;
+        text-align: left;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        animation: fadeIn 1s ease-out forwards;
+        flex-shrink: 0;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .quote-heading {
+        color: var(--white);
+        margin-bottom: 1.5rem;
+        font-size: 1.35rem;
+        font-weight: 600;
+        text-align: center;
+        letter-spacing: 0.02em;
+      }
+
+      .quote-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .form-row {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .input-wrapper {
+        position: relative;
+        width: 100%;
+      }
+
+      .input-wrapper input {
+        padding-right: 2.5rem;
+      }
+
+      .clear-input {
+        position: absolute;
+        right: 0.6rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 24px;
+        height: 24px;
+        border: none;
+        background: rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.6);
+        border-radius: 50%;
+        font-size: 0.85rem;
+        cursor: pointer;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        line-height: 1;
+        transition: var(--transition);
+        z-index: 5;
+        padding: 0;
+      }
+
+      .clear-input:hover {
+        background: rgba(227, 82, 5, 0.6);
+        color: var(--white);
+      }
+
+      .clear-input.visible {
+        display: flex;
+      }
+
+      .quote-form input,
+      .quote-form textarea {
+        width: 100%;
+        padding: 0.9rem 1.1rem;
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        color: var(--white);
+        font-size: 0.95rem;
+        transition: var(--transition);
+      }
+
+      .quote-form input::placeholder,
+      .quote-form textarea::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+      }
+
+      .quote-form input:focus,
+      .quote-form textarea:focus {
+        outline: none;
+        border-color: var(--brand-orange);
+        background: rgba(0, 0, 0, 0.7);
+        box-shadow: 0 0 0 3px rgba(227, 82, 5, 0.2);
+      }
+
+      .submit-quote {
+        width: 100%;
+        margin-top: 0.5rem;
+        border: none;
+        cursor: pointer;
+        padding: 1rem;
+        font-size: 1.05rem;
+      }
+
+      @media (max-width: 480px) {
         .quote-form-container {
-            margin-top: 0;
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 12px;
-            padding: 2.5rem;
-            width: 100%;
-            max-width: 480px;
-            text-align: left;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-            animation: fadeIn 1s ease-out forwards;
-            flex-shrink: 0;
+          padding: 1.25rem;
+          margin-top: 0.5rem;
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
         .quote-heading {
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            font-size: 1.35rem;
-            font-weight: 600;
-            text-align: center;
-            letter-spacing: 0.02em;
+          font-size: 1.1rem;
+          margin-bottom: 1rem;
         }
-
-        .quote-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
         .form-row {
-            display: flex;
-            gap: 1rem;
+          flex-direction: column;
+          gap: 0.75rem;
         }
-
-        .input-wrapper {
-            position: relative;
-            width: 100%;
+        .quote-form input {
+          padding: 0.75rem;
+          font-size: 0.9rem;
         }
-
-        .input-wrapper input {
-            padding-right: 2.5rem;
-        }
-
-        .clear-input {
-            position: absolute;
-            right: 0.6rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 24px;
-            height: 24px;
-            border: none;
-            background: rgba(255, 255, 255, 0.15);
-            color: rgba(255, 255, 255, 0.6);
-            border-radius: 50%;
-            font-size: 0.85rem;
-            cursor: pointer;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            line-height: 1;
-            transition: var(--transition);
-            z-index: 5;
-            padding: 0;
-        }
-
-        .clear-input:hover {
-            background: rgba(227, 82, 5, 0.6);
-            color: var(--white);
-        }
-
-        .clear-input.visible {
-            display: flex;
-        }
-
-        .quote-form input, .quote-form textarea {
-            width: 100%;
-            padding: 0.9rem 1.1rem;
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
-            color: var(--white);
-            font-size: 0.95rem;
-            transition: var(--transition);
-        }
-
-        .quote-form input::placeholder, .quote-form textarea::placeholder {
-            color: rgba(255, 255, 255, 0.4);
-        }
-
-        .quote-form input:focus, .quote-form textarea:focus {
-            outline: none;
-            border-color: var(--brand-orange);
-            background: rgba(0, 0, 0, 0.7);
-            box-shadow: 0 0 0 3px rgba(227, 82, 5, 0.2);
-        }
-
         .submit-quote {
-            width: 100%;
-            margin-top: 0.5rem;
-            border: none;
-            cursor: pointer;
-            padding: 1rem;
-            font-size: 1.05rem;
+          padding: 0.8rem;
+          font-size: 0.95rem;
         }
+      }
 
-        @media (max-width: 480px) {
-            .quote-form-container {
-                padding: 1.25rem;
-                margin-top: 0.5rem;
-            }
-            .quote-heading {
-                font-size: 1.1rem;
-                margin-bottom: 1rem;
-            }
-            .form-row {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-            .quote-form input {
-                padding: 0.75rem;
-                font-size: 0.9rem;
-            }
-            .submit-quote {
-                padding: 0.8rem;
-                font-size: 0.95rem;
-            }
-        }
-
-        /* Prevent text size adjustment on mobile */
-        html {
-            -webkit-text-size-adjust: 100%;
-            -moz-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-            text-size-adjust: 100%;
-        }
+      /* Prevent text size adjustment on mobile */
+      html {
+        -webkit-text-size-adjust: 100%;
+        -moz-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
     </style>
-</head>
-<body>
-    <video id="bg-video" autoplay muted playsinline webkit-playsinline preload="auto">
-        <source src="street.mp4" type="video/mp4">
+  </head>
+  <body>
+    <video
+      id="bg-video"
+      autoplay
+      muted
+      playsinline
+      webkit-playsinline
+      preload="auto"
+    >
+      <source src="street.mp4" type="video/mp4" />
     </video>
     <video id="bg-video-2" muted playsinline webkit-playsinline preload="auto">
-        <source src="405.mp4" type="video/mp4">
+      <source src="405.mp4" type="video/mp4" />
     </video>
-    
-    
 
     <header>
-        <a href="#" class="logo-link">
-            <img src="keenway-logo-white.png" alt="Keenway" class="logo-img">
-        </a>
-        <a href="https://play.google.com/store/apps/details?id=com.gokeenway.driver" target="_blank" rel="noopener noreferrer" class="google-play-link">
-            <img src="google-play-badge.png" alt="Get it on Google Play" class="google-play-badge">
-        </a>
+      <a href="#" class="logo-link">
+        <img src="keenway-logo-white.png" alt="Keenway" class="logo-img" />
+      </a>
+      <a
+        href="https://play.google.com/store/apps/details?id=com.gokeenway.driver"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="google-play-link"
+      >
+        <img
+          src="google-play-badge.png"
+          alt="Get it on Google Play"
+          class="google-play-badge"
+        />
+      </a>
     </header>
 
     <div class="container">
-        <main style="padding-bottom: 5vh;">
-            <div class="hero-content">
-                <h1>Experience better logistics with our next-generation platform</h1>
-                <p class="subtext">Deliver with confidence. Join the fleet that moves the world forward. Our new site is launching soon.</p>
+      <main style="padding-bottom: 5vh">
+        <div class="hero-content">
+          <h1>Experience better logistics with our next-generation platform</h1>
+          <p class="subtext">
+            Deliver with confidence. Join the fleet that moves the world
+            forward. Our new site is launching soon.
+          </p>
 
+          <div class="cta-group">
+            <a href="https://app.gokeenway.com/register" class="btn-main"
+              >Register</a
+            >
+            <a href="https://app.gokeenway.com/login" class="btn-outline"
+              >Login</a
+            >
+          </div>
+        </div>
 
-
-                <div class="cta-group">
-                    <a href="https://app.gokeenway.com/register" class="btn-main">Register</a>
-                    <a href="https://app.gokeenway.com/login" class="btn-outline">Login</a>
-                </div>
+        <div class="quote-form-container">
+          <h3 class="quote-heading">Estimate Your Freight Cost</h3>
+          <form class="quote-form" id="pricing-calculator">
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="pickup"
+                placeholder="Pickup Address"
+                required
+                autocomplete="off"
+              />
+              <button
+                type="button"
+                class="clear-input"
+                id="clear-pickup"
+                aria-label="Clear pickup address"
+              >
+                &times;
+              </button>
             </div>
-
-            <div class="quote-form-container">
-                <h3 class="quote-heading">Estimate Your Freight Cost</h3>
-                <form class="quote-form" id="pricing-calculator">
-                    <div class="input-wrapper">
-                        <input type="text" id="pickup" placeholder="Pickup Address" required autocomplete="off">
-                        <button type="button" class="clear-input" id="clear-pickup" aria-label="Clear pickup address">&times;</button>
-                    </div>
-                    <div class="input-wrapper">
-                        <input type="text" id="dropoff" placeholder="Dropoff Address" required autocomplete="off">
-                        <button type="button" class="clear-input" id="clear-dropoff" aria-label="Clear dropoff address">&times;</button>
-                    </div>
-                    <input type="hidden" id="distance" value="0">
-                    <input type="hidden" id="duration" value="0">
-                    <div id="distance-loading" style="display: none;"><div class="spinner"></div></div>
-                    <div class="form-row">
-                        <input type="number" id="weight" placeholder="Total Weight (lbs)" min="0" step="1" required>
-                        <input type="number" id="qty" placeholder="Total Items (Quantity)" min="1" step="1" required>
-                    </div>
-                    <button type="submit" id="submit-btn" class="btn-main submit-quote">Calculate Estimate</button>
-                    
-                    <div id="quote-result" style="display: none; margin-top: 1.5rem; padding: 1.5rem; background: rgba(0,0,0,0.4); border-radius: 8px; border: 1px solid rgba(227, 82, 5, 0.3); text-align: center;">
-                        <div style="font-size: 0.9rem; color: rgba(255,255,255,0.7); margin-bottom: 0.5rem;" id="route-text">Estimated Total Price</div>
-                        <div style="font-size: 2.75rem; font-weight: 800; color: var(--brand-orange); line-height: 1; text-shadow: 0 0 20px rgba(227,82,5,0.4);" id="calculated-price">$0.00</div>
-                    </div>
-                </form>
+            <div class="input-wrapper">
+              <input
+                type="text"
+                id="dropoff"
+                placeholder="Dropoff Address"
+                required
+                autocomplete="off"
+              />
+              <button
+                type="button"
+                class="clear-input"
+                id="clear-dropoff"
+                aria-label="Clear dropoff address"
+              >
+                &times;
+              </button>
             </div>
-        </main>
+            <input type="hidden" id="distance" value="0" />
+            <input type="hidden" id="duration" value="0" />
+            <div id="distance-loading" style="display: none">
+              <div class="spinner"></div>
+            </div>
+            <div class="form-row">
+              <input
+                type="number"
+                id="weight"
+                placeholder="Total Weight (lbs)"
+                min="0"
+                step="1"
+                required
+              />
+              <input
+                type="number"
+                id="qty"
+                placeholder="Total Items (Quantity)"
+                min="1"
+                step="1"
+                required
+              />
+            </div>
+            <button type="submit" id="submit-btn" class="btn-main submit-quote">
+              Calculate Estimate
+            </button>
+
+            <div
+              id="quote-result"
+              style="
+                display: none;
+                margin-top: 1.5rem;
+                padding: 1.5rem;
+                background: rgba(0, 0, 0, 0.4);
+                border-radius: 8px;
+                border: 1px solid rgba(227, 82, 5, 0.3);
+                text-align: center;
+              "
+            >
+              <div
+                style="
+                  font-size: 0.9rem;
+                  color: rgba(255, 255, 255, 0.7);
+                  margin-bottom: 0.5rem;
+                "
+                id="route-text"
+              >
+                Estimated Total Price
+              </div>
+              <div
+                style="
+                  font-size: 2.75rem;
+                  font-weight: 800;
+                  color: var(--brand-orange);
+                  line-height: 1;
+                  text-shadow: 0 0 20px rgba(227, 82, 5, 0.4);
+                "
+                id="calculated-price"
+              >
+                $0.00
+              </div>
+            </div>
+          </form>
+        </div>
+      </main>
     </div>
 
     <footer>
-        <div class="footer-links">
-            <a href="https://app.gokeenway.com/terms">Terms</a>
-            <a href="https://app.gokeenway.com/privacy">Privacy</a>
-        </div>
-        <div class="mailing-address">
-            400 Corporate Pointe Suite 300, Culver City, CA 90230 US
-        </div>
-        <div class="copyright" style="white-space: nowrap;">
-            © 2026 Keenway<span style="text-transform: none;">ˢᵐ</span> | Engineered by Keenway Technologies
-        </div>
-        <div class="video-credits" id="video-credits">
-            VIDEOS BY <a href="https://www.pexels.com/video/nighttime-highway-traffic-timelapse-with-bokeh-effect-35471093/" target="_blank" rel="noopener noreferrer">LEONARD FERHATI</a> &middot; <a href="https://www.pexels.com/video/city-illuminated-at-night-10681533/" target="_blank" rel="noopener noreferrer">EGOR AVSYUKOV</a> &middot; <a href="https://www.pexels.com/video/aerial-view-of-traffic-on-city-highway-31455842/" target="_blank" rel="noopener noreferrer">AHMET ARIKAYA</a>
-        </div>
+      <div class="footer-links">
+        <a href="https://app.gokeenway.com/terms">Terms</a>
+        <a href="https://app.gokeenway.com/privacy">Privacy</a>
+      </div>
+      <div class="mailing-address">
+        400 Corporate Pointe Suite 300, Culver City, CA 90230 US
+      </div>
+      <div class="copyright" style="white-space: nowrap">
+        © 2026 Keenway<span style="text-transform: none">ˢᵐ</span> | Engineered
+        by Keenway Technologies
+      </div>
+      <div class="video-credits" id="video-credits">
+        VIDEOS BY
+        <a
+          href="https://www.pexels.com/video/nighttime-highway-traffic-timelapse-with-bokeh-effect-35471093/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >LEONARD FERHATI</a
+        >
+        &middot;
+        <a
+          href="https://www.pexels.com/video/city-illuminated-at-night-10681533/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >EGOR AVSYUKOV</a
+        >
+        &middot;
+        <a
+          href="https://www.pexels.com/video/aerial-view-of-traffic-on-city-highway-31455842/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >AHMET ARIKAYA</a
+        >
+      </div>
     </footer>
 
     <style>
-        .spinner {
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            border-left-color: var(--brand-orange);
-            animation: spin 1s linear infinite;
+      .spinner {
+        border: 3px solid rgba(255, 255, 255, 0.1);
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border-left-color: var(--brand-orange);
+        animation: spin 1s linear infinite;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        /* Style the google pac container to match dark mode */
-        .pac-container {
-            background-color: #1a1a1a;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 8px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            font-family: var(--font-main);
-            color: #fff;
-            margin-top: 4px;
-            z-index: 1000 !important;
+        100% {
+          transform: rotate(360deg);
         }
-        .pac-item {
-            padding: 8px 12px;
-            cursor: pointer;
-            color: rgba(255, 255, 255, 0.7);
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .pac-item:hover {
-            background-color: rgba(227, 82, 5, 0.1);
-        }
-        .pac-item-query {
-            color: #fff;
-            font-size: 14px;
-        }
-        .pac-logo:after {
-            display: none;
-        }
-        .pac-icon {
-            filter: invert(1);
-            opacity: 0.5;
-        }
+      }
+      /* Style the google pac container to match dark mode */
+      .pac-container {
+        background-color: #1a1a1a;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        font-family: var(--font-main);
+        color: #fff;
+        margin-top: 4px;
+        z-index: 1000 !important;
+      }
+      .pac-item {
+        padding: 8px 12px;
+        cursor: pointer;
+        color: rgba(255, 255, 255, 0.7);
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .pac-item:hover {
+        background-color: rgba(227, 82, 5, 0.1);
+      }
+      .pac-item-query {
+        color: #fff;
+        font-size: 14px;
+      }
+      .pac-logo:after {
+        display: none;
+      }
+      .pac-icon {
+        filter: invert(1);
+        opacity: 0.5;
+      }
 
-        /* Fix for Google Maps "Oops" error overlapping inputs */
-        input#pickup, input#dropoff {
-            background-image: none !important; /* Hides the error icons */
-        }
-        .dismissButton { 
-            display: none !important; /* Hides the error dismiss button */
-        }
+      /* Fix for Google Maps "Oops" error overlapping inputs */
+      input#pickup,
+      input#dropoff {
+        background-image: none !important; /* Hides the error icons */
+      }
+      .dismissButton {
+        display: none !important; /* Hides the error dismiss button */
+      }
     </style>
-    
+
     <!-- Load Google Maps API -->
     <script>
-        (g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.googleapis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})({key:"AIzaSyDvt2_vCVgs-si8xqqQOlXqemiw7_N62Is",v:"weekly"});
+      ((g) => {
+        var h,
+          a,
+          k,
+          p = "The Google Maps JavaScript API",
+          c = "google",
+          l = "importLibrary",
+          q = "__ib__",
+          m = document,
+          b = window;
+        b = b[c] || (b[c] = {});
+        var d = b.maps || (b.maps = {}),
+          r = new Set(),
+          e = new URLSearchParams(),
+          u = () =>
+            h ||
+            (h = new Promise(async (f, n) => {
+              await (a = m.createElement("script"));
+              e.set("libraries", [...r] + "");
+              for (k in g)
+                e.set(
+                  k.replace(/[A-Z]/g, (t) => "_" + t[0].toLowerCase()),
+                  g[k],
+                );
+              e.set("callback", c + ".maps." + q);
+              a.src = `https://maps.googleapis.com/maps/api/js?` + e;
+              d[q] = f;
+              a.onerror = () => (h = n(Error(p + " could not load.")));
+              a.nonce = m.querySelector("script[nonce]")?.nonce || "";
+              m.head.append(a);
+            }));
+        d[l]
+          ? console.warn(p + " only loads once. Ignoring:", g)
+          : (d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)));
+      })({ key: "AIzaSyDvt2_vCVgs-si8xqqQOlXqemiw7_N62Is", v: "weekly" });
     </script>
 
     <script>
-        // ... (Background video logic remains unchanged) ...
-        const videoData = [
-            { src: 'street.mp4', author: 'LEONARD FERHATI', url: 'https://www.pexels.com/video/nighttime-highway-traffic-timelapse-with-bokeh-effect-35471093/' },
-            { src: '405.mp4', author: 'EGOR AVSYUKOV', url: 'https://www.pexels.com/video/city-illuminated-at-night-10681533/' }, 
-            { src: 'freeway.mp4', author: 'AHMET ARIKAYA', url: 'https://www.pexels.com/video/aerial-view-of-traffic-on-city-highway-31455842/' }
-        ];
-        let currentIndex = 0;
-        let isUsingVideo1 = true;
+      // ... (Background video logic remains unchanged) ...
+      const videoData = [
+        {
+          src: "street.mp4",
+          author: "LEONARD FERHATI",
+          url: "https://www.pexels.com/video/nighttime-highway-traffic-timelapse-with-bokeh-effect-35471093/",
+        },
+        {
+          src: "405.mp4",
+          author: "EGOR AVSYUKOV",
+          url: "https://www.pexels.com/video/city-illuminated-at-night-10681533/",
+        },
+        {
+          src: "freeway.mp4",
+          author: "AHMET ARIKAYA",
+          url: "https://www.pexels.com/video/aerial-view-of-traffic-on-city-highway-31455842/",
+        },
+      ];
+      let currentIndex = 0;
+      let isUsingVideo1 = true;
 
-        const v1 = document.getElementById('bg-video');
-        const v2 = document.getElementById('bg-video-2');
-        // Credits are now static in the footer (all 3 creators listed)
+      const v1 = document.getElementById("bg-video");
+      const v2 = document.getElementById("bg-video-2");
+      // Credits are now static in the footer (all 3 creators listed)
 
-        function setupCrossfade() {
-            const active = isUsingVideo1 ? v1 : v2;
-            const checkInterval = setInterval(() => {
-                if (active.duration && active.duration - active.currentTime < 2.5) {
-                    clearInterval(checkInterval);
-                    triggerTransition();
-                }
-            }, 250);
-            active.onended = () => {
-                clearInterval(checkInterval);
-                triggerTransition();
-            };
-        }
+      function setupCrossfade() {
+        const active = isUsingVideo1 ? v1 : v2;
+        const checkInterval = setInterval(() => {
+          if (active.duration && active.duration - active.currentTime < 2.5) {
+            clearInterval(checkInterval);
+            triggerTransition();
+          }
+        }, 250);
+        active.onended = () => {
+          clearInterval(checkInterval);
+          triggerTransition();
+        };
+      }
 
-        function triggerTransition() {
-            const active = isUsingVideo1 ? v1 : v2;
-            const next = isUsingVideo1 ? v2 : v1;
+      function triggerTransition() {
+        const active = isUsingVideo1 ? v1 : v2;
+        const next = isUsingVideo1 ? v2 : v1;
 
-            currentIndex = (currentIndex + 1) % videoData.length;
-            const current = videoData[currentIndex];
-            
-            next.src = current.src;
-            next.load();
+        currentIndex = (currentIndex + 1) % videoData.length;
+        const current = videoData[currentIndex];
 
-            next.play().then(() => {
-                active.style.opacity = '0';
-                next.style.opacity = '0.85'; 
-                // Credits are static — all three creators listed in the footer
-                isUsingVideo1 = !isUsingVideo1;
+        next.src = current.src;
+        next.load();
+
+        next
+          .play()
+          .then(() => {
+            active.style.opacity = "0";
+            next.style.opacity = "0.85";
+            // Credits are static — all three creators listed in the footer
+            isUsingVideo1 = !isUsingVideo1;
+            setupCrossfade();
+          })
+          .catch((err) => {
+            active.currentTime = 0;
+            active.play();
+            setupCrossfade();
+          });
+      }
+
+      v1.load();
+      v1.play()
+        .then(() => {
+          setupCrossfade();
+        })
+        .catch((err) => {
+          document.body.addEventListener(
+            "click",
+            () => {
+              v1.play().then(() => {
                 setupCrossfade();
-            }).catch(err => {
-                active.currentTime = 0;
-                active.play();
-                setupCrossfade();
-            });
-        }
-
-        v1.load();
-        v1.play().then(() => { setupCrossfade(); }).catch(err => {
-            document.body.addEventListener('click', () => {
-                v1.play().then(() => { setupCrossfade(); });
-            }, { once: true });
+              });
+            },
+            { once: true },
+          );
         });
 
-        // ----- Google Maps API Integration -----
-        let pickupPlace = null;
-        let dropoffPlace = null;
-        let calculatedDistanceMiles = 0;
-        let calculatedDurationMinutes = 0;
-        let mapApiLoaded = true;
-        
-        const pickupInput = document.getElementById('pickup');
-        const dropoffInput = document.getElementById('dropoff');
-        const distanceInput = document.getElementById('distance');
-        const durationInput = document.getElementById('duration');
-        const calculateBtn = document.getElementById('submit-btn');
-        const loadingIndicator = document.getElementById('distance-loading');
-        const resultDiv = document.getElementById('quote-result');
-        const priceDiv = document.getElementById('calculated-price');
-        const routeText = document.getElementById('route-text');
-        const breakdownText = document.getElementById('breakdown-text');
+      // ----- Google Maps API Integration -----
+      let pickupPlace = null;
+      let dropoffPlace = null;
+      let calculatedDistanceMiles = 0;
+      let calculatedDurationMinutes = 0;
+      let mapApiLoaded = true;
 
-        function enableManualEntry() {
-            mapApiLoaded = false;
+      const pickupInput = document.getElementById("pickup");
+      const dropoffInput = document.getElementById("dropoff");
+      const distanceInput = document.getElementById("distance");
+      const durationInput = document.getElementById("duration");
+      const calculateBtn = document.getElementById("submit-btn");
+      const loadingIndicator = document.getElementById("distance-loading");
+      const resultDiv = document.getElementById("quote-result");
+      const priceDiv = document.getElementById("calculated-price");
+      const routeText = document.getElementById("route-text");
+      const breakdownText = document.getElementById("breakdown-text");
 
-            distanceInput.readOnly = false;
-            distanceInput.style.background = 'rgba(0,0,0,0.5)';
-            distanceInput.style.cursor = 'text';
-            distanceInput.style.color = 'var(--white)';
-            distanceInput.placeholder = "Distance (Miles)";
+      function enableManualEntry() {
+        mapApiLoaded = false;
 
-            durationInput.readOnly = false;
-            durationInput.style.background = 'rgba(0,0,0,0.5)';
-            durationInput.style.cursor = 'text';
-            durationInput.style.color = 'var(--white)';
-            durationInput.placeholder = "Duration (Minutes)";
-        }
+        distanceInput.readOnly = false;
+        distanceInput.style.background = "rgba(0,0,0,0.5)";
+        distanceInput.style.cursor = "text";
+        distanceInput.style.color = "var(--white)";
+        distanceInput.placeholder = "Distance (Miles)";
 
-        // Check if API loaded correctly (handles API Key Restrictions / Billing errors)
-        window.gm_authFailure = function() {
-            console.error("Google Maps API authentication failed. Distance calculation will be manual.");
-            enableManualEntry();
-        };
+        durationInput.readOnly = false;
+        durationInput.style.background = "rgba(0,0,0,0.5)";
+        durationInput.style.cursor = "text";
+        durationInput.style.color = "var(--white)";
+        durationInput.placeholder = "Duration (Minutes)";
+      }
 
-        // Initialize the map integration
-        async function initMap() {
-            try {
-                const { Autocomplete } = await google.maps.importLibrary("places");
-                
-                const pickupAutocomplete = new Autocomplete(pickupInput, {
-                    types: ['geocode', 'establishment'],
-                    componentRestrictions: { country: 'us' },
-                    fields: ['geometry', 'formatted_address', 'name']
-                });
-                const dropoffAutocomplete = new Autocomplete(dropoffInput, {
-                    types: ['geocode', 'establishment'],
-                    componentRestrictions: { country: 'us' },
-                    fields: ['geometry', 'formatted_address', 'name']
-                });
-
-                pickupAutocomplete.addListener('place_changed', () => {
-                    pickupPlace = pickupAutocomplete.getPlace();
-                    calculateDistanceIfReady();
-                });
-
-                dropoffAutocomplete.addListener('place_changed', () => {
-                    dropoffPlace = dropoffAutocomplete.getPlace();
-                    calculateDistanceIfReady();
-                });
-
-                console.log('Google Maps Places Autocomplete loaded successfully.');
-            } catch (e) {
-                console.error("Failed to load Places library:", e);
-                enableManualEntry();
-            }
-        }
-
-        initMap();
-
-        // --- Clear (X) button logic for address fields ---
-        function setupClearButton(inputEl, clearBtnEl, placeKey) {
-            // Show/hide the X button based on whether the input has text
-            inputEl.addEventListener('input', () => {
-                clearBtnEl.classList.toggle('visible', inputEl.value.length > 0);
-            });
-
-            clearBtnEl.addEventListener('click', () => {
-                inputEl.value = '';
-                clearBtnEl.classList.remove('visible');
-                inputEl.focus();
-
-                // Reset the associated place data
-                if (placeKey === 'pickup') {
-                    pickupPlace = null;
-                } else {
-                    dropoffPlace = null;
-                }
-
-                // Reset distance/duration
-                distanceInput.value = '';
-                durationInput.value = '';
-                calculatedDistanceMiles = 0;
-                calculatedDurationMinutes = 0;
-                resultDiv.style.display = 'none';
-            });
-        }
-
-        setupClearButton(
-            document.getElementById('pickup'),
-            document.getElementById('clear-pickup'),
-            'pickup'
+      // Check if API loaded correctly (handles API Key Restrictions / Billing errors)
+      window.gm_authFailure = function () {
+        console.error(
+          "Google Maps API authentication failed. Distance calculation will be manual.",
         );
-        setupClearButton(
-            document.getElementById('dropoff'),
-            document.getElementById('clear-dropoff'),
-            'dropoff'
-        );
+        enableManualEntry();
+      };
 
-        function calculateDistanceIfReady() {
-            if (!mapApiLoaded) return; // Skip auto-calculation if API failed
+      // Initialize the map integration
+      async function initMap() {
+        try {
+          const { Autocomplete } = await google.maps.importLibrary("places");
 
-            if (pickupPlace && pickupPlace.geometry && dropoffPlace && dropoffPlace.geometry) {
-                loadingIndicator.style.display = 'flex';
-                calculateBtn.disabled = true;
-                calculateBtn.innerText = "Calculating Route...";
-                calculateBtn.style.opacity = '0.5';
-                
-                try {
-                    const distanceMatrixService = new google.maps.DistanceMatrixService();
-                    
-                    distanceMatrixService.getDistanceMatrix(
-                        {
-                            origins: [pickupPlace.geometry.location],
-                            destinations: [dropoffPlace.geometry.location],
-                            travelMode: google.maps.TravelMode.DRIVING,
-                            unitSystem: google.maps.UnitSystem.IMPERIAL, // Miles
-                        },
-                        (response, status) => {
-                            loadingIndicator.style.display = 'none';
-                            calculateBtn.disabled = false;
-                            calculateBtn.innerText = "Calculate Estimate";
-                            calculateBtn.style.opacity = '1';
-                            
-                            if (status === google.maps.DistanceMatrixStatus.OK) {
-                                const result = response.rows[0].elements[0];
-                                if (result.status === "OK") {
-                                    // Extract numeric miles from string e.g. "15.4 mi" -> 15.4
-                                    const distanceText = result.distance.text; 
-                                    calculatedDistanceMiles = parseFloat(distanceText.replace(/[^0-9.]/g, ''));
-                                    
-                                    // Extract duration in minutes from duration value (seconds)
-                                    calculatedDurationMinutes = Math.round(result.duration.value / 60);
+          const pickupAutocomplete = new Autocomplete(pickupInput, {
+            types: ["geocode", "establishment"],
+            componentRestrictions: { country: "us" },
+            fields: ["geometry", "formatted_address", "name"],
+          });
+          const dropoffAutocomplete = new Autocomplete(dropoffInput, {
+            types: ["geocode", "establishment"],
+            componentRestrictions: { country: "us" },
+            fields: ["geometry", "formatted_address", "name"],
+          });
 
-                                    distanceInput.value = calculatedDistanceMiles;
-                                    durationInput.value = calculatedDurationMinutes;
-                                    
-                                    // Reset result display if places change
-                                    resultDiv.style.display = 'none';
-                                } else {
-                                    alert("Could not calculate a route between these addresses. Please check them.");
-                                    distanceInput.value = '';
-                                    durationInput.value = '';
-                                    calculatedDistanceMiles = 0;
-                                    calculatedDurationMinutes = 0;
-                                }
-                            } else {
-                                alert("Error calculating distance. Please try again.");
-                            }
-                        }
+          pickupAutocomplete.addListener("place_changed", () => {
+            pickupPlace = pickupAutocomplete.getPlace();
+            calculateDistanceIfReady();
+          });
+
+          dropoffAutocomplete.addListener("place_changed", () => {
+            dropoffPlace = dropoffAutocomplete.getPlace();
+            calculateDistanceIfReady();
+          });
+
+          console.log("Google Maps Places Autocomplete loaded successfully.");
+        } catch (e) {
+          console.error("Failed to load Places library:", e);
+          enableManualEntry();
+        }
+      }
+
+      initMap();
+
+      // --- Clear (X) button logic for address fields ---
+      function setupClearButton(inputEl, clearBtnEl, placeKey) {
+        // Show/hide the X button based on whether the input has text
+        inputEl.addEventListener("input", () => {
+          clearBtnEl.classList.toggle("visible", inputEl.value.length > 0);
+        });
+
+        clearBtnEl.addEventListener("click", () => {
+          inputEl.value = "";
+          clearBtnEl.classList.remove("visible");
+          inputEl.focus();
+
+          // Reset the associated place data
+          if (placeKey === "pickup") {
+            pickupPlace = null;
+          } else {
+            dropoffPlace = null;
+          }
+
+          // Reset distance/duration
+          distanceInput.value = "";
+          durationInput.value = "";
+          calculatedDistanceMiles = 0;
+          calculatedDurationMinutes = 0;
+          resultDiv.style.display = "none";
+        });
+      }
+
+      setupClearButton(
+        document.getElementById("pickup"),
+        document.getElementById("clear-pickup"),
+        "pickup",
+      );
+      setupClearButton(
+        document.getElementById("dropoff"),
+        document.getElementById("clear-dropoff"),
+        "dropoff",
+      );
+
+      function calculateDistanceIfReady() {
+        if (!mapApiLoaded) return; // Skip auto-calculation if API failed
+
+        if (
+          pickupPlace &&
+          pickupPlace.geometry &&
+          dropoffPlace &&
+          dropoffPlace.geometry
+        ) {
+          loadingIndicator.style.display = "flex";
+          calculateBtn.disabled = true;
+          calculateBtn.innerText = "Calculating Route...";
+          calculateBtn.style.opacity = "0.5";
+
+          try {
+            const distanceMatrixService =
+              new google.maps.DistanceMatrixService();
+
+            distanceMatrixService.getDistanceMatrix(
+              {
+                origins: [pickupPlace.geometry.location],
+                destinations: [dropoffPlace.geometry.location],
+                travelMode: google.maps.TravelMode.DRIVING,
+                unitSystem: google.maps.UnitSystem.IMPERIAL, // Miles
+              },
+              (response, status) => {
+                loadingIndicator.style.display = "none";
+                calculateBtn.disabled = false;
+                calculateBtn.innerText = "Calculate Estimate";
+                calculateBtn.style.opacity = "1";
+
+                if (status === google.maps.DistanceMatrixStatus.OK) {
+                  const result = response.rows[0].elements[0];
+                  if (result.status === "OK") {
+                    // Extract numeric miles from string e.g. "15.4 mi" -> 15.4
+                    const distanceText = result.distance.text;
+                    calculatedDistanceMiles = parseFloat(
+                      distanceText.replace(/[^0-9.]/g, ""),
                     );
-                } catch(e) {
-                     loadingIndicator.style.display = 'none';
-                     calculateBtn.disabled = false;
-                     calculateBtn.innerText = "Calculate Estimate";
-                     calculateBtn.style.opacity = '1';
-                     console.error("Distance Matrix API Failed", e);
+
+                    // Extract duration in minutes from duration value (seconds)
+                    calculatedDurationMinutes = Math.round(
+                      result.duration.value / 60,
+                    );
+
+                    distanceInput.value = calculatedDistanceMiles;
+                    durationInput.value = calculatedDurationMinutes;
+
+                    // Reset result display if places change
+                    resultDiv.style.display = "none";
+                  } else {
+                    alert(
+                      "Could not calculate a route between these addresses. Please check them.",
+                    );
+                    distanceInput.value = "";
+                    durationInput.value = "";
+                    calculatedDistanceMiles = 0;
+                    calculatedDurationMinutes = 0;
+                  }
+                } else {
+                  alert("Error calculating distance. Please try again.");
                 }
-            } else {
-                distanceInput.value = '';
-                durationInput.value = '';
-                calculatedDistanceMiles = 0;
-                calculatedDurationMinutes = 0;
-            }
+              },
+            );
+          } catch (e) {
+            loadingIndicator.style.display = "none";
+            calculateBtn.disabled = false;
+            calculateBtn.innerText = "Calculate Estimate";
+            calculateBtn.style.opacity = "1";
+            console.error("Distance Matrix API Failed", e);
+          }
+        } else {
+          distanceInput.value = "";
+          durationInput.value = "";
+          calculatedDistanceMiles = 0;
+          calculatedDurationMinutes = 0;
         }
+      }
 
-        // Pricing Calculator Logic
-        document.getElementById('pricing-calculator').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            let distance = 0;
-            let duration = 0;
+      // Pricing Calculator Logic
+      document
+        .getElementById("pricing-calculator")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
 
-            if (mapApiLoaded && calculatedDistanceMiles > 0) {
-                distance = calculatedDistanceMiles;
-                duration = calculatedDurationMinutes;
+          let distance = 0;
+          let duration = 0;
+
+          if (mapApiLoaded && calculatedDistanceMiles > 0) {
+            distance = calculatedDistanceMiles;
+            duration = calculatedDurationMinutes;
+          } else {
+            // Fallback to manual entry
+            distance = parseFloat(distanceInput.value) || 0;
+            duration = parseInt(durationInput.value) || 0;
+          }
+
+          if (distance <= 0) {
+            if (mapApiLoaded) {
+              alert(
+                "Please select valid Pickup and Dropoff addresses from the dropdown list to calculate distance.",
+              );
             } else {
-                 // Fallback to manual entry
-                 distance = parseFloat(distanceInput.value) || 0;
-                 duration = parseInt(durationInput.value) || 0;
+              alert("Please enter a valid driving distance in miles.");
             }
+            return;
+          }
 
-            if (distance <= 0) {
-                 if(mapApiLoaded) {
-                     alert("Please select valid Pickup and Dropoff addresses from the dropdown list to calculate distance.");
-                 } else {
-                     alert("Please enter a valid driving distance in miles.");
-                 }
-                return;
-            }
-            
-            // Pricing Engine Constants (from Admin Backend)
-            const baseFare = 65.20;
-            const baseDistance = 4;
-            const pricePerMile = 3.31;
-            const tripDurationRate = 0.25;
-            const weightThreshold = 1;
-            const pricePerPoundOver = 0.20;
-            const qtyThreshold = 1;
-            const pricePerExtraItem = 0.20;
+          // Pricing Engine Constants (from Admin Backend)
+          const baseFare = 65.2;
+          const baseDistance = 4;
+          const pricePerMile = 3.31;
+          const tripDurationRate = 0.25;
+          const weightThreshold = 1;
+          const pricePerPoundOver = 0.2;
+          const qtyThreshold = 1;
+          const pricePerExtraItem = 0.2;
 
-            // Get Input Values
-            const weight = parseFloat(document.getElementById('weight').value) || 0;
-            const qty = parseInt(document.getElementById('qty').value) || 0;
+          // Get Input Values
+          const weight =
+            parseFloat(document.getElementById("weight").value) || 0;
+          const qty = parseInt(document.getElementById("qty").value) || 0;
 
-            // Calculate Total
-            let total = baseFare;
+          // Calculate Total
+          let total = baseFare;
 
-            // Distance addition
-            if (distance > baseDistance) {
-                total += (distance - baseDistance) * pricePerMile;
-            }
+          // Distance addition
+          if (distance > baseDistance) {
+            total += (distance - baseDistance) * pricePerMile;
+          }
 
-            // Duration addition
-            if (duration > 0) {
-                total += duration * tripDurationRate;
-            }
+          // Duration addition
+          if (duration > 0) {
+            total += duration * tripDurationRate;
+          }
 
-            // Weight addition
-            if (weight > weightThreshold) {
-                total += (weight - weightThreshold) * pricePerPoundOver;
-            }
+          // Weight addition
+          if (weight > weightThreshold) {
+            total += (weight - weightThreshold) * pricePerPoundOver;
+          }
 
-            // Quantity addition
-            if (qty > qtyThreshold) {
-                total += (qty - qtyThreshold) * pricePerExtraItem;
-            }
+          // Quantity addition
+          if (qty > qtyThreshold) {
+            total += (qty - qtyThreshold) * pricePerExtraItem;
+          }
 
-            // Display Result
-            priceDiv.textContent = '$' + total.toFixed(2);
-            
-            // Update explanation text
-            routeText.innerHTML = `Estimated Total for <strong>${distance} Miles (${duration} mins)</strong>`;
-            
-            resultDiv.style.display = 'block';
-            
-            // Fade In Animation
-            resultDiv.style.opacity = '0';
-            resultDiv.style.transform = 'translateY(15px)';
-            resultDiv.style.transition = 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)';
-            void resultDiv.offsetWidth; // Trigger reflow
-            resultDiv.style.opacity = '1';
-            resultDiv.style.transform = 'translateY(0)';
+          // Display Result
+          priceDiv.textContent = "$" + total.toFixed(2);
+
+          // Update explanation text
+          routeText.innerHTML = `Estimated Total for <strong>${distance} Miles (${duration} mins)</strong>`;
+
+          resultDiv.style.display = "block";
+
+          // Fade In Animation
+          resultDiv.style.opacity = "0";
+          resultDiv.style.transform = "translateY(15px)";
+          resultDiv.style.transition = "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)";
+          void resultDiv.offsetWidth; // Trigger reflow
+          resultDiv.style.opacity = "1";
+          resultDiv.style.transform = "translateY(0)";
         });
     </script>
-
-</body>
+  </body>
 </html>
-
-
-
