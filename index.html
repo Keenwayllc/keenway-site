@@ -167,6 +167,30 @@
         transform: translateY(-2px);
       }
 
+      .google-play-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .app-label {
+        font-size: 0.6rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      .customer-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 0.75rem;
+      }
+
       .container {
         flex: 1;
         display: flex;
@@ -750,18 +774,21 @@
       <a href="#" class="logo-link">
         <img src="keenway-logo-white.png" alt="Keenway" class="logo-img" />
       </a>
-      <a
-        href="https://play.google.com/store/apps/details?id=com.gokeenway.driver"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="google-play-link"
-      >
-        <img
-          src="google-play-badge.png"
-          alt="Get it on Google Play"
-          class="google-play-badge"
-        />
-      </a>
+      <div class="google-play-wrapper">
+        <span class="app-label">For Drivers App</span>
+        <a
+          href="https://play.google.com/store/apps/details?id=com.gokeenway.driver"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="google-play-link"
+        >
+          <img
+            src="google-play-badge.png"
+            alt="Get it on Google Play"
+            class="google-play-badge"
+          />
+        </a>
+      </div>
     </header>
 
     <div class="container">
@@ -781,6 +808,7 @@
               >Login</a
             >
           </div>
+          <p class="customer-label">For Individual and Business Customers</p>
         </div>
 
         <div class="quote-form-container">
