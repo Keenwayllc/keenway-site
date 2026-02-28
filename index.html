@@ -753,6 +753,144 @@
         -ms-text-size-adjust: 100%;
         text-size-adjust: 100%;
       }
+
+      /* Scroll Hint */
+      .scroll-hint {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2rem;
+        margin-top: 1.75rem;
+        opacity: 0;
+        animation: fadeInScroll 1s ease-out 2s forwards;
+      }
+
+      @keyframes fadeInScroll {
+        to { opacity: 1; }
+      }
+
+      .scroll-hint-label {
+        font-size: 0.58rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: rgba(255, 255, 255, 0.3);
+      }
+
+      .scroll-chevron {
+        color: rgba(255, 255, 255, 0.3);
+        animation: bounceChevron 1.8s ease-in-out infinite;
+      }
+
+      @keyframes bounceChevron {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(5px); }
+      }
+
+      /* Features Section */
+      .features-section {
+        position: relative;
+        z-index: 10;
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 3rem 2rem 2rem;
+      }
+
+      .features-eyebrow {
+        text-align: center;
+        font-size: 0.62rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: rgba(255, 255, 255, 0.35);
+        margin-bottom: 1.75rem;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+      }
+
+      .feature-card {
+        background: rgba(255, 255, 255, 0.07);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 12px;
+        padding: 2rem 1.75rem;
+        transition: var(--transition);
+      }
+
+      .feature-card:hover {
+        background: rgba(255, 255, 255, 0.11);
+        border-color: rgba(227, 82, 5, 0.35);
+        transform: translateY(-3px);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+      }
+
+      .feature-icon {
+        width: 36px;
+        height: 36px;
+        margin-bottom: 1.1rem;
+        color: var(--brand-orange);
+      }
+
+      .feature-title {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 0.55rem;
+        letter-spacing: -0.01em;
+      }
+
+      .feature-desc {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.5);
+        line-height: 1.65;
+        font-weight: 400;
+      }
+
+      @media (max-width: 1024px) {
+        .scroll-hint {
+          align-items: center;
+        }
+        .features-section {
+          max-width: 90%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .features-section {
+          padding: 2rem 1.5rem 1rem;
+        }
+        .features-grid {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+        }
+        .feature-card {
+          padding: 1.5rem;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .scroll-hint {
+          display: none;
+        }
+        .features-section {
+          padding: 1.5rem 1rem 0.5rem;
+        }
+        .feature-card {
+          padding: 1.25rem;
+        }
+        .feature-title {
+          font-size: 0.95rem;
+        }
+        .feature-desc {
+          font-size: 0.82rem;
+        }
+      }
     </style>
   </head>
   <body>
@@ -809,6 +947,10 @@
             >
           </div>
           <p class="customer-label">For Individual and Business Customers</p>
+          <div class="scroll-hint" aria-hidden="true">
+            <span class="scroll-hint-label">Scroll to explore</span>
+            <svg class="scroll-chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+          </div>
         </div>
 
         <div class="quote-form-container">
@@ -914,6 +1056,38 @@
         </div>
       </main>
     </div>
+
+    <section class="features-section" aria-label="Why Choose Keenway">
+      <p class="features-eyebrow">Why Keenway</p>
+      <div class="features-grid">
+
+        <div class="feature-card">
+          <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+          <h3 class="feature-title">Same-Day Freight</h3>
+          <p class="feature-desc">Real-time tracking from pickup to delivery. We move cargo fast so your business never waits on a load.</p>
+        </div>
+
+        <div class="feature-card">
+          <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+          <h3 class="feature-title">Vetted Drivers</h3>
+          <p class="feature-desc">Every driver is background-checked and licensed. Your freight is always in trusted, professional hands.</p>
+        </div>
+
+        <div class="feature-card">
+          <svg class="feature-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 1.18 2 2 0 014 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
+          </svg>
+          <h3 class="feature-title">24/7 Dispatch</h3>
+          <p class="feature-desc">Round-the-clock support from our operations team. Whether it's 3 pm or 3 am, we've got your load covered.</p>
+        </div>
+
+      </div>
+    </section>
 
     <footer>
       <div class="footer-links">
