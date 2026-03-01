@@ -1,0 +1,606 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <title>How It Works | Keenway</title>
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <style>
+      :root {
+        --brand-orange: #e35205;
+        --brand-orange-hover: #c94804;
+        --brand-black: #000000;
+        --brand-black-hover: #1a1a1a;
+        --white: #ffffff;
+        --slate-100: #f1f5f9;
+        --font-main:
+          -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto,
+          sans-serif;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: var(--font-main);
+      }
+
+      body {
+        position: relative;
+        background-color: var(--brand-black);
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* Video Background */
+      #bg-video {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        opacity: 0.85;
+        filter: contrast(1.1) saturate(1.2) brightness(0.9);
+        animation: cinematicZoom 60s ease-in-out infinite alternate;
+      }
+
+      @keyframes cinematicZoom {
+        from {
+          transform: scale(1);
+        }
+        to {
+          transform: scale(1.1);
+        }
+      }
+
+      /* Secondary video for crossfade */
+      #bg-video-2 {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+        opacity: 0;
+        filter: contrast(1.1) saturate(1.2) brightness(0.9);
+        animation: cinematicZoom 60s ease-in-out infinite alternate;
+        transition: opacity 2s ease-in-out;
+      }
+
+      header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .logo-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+      }
+
+      .logo-img {
+        height: 32px;
+        width: auto;
+      }
+
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.5rem;
+      }
+
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        transition: var(--transition);
+      }
+
+      .nav-links a:hover, .nav-links a.active {
+        color: var(--brand-orange);
+      }
+
+      .google-play-link {
+        display: inline-block;
+        text-decoration: none;
+      }
+
+      .google-play-badge {
+        height: 40px;
+        width: auto;
+        transition: var(--transition);
+      }
+
+      .google-play-link:hover .google-play-badge {
+        transform: translateY(-2px);
+      }
+
+      .container {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+        z-index: 10;
+        padding-top: 120px;
+        padding-bottom: 4rem;
+        width: 100%;
+      }
+
+      /* Page Content Styling */
+      .page-header {
+        text-align: center;
+        margin-bottom: 4rem;
+        max-width: 800px;
+        padding: 0 1.5rem;
+      }
+
+      h1 {
+        font-size: clamp(2.5rem, 6vw, 4rem);
+        font-weight: 900;
+        line-height: 1.1;
+        letter-spacing: -0.04em;
+        margin-bottom: 1.5rem;
+        color: var(--white);
+        text-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
+      }
+
+      .subtext {
+        font-size: clamp(1rem, 1.8vw, 1.25rem);
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.6;
+        font-weight: 400;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+      }
+      
+      .brand-highlight {
+        color: var(--brand-orange);
+      }
+
+      .steps-container {
+        width: 100%;
+        max-width: 1000px;
+        padding: 0 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .step-card {
+        display: flex;
+        background: rgba(255, 255, 255, 0.07);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: var(--transition);
+      }
+
+      .step-card:hover {
+        background: rgba(255, 255, 255, 0.11);
+        border-color: rgba(227, 82, 5, 0.35);
+        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+      }
+
+      .step-number-container {
+        background: rgba(0, 0, 0, 0.4);
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 120px;
+        border-right: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .step-number {
+        font-size: 3.5rem;
+        font-weight: 900;
+        color: var(--brand-orange);
+        line-height: 1;
+        opacity: 0.9;
+      }
+
+      .step-content {
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .step-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--white);
+        margin-bottom: 0.75rem;
+      }
+
+      .step-desc {
+        font-size: 1.05rem;
+        color: rgba(255, 255, 255, 0.65);
+        line-height: 1.6;
+      }
+      
+      .cta-container {
+        margin-top: 4rem;
+        text-align: center;
+      }
+      
+      .btn-main {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        background-color: var(--brand-orange);
+        color: var(--white);
+        padding: 1.1rem 2.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        text-decoration: none;
+        font-size: 1.125rem;
+        transition: var(--transition);
+        box-shadow: 0 10px 25px -5px rgba(227, 82, 5, 0.4);
+      }
+      
+      .btn-main:hover {
+        background-color: var(--brand-orange-hover);
+        transform: scale(1.02);
+        box-shadow: 0 15px 30px -5px rgba(227, 82, 5, 0.5);
+      }
+
+      footer {
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        z-index: 10;
+        position: relative;
+        background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(10px);
+        margin-top: auto;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .footer-links a {
+        color: rgba(255, 255, 255, 0.4);
+        text-decoration: none;
+        font-size: 0.75rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        transition: var(--transition);
+      }
+
+      .footer-links a:hover {
+        color: var(--brand-orange);
+      }
+
+      .copyright {
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        font-weight: 400;
+        text-transform: uppercase;
+      }
+      
+      .video-credits {
+        position: relative;
+        z-index: 50;
+        font-size: 0.6rem;
+        color: rgba(255, 255, 255, 0.3);
+        text-align: center;
+        line-height: 1.4;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+      
+      .video-credits a {
+        color: rgba(255, 255, 255, 0.4);
+        text-decoration: underline;
+        transition: var(--transition);
+      }
+      
+      .video-credits a:hover {
+        color: var(--white);
+      }
+
+      /* Responsive Logic */
+      @media (max-width: 768px) {
+        header {
+          padding: 1rem 1.5rem;
+        }
+        
+        .header-right {
+          gap: 1rem;
+        }
+
+        .nav-links {
+          display: none; /* Hide standard nav on very small screens, keep it simple for now */
+        }
+        
+        .container {
+          padding-top: 100px;
+        }
+
+        .step-card {
+          flex-direction: column;
+        }
+
+        .step-number-container {
+          border-right: none;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+          padding: 1.5rem;
+          min-height: auto;
+        }
+
+        .step-content {
+          padding: 1.5rem;
+          text-align: center;
+        }
+        
+        .page-header {
+           margin-bottom: 2.5rem;
+        }
+      }
+      
+      @media (max-width: 480px) {
+        .logo-img { height: 24px; }
+        .google-play-badge { height: 32px; }
+        .step-content { padding: 1.25rem; }
+        .step-title { font-size: 1.25rem; }
+        .step-desc { font-size: 0.95rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <video
+      id="bg-video"
+      autoplay
+      muted
+      playsinline
+      webkit-playsinline
+      preload="auto"
+    >
+      <source src="street.mp4" type="video/mp4" />
+    </video>
+    <video id="bg-video-2" muted playsinline webkit-playsinline preload="auto">
+      <source src="405.mp4" type="video/mp4" />
+    </video>
+
+    <header>
+      <a href="index.html" class="logo-link">
+        <img src="keenway-logo-white.png" alt="Keenway" class="logo-img" />
+      </a>
+      <div class="header-right">
+        <nav class="nav-links">
+          <a href="index.html">Home</a>
+          <a href="how-it-works.html" class="active">How It Works</a>
+        </nav>
+        <a
+          href="https://play.google.com/store/apps/details?id=com.gokeenway.driver"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="google-play-link"
+        >
+          <img
+            src="google-play-badge.png"
+            alt="Get it on Google Play"
+            class="google-play-badge"
+          />
+        </a>
+      </div>
+    </header>
+
+    <div class="container">
+      <div class="page-header">
+        <h1>Logistics, <span class="brand-highlight">Simplified.</span></h1>
+        <p class="subtext">
+          Whether you need a same-day hotshot delivery or scheduled freight routing, our platform connects you seamlessly with the perfect vehicle for the job.
+        </p>
+      </div>
+
+      <div class="steps-container">
+        
+        <div class="step-card">
+          <div class="step-number-container">
+            <span class="step-number">1</span>
+          </div>
+          <div class="step-content">
+            <h3 class="step-title">Get an Instant Quote</h3>
+            <p class="step-desc">
+              Enter your pickup, dropoff, and cargo details into our smart calculator. Our pricing engine instantly analyzes distance and vehicle requirements to give you a transparent, upfront price—no hidden fees, no negotiation needed.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number-container">
+            <span class="step-number">2</span>
+          </div>
+          <div class="step-content">
+            <h3 class="step-title">Connect with a Pro</h3>
+            <p class="step-desc">
+              Once you confirm your order, our matching algorithm dispatches a verified, background-checked driver from our professional network. Ensure your shipment is handled by an expert equipped with the right vehicle for the task.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number-container">
+            <span class="step-number">3</span>
+          </div>
+          <div class="step-content">
+            <h3 class="step-title">Track in Real-Time</h3>
+            <p class="step-desc">
+              Never wonder where your freight is. Access our live GPS tracking map from any device, no app download required. Follow your driver's route minute-by-minute and easily share the tracking link with your team or recipients.
+            </p>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <div class="step-number-container">
+            <span class="step-number">4</span>
+          </div>
+          <div class="step-content">
+            <h3 class="step-title">Secure Delivery</h3>
+            <p class="step-desc">
+              Receive immediate confirmation upon arrival. Our drivers capture digital photo proofs of delivery (POD) at the dropoff point. And if anything comes up, our dedicated dispatch operations team is actively monitoring every load to provide reliable support.
+            </p>
+          </div>
+        </div>
+
+      </div>
+      
+      <div class="cta-container">
+        <a href="https://app.gokeenway.com/register" class="btn-main">Start Shipping Now</a>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="https://app.gokeenway.com/terms">Terms</a>
+        <a href="https://app.gokeenway.com/privacy">Privacy</a>
+      </div>
+      <div class="copyright" style="white-space: nowrap">
+        © 2026 Keenway<span style="text-transform: none">ˢᵐ</span> | Engineered
+        by Keenway Technologies
+      </div>
+      <div class="video-credits" id="video-credits">
+        VIDEOS BY
+        <a
+          href="https://www.pexels.com/video/nighttime-highway-traffic-timelapse-with-bokeh-effect-35471093/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >LEONARD FERHATI</a
+        >
+        &middot;
+        <a
+          href="https://www.pexels.com/video/city-illuminated-at-night-10681533/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >EGOR AVSYUKOV</a
+        >
+        &middot;
+        <a
+          href="https://www.pexels.com/video/aerial-view-of-traffic-on-city-highway-31455842/"
+          target="_blank"
+          rel="noopener noreferrer"
+          >AHMET ARIKAYA</a
+        >
+      </div>
+    </footer>
+
+    <script>
+      // Background Video Crossfade Logic
+      const videoData = [
+        { src: "street.mp4" },
+        { src: "405.mp4" },
+        { src: "freeway.mp4" }
+      ];
+      let currentIndex = 0;
+      let isUsingVideo1 = true;
+
+      const v1 = document.getElementById("bg-video");
+      const v2 = document.getElementById("bg-video-2");
+
+      function setupCrossfade() {
+        const active = isUsingVideo1 ? v1 : v2;
+        const checkInterval = setInterval(() => {
+          if (active.duration && active.duration - active.currentTime < 2.5) {
+            clearInterval(checkInterval);
+            triggerTransition();
+          }
+        }, 250);
+        active.onended = () => {
+          clearInterval(checkInterval);
+          triggerTransition();
+        };
+      }
+
+      function triggerTransition() {
+        const active = isUsingVideo1 ? v1 : v2;
+        const next = isUsingVideo1 ? v2 : v1;
+
+        currentIndex = (currentIndex + 1) % videoData.length;
+        const current = videoData[currentIndex];
+
+        next.src = current.src;
+        next.load();
+
+        next
+          .play()
+          .then(() => {
+            active.style.opacity = "0";
+            next.style.opacity = "0.85";
+            isUsingVideo1 = !isUsingVideo1;
+            setupCrossfade();
+          })
+          .catch(() => {
+            active.currentTime = 0;
+            active.play();
+            setupCrossfade();
+          });
+      }
+
+      v1.load();
+      v1.play()
+        .then(() => {
+          setupCrossfade();
+        })
+        .catch(() => {
+          document.body.addEventListener(
+            "click",
+            () => {
+              v1.play().then(() => {
+                setupCrossfade();
+              });
+            },
+            { once: true },
+          );
+        });
+    </script>
+  </body>
+</html>
