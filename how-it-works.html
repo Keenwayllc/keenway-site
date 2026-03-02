@@ -800,5 +800,88 @@
         });
       })();
     </script>
+
+    <!-- Scroll to Top Button -->
+    <style>
+      #scroll-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        z-index: 100;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #0f172a;
+        color: #fff;
+        border: 1px solid #334155;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        opacity: 0;
+        transform: translateY(2.5rem);
+        pointer-events: none;
+        transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        overflow: hidden;
+      }
+      #scroll-to-top.visible {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+      #scroll-to-top:hover {
+        background: #E35205;
+        border-color: #fb923c;
+        box-shadow: 0 10px 30px rgba(227,82,5,0.45);
+        transform: translateY(-3px) scale(1.1);
+      }
+      #scroll-to-top svg {
+        animation: sttPulse 2s ease-in-out infinite;
+      }
+      #scroll-to-top:hover svg {
+        animation: none;
+      }
+      #scroll-to-top .ripple {
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        border: 1px solid rgba(255,255,255,0.2);
+        transform: scale(0);
+        opacity: 0;
+        transition: transform 0.7s ease, opacity 0.7s ease;
+      }
+      #scroll-to-top:hover .ripple {
+        transform: scale(1.6);
+        opacity: 1;
+      }
+      @keyframes sttPulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+      }
+    </style>
+
+    <button id="scroll-to-top" aria-label="Scroll to top">
+      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 15l-6-6-6 6"/>
+      </svg>
+      <span class="ripple"></span>
+    </button>
+
+    <script>
+      (function () {
+        var btn = document.getElementById("scroll-to-top");
+        window.addEventListener("scroll", function () {
+          if (window.scrollY > 300) {
+            btn.classList.add("visible");
+          } else {
+            btn.classList.remove("visible");
+          }
+        });
+        btn.addEventListener("click", function () {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      })();
+    </script>
   </body>
 </html>
