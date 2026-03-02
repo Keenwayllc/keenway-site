@@ -896,6 +896,166 @@
           font-size: 0.82rem;
         }
       }
+
+      /* ===== Nav Links (desktop) ===== */
+      .header-right {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+      }
+
+      .nav-link {
+        color: rgba(255, 255, 255, 0.72);
+        text-decoration: none;
+        font-size: 0.82rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        transition: var(--transition);
+        position: relative;
+        padding-bottom: 3px;
+      }
+
+      .nav-link::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--brand-orange);
+        border-radius: 1px;
+        transition: width 0.25s ease;
+      }
+
+      .nav-link:hover { color: var(--white); }
+      .nav-link:hover::after,
+      .nav-link--active::after { width: 100%; }
+      .nav-link--active { color: var(--brand-orange); }
+
+      /* ===== Hamburger Button ===== */
+      .hamburger-btn {
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 5px;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.07);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        cursor: pointer;
+        transition: var(--transition);
+        padding: 0;
+        flex-shrink: 0;
+      }
+
+      .hamburger-btn:hover {
+        background: rgba(255, 255, 255, 0.14);
+        border-color: rgba(255, 255, 255, 0.25);
+      }
+
+      .hamburger-line {
+        display: block;
+        width: 18px;
+        height: 2px;
+        background: var(--white);
+        border-radius: 2px;
+        transition: var(--transition);
+        transform-origin: center;
+      }
+
+      .hamburger-btn.is-open .hamburger-line:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .hamburger-btn.is-open .hamburger-line:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      .hamburger-btn.is-open .hamburger-line:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      /* ===== Mobile Menu ===== */
+      .mobile-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(5, 5, 5, 0.96);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        padding: 0 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(-6px);
+        transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.25s ease, padding 0.35s ease;
+        pointer-events: none;
+      }
+
+      .mobile-menu.is-open {
+        max-height: 400px;
+        opacity: 1;
+        transform: translateY(0);
+        padding: 1.5rem 1.5rem 2rem;
+        pointer-events: auto;
+      }
+
+      .mobile-nav {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .mobile-nav-link {
+        display: block;
+        color: rgba(255, 255, 255, 0.68);
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        transition: color 0.2s ease, padding-left 0.2s ease;
+      }
+
+      .mobile-nav-link:last-child { border-bottom: none; }
+
+      .mobile-nav-link:hover,
+      .mobile-nav-link--active {
+        color: var(--brand-orange);
+        padding-left: 4px;
+      }
+
+      .mobile-play-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding-top: 0.25rem;
+      }
+
+      .mobile-play-badge { height: 44px !important; }
+
+      /* Hide desktop nav on mobile, show hamburger */
+      @media (max-width: 768px) {
+        .header-right { gap: 0.75rem; }
+        .nav-links,
+        .google-play-wrapper { display: none; }
+        .hamburger-btn { display: flex; }
+      }
     </style>
   </head>
   <body>
@@ -913,16 +1073,16 @@
       <source src="405.mp4" type="video/mp4" />
     </video>
 
-    <header>
+    <header id="site-header">
       <a href="index.html" class="logo-link">
         <img src="ow-logo-no-sm.svg" alt="Keenway" class="logo-img" />
       </a>
-      <div class="header-right" style="display: flex; align-items: center; gap: 2rem;">
-        <nav class="nav-links" style="display: flex; gap: 1.5rem;">
-          <a href="index.html" style="color: var(--brand-orange); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; transition: var(--transition);">Home</a>
-          <a href="how-it-works.html" style="color: rgba(255, 255, 255, 0.8); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; transition: var(--transition);" onmouseover="this.style.color='var(--brand-orange)'" onmouseout="this.style.color='rgba(255, 255, 255, 0.8)'">How It Works</a>
+      <div class="header-right">
+        <nav class="nav-links">
+          <a href="index.html" class="nav-link nav-link--active">Home</a>
+          <a href="how-it-works.html" class="nav-link">How It Works</a>
         </nav>
-        <div class="google-play-wrapper" style="display: flex; flex-direction: column; align-items: center; gap: 4px;">
+        <div class="google-play-wrapper">
           <span class="app-label">For Drivers App</span>
           <a
             href="https://play.google.com/store/apps/details?id=com.gokeenway.driver"
@@ -934,6 +1094,32 @@
               src="google-play-badge.png"
               alt="Get it on Google Play"
               class="google-play-badge"
+            />
+          </a>
+        </div>
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+      <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+        <nav class="mobile-nav">
+          <a href="index.html" class="mobile-nav-link mobile-nav-link--active">Home</a>
+          <a href="how-it-works.html" class="mobile-nav-link">How It Works</a>
+        </nav>
+        <div class="mobile-play-wrapper">
+          <span class="app-label">For Drivers App</span>
+          <a
+            href="https://play.google.com/store/apps/details?id=com.gokeenway.driver"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="google-play-link"
+          >
+            <img
+              src="google-play-badge.png"
+              alt="Get it on Google Play"
+              class="google-play-badge mobile-play-badge"
             />
           </a>
         </div>
@@ -1654,6 +1840,39 @@
           resultDiv.style.opacity = "1";
           resultDiv.style.transform = "translateY(0)";
         });
+
+      // ===== Mobile Menu Toggle =====
+      (function () {
+        const btn = document.getElementById("hamburger-btn");
+        const menu = document.getElementById("mobile-menu");
+
+        btn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          const open = menu.classList.contains("is-open");
+          menu.classList.toggle("is-open", !open);
+          btn.classList.toggle("is-open", !open);
+          btn.setAttribute("aria-expanded", String(!open));
+          menu.setAttribute("aria-hidden", String(open));
+        });
+
+        document.addEventListener("click", function (e) {
+          if (!document.getElementById("site-header").contains(e.target)) {
+            menu.classList.remove("is-open");
+            btn.classList.remove("is-open");
+            btn.setAttribute("aria-expanded", "false");
+            menu.setAttribute("aria-hidden", "true");
+          }
+        });
+
+        menu.querySelectorAll(".mobile-nav-link").forEach(function (link) {
+          link.addEventListener("click", function () {
+            menu.classList.remove("is-open");
+            btn.classList.remove("is-open");
+            btn.setAttribute("aria-expanded", "false");
+            menu.setAttribute("aria-hidden", "true");
+          });
+        });
+      })();
     </script>
   </body>
 </html>
