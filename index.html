@@ -1895,7 +1895,7 @@
         transform: translateY(2.5rem);
         pointer-events: none;
         transition: opacity 0.4s ease, transform 0.4s ease, background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-        overflow: hidden;
+        /* no overflow:hidden — ripple must expand outside the circle */
       }
       #scroll-to-top.visible {
         opacity: 1;
@@ -1909,27 +1909,32 @@
         transform: translateY(-3px) scale(1.1);
       }
       #scroll-to-top svg {
+        position: relative;
+        z-index: 1;
         animation: sttPulse 2s ease-in-out infinite;
       }
       #scroll-to-top:hover svg {
         animation: none;
       }
+      /* Ripple ring — sits behind the icon, expands outward on hover */
       #scroll-to-top .ripple {
         position: absolute;
         inset: 0;
         border-radius: 50%;
-        border: 1px solid rgba(255,255,255,0.2);
-        transform: scale(0);
+        border: 1px solid rgba(255,255,255,0.25);
         opacity: 0;
-        transition: transform 0.7s ease, opacity 0.7s ease;
+        pointer-events: none;
       }
-      #scroll-to-top:hover .ripple {
-        transform: scale(1.6);
-        opacity: 1;
+      #scroll-to-top .ripple.go {
+        animation: sttRipple 0.7s ease-out forwards;
+      }
+      @keyframes sttRipple {
+        0%   { transform: scale(0.9); opacity: 0.6; }
+        100% { transform: scale(1.8); opacity: 0; }
       }
       @keyframes sttPulse {
         0%, 100% { opacity: 1; }
-        50% { opacity: 0.5; }
+        50%       { opacity: 0.45; }
       }
     </style>
 
@@ -1943,15 +1948,24 @@
     <script>
       (function () {
         var btn = document.getElementById("scroll-to-top");
+        var ripple = btn.querySelector(".ripple");
+
         window.addEventListener("scroll", function () {
-          if (window.scrollY > 300) {
-            btn.classList.add("visible");
-          } else {
-            btn.classList.remove("visible");
-          }
+          btn.classList.toggle("visible", window.scrollY > 300);
         });
+
         btn.addEventListener("click", function () {
           window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+
+        /* Restart ripple animation on every hover */
+        btn.addEventListener("mouseenter", function () {
+          ripple.classList.remove("go");
+          void ripple.offsetWidth; /* force reflow to restart */
+          ripple.classList.add("go");
+        });
+        btn.addEventListener("mouseleave", function () {
+          ripple.classList.remove("go");
         });
       })();
     </script>
