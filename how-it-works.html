@@ -930,8 +930,7 @@
         var header = document.getElementById("site-header");
         window.addEventListener("scroll", function () {
           var alpha = Math.min(window.scrollY / 120, 1);
-          var base = Math.round(alpha * 0.55 * 255);
-          header.style.background = "rgba(" + base + "," + base + "," + base + "," + (0.4 + alpha * 0.55) + ")";
+          header.style.background = "rgba(0,0,0," + (0.4 + alpha * 0.55) + ")";
         }, { passive: true });
       })();
 
@@ -969,16 +968,6 @@
         });
       })();
 
-      // ===== Hero background parallax =====
-      (function () {
-        var v1 = document.getElementById("bg-video");
-        var v2 = document.getElementById("bg-video-2");
-        window.addEventListener("scroll", function () {
-          var y = window.scrollY * 0.16;
-          v1.style.transform = "scale(1) translateY(" + y + "px)";
-          v2.style.transform = "scale(1) translateY(" + y + "px)";
-        }, { passive: true });
-      })();
     </script>
   </body>
 </html>
