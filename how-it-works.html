@@ -486,6 +486,35 @@
         color: var(--white);
       }
 
+      /* ===== Scroll-triggered Animations ===== */
+
+      .hero-animate {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      .hero-animate.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .scroll-animate {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: opacity 0.6s ease, transform 0.6s ease;
+      }
+
+      .scroll-animate.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Button press feedback */
+      .btn-main:active {
+        transform: scale(0.95) !important;
+      }
+
       /* Responsive Logic */
       @media (max-width: 768px) {
         header {
@@ -601,15 +630,15 @@
 
     <div class="container">
       <div class="page-header">
-        <h1>Logistics, <span class="brand-highlight">Simplified.</span></h1>
-        <p class="subtext">
+        <h1 class="hero-animate">Logistics, <span class="brand-highlight">Simplified.</span></h1>
+        <p class="subtext hero-animate">
           Whether you need a same-day hotshot delivery or scheduled freight routing, our platform connects you seamlessly with the perfect vehicle for the job.
         </p>
       </div>
 
       <div class="steps-container">
         
-        <div class="step-card">
+        <div class="step-card scroll-animate">
           <div class="step-number-container">
             <span class="step-number">1</span>
           </div>
@@ -621,7 +650,7 @@
           </div>
         </div>
 
-        <div class="step-card">
+        <div class="step-card scroll-animate">
           <div class="step-number-container">
             <span class="step-number">2</span>
           </div>
@@ -633,7 +662,7 @@
           </div>
         </div>
 
-        <div class="step-card">
+        <div class="step-card scroll-animate">
           <div class="step-number-container">
             <span class="step-number">3</span>
           </div>
@@ -645,7 +674,7 @@
           </div>
         </div>
 
-        <div class="step-card">
+        <div class="step-card scroll-animate">
           <div class="step-number-container">
             <span class="step-number">4</span>
           </div>
@@ -659,7 +688,7 @@
 
       </div>
       
-      <div class="cta-container">
+      <div class="cta-container scroll-animate">
         <a href="https://app.gokeenway.com/register" class="btn-main">Start Shipping Now</a>
       </div>
     </div>
@@ -892,6 +921,63 @@
         btn.addEventListener("mouseleave", function () {
           ripple.classList.remove("go");
         });
+      })();
+    </script>
+
+    <script>
+      // ===== Navbar scroll transition =====
+      (function () {
+        var header = document.getElementById("site-header");
+        window.addEventListener("scroll", function () {
+          var alpha = Math.min(window.scrollY / 120, 1);
+          var base = Math.round(alpha * 0.55 * 255);
+          header.style.background = "rgba(" + base + "," + base + "," + base + "," + (0.4 + alpha * 0.55) + ")";
+        }, { passive: true });
+      })();
+
+      // ===== Hero stagger-in on load =====
+      (function () {
+        var items = document.querySelectorAll(".hero-animate");
+        items.forEach(function (el, i) {
+          setTimeout(function () {
+            el.classList.add("is-visible");
+          }, 80 + i * 120);
+        });
+      })();
+
+      // ===== Scroll-triggered fade-up for step cards and CTA =====
+      (function () {
+        var elements = document.querySelectorAll(".scroll-animate");
+        if (!elements.length) return;
+
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var el = entry.target;
+              var delay = parseInt(el.dataset.delay || "0", 10);
+              setTimeout(function () {
+                el.classList.add("is-visible");
+              }, delay);
+              observer.unobserve(el);
+            }
+          });
+        }, { rootMargin: "-80px" });
+
+        elements.forEach(function (el, i) {
+          el.dataset.delay = String(i * 100);
+          observer.observe(el);
+        });
+      })();
+
+      // ===== Hero background parallax =====
+      (function () {
+        var v1 = document.getElementById("bg-video");
+        var v2 = document.getElementById("bg-video-2");
+        window.addEventListener("scroll", function () {
+          var y = window.scrollY * 0.16;
+          v1.style.transform = "scale(1) translateY(" + y + "px)";
+          v2.style.transform = "scale(1) translateY(" + y + "px)";
+        }, { passive: true });
       })();
     </script>
   </body>
