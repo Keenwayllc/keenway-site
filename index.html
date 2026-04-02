@@ -1056,6 +1056,44 @@
         .google-play-wrapper { display: none; }
         .hamburger-btn { display: flex; }
       }
+
+      /* ===== Scroll-triggered Animations ===== */
+
+      /* Hero stagger — starts invisible, JS will animate in */
+      .hero-animate {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      /* Feature cards and eyebrow — starts invisible */
+      .scroll-animate {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      /* Button interactions */
+      .btn-main:active,
+      .btn-outline:active {
+        transform: scale(0.95) !important;
+      }
+
+      .btn-main:hover {
+        transform: scale(1.02);
+      }
+
+      /* Feature icon scale on card hover */
+      .feature-card .feature-icon {
+        transition: transform 0.3s ease;
+      }
+
+      .feature-card:hover .feature-icon {
+        transform: scale(1.1);
+      }
+
+      /* Quote form animate in */
+      .quote-form-container {
+        animation: none; /* override old fadeIn — JS handles it */
+      }
     </style>
   </head>
   <body>
@@ -1129,15 +1167,15 @@
     <div class="container">
       <main style="padding-bottom: 5vh">
         <div class="hero-content">
-          <h1>Experience better logistics with our next-generation platform</h1>
-          <p class="subtext">
+          <h1 class="hero-animate">Experience better logistics with our next-generation platform</h1>
+          <p class="subtext hero-animate">
             Freight that moves as fast as you do. Real-time GPS tracking,
             instant price estimates, and background-checked drivers — on demand,
             every time.
           </p>
 
 
-          <div class="cta-group">
+          <div class="cta-group hero-animate">
             <a href="https://app.gokeenway.com/register" class="btn-main"
               >Register</a
             >
@@ -1165,7 +1203,7 @@
           </div>
         </div>
 
-        <div class="quote-form-container">
+        <div class="quote-form-container hero-animate">
           <h3 class="quote-heading">Estimate Your Freight Cost</h3>
           <form class="quote-form" id="pricing-calculator">
             <div class="input-wrapper">
@@ -1270,9 +1308,9 @@
     </div>
 
     <section class="features-section" aria-label="Why Choose Keenway">
-      <p class="features-eyebrow">Why Keenway</p>
+      <p class="features-eyebrow scroll-animate">Why Keenway</p>
       <div class="features-grid">
-        <div class="feature-card">
+        <div class="feature-card scroll-animate">
           <svg
             class="feature-icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -1293,7 +1331,7 @@
           </p>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card scroll-animate">
           <svg
             class="feature-icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -1316,7 +1354,7 @@
           </p>
         </div>
 
-        <div class="feature-card">
+        <div class="feature-card scroll-animate">
           <svg
             class="feature-icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -1967,6 +2005,80 @@
         btn.addEventListener("mouseleave", function () {
           ripple.classList.remove("go");
         });
+      })();
+    </script>
+
+    <!-- ===== Scroll Animations ===== -->
+    <script>
+      (function () {
+        // ── 1. Hero stagger-in on page load ──────────────────────────────
+        var heroEls = document.querySelectorAll(".hero-animate");
+        heroEls.forEach(function (el, i) {
+          var delay = 80 + i * 110; // stagger ~110 ms apart, start after 80 ms
+          setTimeout(function () {
+            el.style.transition =
+              "opacity 0.65s ease, transform 0.65s ease";
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+          }, delay);
+        });
+
+        // ── 2. Navbar scroll background transition ────────────────────────
+        var header = document.getElementById("site-header");
+        function onHeaderScroll() {
+          var progress = Math.min(window.scrollY / 120, 1); // 0→1 over first 120 px
+          var alpha = 0.4 + progress * 0.55; // 0.4 → 0.95
+          header.style.background =
+            "rgba(0, 0, 0, " + alpha + ")";
+        }
+        window.addEventListener("scroll", onHeaderScroll, { passive: true });
+        onHeaderScroll(); // initial state
+
+        // ── 3. Scroll-triggered fade-up for features section ─────────────
+        var scrollEls = document.querySelectorAll(".scroll-animate");
+        if ("IntersectionObserver" in window) {
+          var observer = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  var el = entry.target;
+                  var idx = parseInt(el.getAttribute("data-anim-index") || "0", 10);
+                  var delay = idx * 80; // stagger by 80 ms per card
+                  setTimeout(function () {
+                    el.style.transition =
+                      "opacity 0.6s ease, transform 0.6s ease";
+                    el.style.opacity = "1";
+                    el.style.transform = "translateY(0)";
+                  }, delay);
+                  observer.unobserve(el);
+                }
+              });
+            },
+            { rootMargin: "-80px 0px 0px 0px", threshold: 0 }
+          );
+          scrollEls.forEach(function (el, i) {
+            el.setAttribute("data-anim-index", String(i));
+            observer.observe(el);
+          });
+        } else {
+          // Fallback for browsers without IntersectionObserver
+          scrollEls.forEach(function (el) {
+            el.style.opacity = "1";
+            el.style.transform = "translateY(0)";
+          });
+        }
+
+        // ── 4. Hero background parallax on scroll ─────────────────────────
+        var bgVideo1 = document.getElementById("bg-video");
+        var bgVideo2 = document.getElementById("bg-video-2");
+        function onParallaxScroll() {
+          // Move bg videos upward at ~16% of scroll distance for subtle parallax
+          var y = window.scrollY * 0.16;
+          // Preserve the existing cinematic zoom animation by layering translateY
+          bgVideo1.style.transform = "translateY(" + y + "px) scale(1)";
+          bgVideo2.style.transform = "translateY(" + y + "px) scale(1)";
+        }
+        window.addEventListener("scroll", onParallaxScroll, { passive: true });
       })();
     </script>
   </body>
