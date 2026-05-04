@@ -1,6 +1,8 @@
 {
   "rewrites": [
     { "source": "/sms-consent", "destination": "/sms-consent.html" },
-    { "source": "/schedule-a-delivery", "destination": "/schedule-a-delivery.html" }
+    { "source": "/schedule-a-delivery", "destination": "/schedule-a-delivery.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/terms", "destination": "/terms.html" }
   ]
 }

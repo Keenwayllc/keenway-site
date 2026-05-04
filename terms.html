@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Terms of Service | Keenway</title>
+    <meta name="description" content="Keenway's Terms of Service — the rules and conditions governing use of our platform and delivery services." />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <style>
+      :root {
+        --brand-orange: #e35205;
+        --brand-orange-hover: #c94804;
+        --brand-black: #000000;
+        --white: #ffffff;
+        --font-main: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
+      body {
+        position: relative;
+        background-color: var(--brand-black);
+        min-height: 100vh; min-height: 100dvh;
+        display: flex; flex-direction: column;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+      }
+      #bg-video {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        object-fit: cover; z-index: 0; opacity: 0.85;
+        filter: contrast(1.1) saturate(1.2) brightness(0.9);
+        animation: cinematicZoom 60s ease-in-out infinite alternate;
+      }
+      @keyframes cinematicZoom { from { transform: scale(1); } to { transform: scale(1.1); } }
+      #bg-video-2 {
+        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+        object-fit: cover; z-index: 0; opacity: 0;
+        filter: contrast(1.1) saturate(1.2) brightness(0.9);
+        animation: cinematicZoom 60s ease-in-out infinite alternate;
+        transition: opacity 2s ease-in-out;
+      }
+      header {
+        position: fixed; top: 0; left: 0; width: 100%;
+        padding: 1rem 2rem;
+        display: flex; justify-content: space-between; align-items: center;
+        z-index: 100;
+        background: rgba(0,0,0,0.4);
+        backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+      .logo-link { display: flex; align-items: center; text-decoration: none; }
+      .logo-img { height: 48px; width: auto; }
+      .header-right { display: flex; align-items: center; gap: 2rem; }
+      .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+      .nav-link {
+        color: rgba(255,255,255,0.72); text-decoration: none;
+        font-size: 0.82rem; font-weight: 600; text-transform: uppercase;
+        letter-spacing: 0.08em; transition: var(--transition);
+        position: relative; padding-bottom: 3px;
+      }
+      .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--brand-orange); border-radius: 1px; transition: width 0.25s ease; }
+      .nav-link:hover { color: var(--white); }
+      .nav-link:hover::after { width: 100%; }
+      .google-play-wrapper { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+      .app-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.55); }
+      .google-play-badge { height: 40px; width: auto; transition: var(--transition); }
+      .google-play-link:hover .google-play-badge { transform: translateY(-2px); }
+      .hamburger-btn {
+        display: none; flex-direction: column; justify-content: center;
+        align-items: center; gap: 5px; width: 40px; height: 40px;
+        background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 8px; cursor: pointer; transition: var(--transition); padding: 0; flex-shrink: 0;
+      }
+      .hamburger-btn:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.25); }
+      .hamburger-line { display: block; width: 18px; height: 2px; background: var(--white); border-radius: 2px; transition: var(--transition); transform-origin: center; }
+      .hamburger-btn.is-open .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .hamburger-btn.is-open .hamburger-line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+      .hamburger-btn.is-open .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+      .mobile-menu {
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(5,5,5,0.96); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        padding: 0 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;
+        max-height: 0; overflow: hidden; opacity: 0; transform: translateY(-6px);
+        transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.25s ease, padding 0.35s ease;
+        pointer-events: none;
+      }
+      .mobile-menu.is-open { max-height: 400px; opacity: 1; transform: translateY(0); padding: 1.5rem 1.5rem 2rem; pointer-events: auto; }
+      .mobile-nav { display: flex; flex-direction: column; }
+      .mobile-nav-link {
+        display: block; color: rgba(255,255,255,0.68); text-decoration: none;
+        font-size: 0.95rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em;
+        padding: 1rem 0; border-bottom: 1px solid rgba(255,255,255,0.07);
+        transition: color 0.2s ease, padding-left 0.2s ease;
+      }
+      .mobile-nav-link:last-child { border-bottom: none; }
+      .mobile-nav-link:hover { color: var(--brand-orange); padding-left: 4px; }
+      .mobile-play-wrapper { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding-top: 0.25rem; }
+      .mobile-play-badge { height: 44px !important; }
+
+      .container {
+        flex: 1; display: flex; flex-direction: column; align-items: center;
+        position: relative; z-index: 10;
+        padding-top: 120px; padding-bottom: 4rem; width: 100%;
+      }
+      .page-header { text-align: center; margin-bottom: 3rem; max-width: 700px; padding: 0 1.5rem; }
+      h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900; line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 1rem; color: var(--white); text-shadow: 0 4px 12px rgba(0,0,0,0.8); }
+      .subtext { font-size: clamp(0.95rem, 1.6vw, 1.1rem); color: rgba(255,255,255,0.75); line-height: 1.65; font-weight: 400; text-shadow: 0 2px 8px rgba(0,0,0,0.8); }
+      .brand-highlight { color: var(--brand-orange); }
+      .effective-date { font-size: 0.82rem; color: rgba(255,255,255,0.4); margin-bottom: 1.5rem; letter-spacing: 0.05em; text-align: center; }
+      .content-wrapper { width: 100%; max-width: 760px; padding: 0 1.5rem; display: flex; flex-direction: column; gap: 1.5rem; }
+      .card {
+        background: rgba(255,255,255,0.07); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255,255,255,0.12); border-radius: 16px;
+        padding: 2.25rem 2.5rem; transition: var(--transition);
+      }
+      .card:hover { background: rgba(255,255,255,0.09); border-color: rgba(227,82,5,0.25); }
+      .card-title { font-size: 1rem; font-weight: 700; color: var(--brand-orange); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 1.25rem; }
+      .card p { font-size: 1rem; color: rgba(255,255,255,0.82); line-height: 1.7; margin-bottom: 0.75rem; }
+      .card p:last-child { margin-bottom: 0; }
+      .card ul { list-style: none; padding: 0; margin: 0.5rem 0 0.75rem; display: flex; flex-direction: column; gap: 0.6rem; }
+      .card ul li { font-size: 1rem; color: rgba(255,255,255,0.75); line-height: 1.6; padding-left: 1.5rem; position: relative; }
+      .card ul li::before { content: '–'; position: absolute; left: 0; color: var(--brand-orange); font-weight: 700; }
+      .card a { color: var(--brand-orange); text-decoration: underline; text-underline-offset: 3px; transition: color 0.2s ease; }
+      .card a:hover { color: #ff7a3d; }
+
+      footer {
+        padding: 2rem; display: flex; flex-direction: column; align-items: center; gap: 1rem;
+        z-index: 10; position: relative; background: rgba(0,0,0,0.6);
+        backdrop-filter: blur(10px); margin-top: auto;
+      }
+      .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+      .footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; font-size: 0.75rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.15em; transition: var(--transition); }
+      .footer-links a:hover { color: var(--brand-orange); }
+      .copyright { color: rgba(255,255,255,0.3); font-size: 0.7rem; letter-spacing: 0.1em; font-weight: 400; text-transform: uppercase; text-align: center; }
+
+      .hero-animate { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+      .hero-animate.is-visible { opacity: 1; transform: translateY(0); }
+      .scroll-animate { opacity: 0; transform: translateY(40px); transition: opacity 0.6s ease, transform 0.6s ease; }
+      .scroll-animate.is-visible { opacity: 1; transform: translateY(0); }
+
+      @media (max-width: 768px) {
+        header { padding: 1rem 1.5rem; }
+        .header-right { gap: 0.75rem; }
+        .nav-links, .google-play-wrapper { display: none; }
+        .hamburger-btn { display: flex; }
+        .container { padding-top: 100px; }
+        .card { padding: 1.75rem 1.5rem; }
+      }
+      @media (max-width: 480px) {
+        .logo-img { height: 32px; }
+        .card { padding: 1.5rem 1.25rem; }
+        .card p, .card ul li { font-size: 0.95rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <video id="bg-video" autoplay muted playsinline webkit-playsinline preload="auto">
+      <source src="street.mp4" type="video/mp4" />
+    </video>
+    <video id="bg-video-2" muted playsinline webkit-playsinline preload="auto">
+      <source src="405.mp4" type="video/mp4" />
+    </video>
+
+    <header id="site-header">
+      <a href="index.html" class="logo-link">
+        <img src="ow-logo-no-sm.svg" alt="Keenway" class="logo-img" />
+      </a>
+      <div class="header-right">
+        <nav class="nav-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="how-it-works.html" class="nav-link">How It Works</a>
+        </nav>
+        <div class="google-play-wrapper">
+          <span class="app-label">For Drivers App</span>
+          <a href="https://play.google.com/store/apps/details?id=com.gokeenway.driver" target="_blank" rel="noopener noreferrer" class="google-play-link">
+            <img src="google-play-badge.png" alt="Get it on Google Play" class="google-play-badge" />
+          </a>
+        </div>
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+      <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
+        <div class="mobile-nav">
+          <a href="index.html" class="mobile-nav-link">Home</a>
+          <a href="how-it-works.html" class="mobile-nav-link">How It Works</a>
+        </div>
+        <div class="mobile-play-wrapper">
+          <span class="app-label">For Drivers App</span>
+          <a href="https://play.google.com/store/apps/details?id=com.gokeenway.driver" target="_blank" rel="noopener noreferrer" class="google-play-link">
+            <img src="google-play-badge.png" alt="Get it on Google Play" class="google-play-badge mobile-play-badge" />
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <div class="page-header hero-animate">
+        <h1>Terms of <span class="brand-highlight">Service</span></h1>
+        <p class="subtext">The terms and conditions governing use of the Keenway<sup>sm</sup> platform.</p>
+      </div>
+      <p class="effective-date">Effective Date: May 1, 2026</p>
+
+      <div class="content-wrapper">
+
+        <article class="card scroll-animate">
+          <h2 class="card-title">Acceptance of Terms</h2>
+          <p>By accessing or using the Keenway platform, website, or mobile applications, you agree to be bound by these Terms of Service. If you do not agree, do not use our services.</p>
+        </article>
+
+        <article class="card scroll-animate">
+          <h2 class="card-title">About Keenway</h2>
+          <p>Keenway<sup>sm</sup> is operated by Keenway LLC. We provide a logistics platform that connects customers with independent drivers for same-day and on-demand freight and delivery services. Keenway LLC is not a carrier and does not employ drivers directly.</p>
+        </article>
+
+        <article class="card scroll-animate">
+          <h2 class="card-title">Eligibility</h2>
+          <p>You must be at least 18 years of age to use our services. By using Keenway, you represent and warrant that you meet this requirement and have the legal capacity to enter into these terms.</p>
+        </article>
+
+        <article class="card scroll-animate">
+          <h2 class="card-title">Customer Responsibilities</h2>
+          <p>As a customer using Keenway, you agree to:</p>
+          <ul>
+            <li>Provide accurate pickup and drop-off information</li>
+            <li>Ensure that items tendered for delivery are legal to transport</li>
+            <li>Not use our platform to transport prohibited, hazardous, or illegal items</li>
+            <li>Be available or designate a recipient for delivery</li>
+            <li>Pay all applicable fees for services rendered</li>
+          </ul>
+        </article>
+
+        <article class="card scroll-animate">
+          <h2 class="card-title">Driver Responsibilities</h2>
+          <p>Drivers using the Keenway platform agree to:</p>
+          <ul>
+            <li>Maintain valid driver's licenses and required vehicle insurance</li>
+            <li>Complete deliveries in a professional and timely manner</li>
+            <li>Comply with all applicable traffic laws and regulations</li>
+            <li>Not transport prohibited or illegal items</li>
+          </ul>
+        </article>
+
+        <article class="card scroll-animate">
+          <h2 class="card-title">Pricing and Payments</h2>
+          <p>Delivery pricing is calculated based on distance, delivery type, and applicable fees displayed at the time of booking. All payments are processed securely through our payment provider. Keenway reserves the right to update pricing with reasonable notice.</p>
+        </article>
+
+        <article class="card scroll-animate">
+          <h2 class="card-title">Cancellations and Refunds</h2>
+          <p>Cancellation policies and refund eligibility depend on the status of your delivery request. Cancellations made before a driver is assigned are generally eligible for a full refund. Once a driver is en route, cancellation fees may apply. Contact <a href="mailto:support@gokeenway.com">support@gokeenway.com</a> for assistance.</p>
+        </article>
+
+        <article class="card scroll-animate">
+          <h2 class="card-title">Limitation of Liability</h2>
+          <p>Keenway LLC is not liable for delays, damage, or loss of goods caused by circumstances outside our control, including traffic, weather, or driver error. Our maximum liability for any claim shall not exceed the amount paid for the specific delivery in question.</p>
+          <p>We make no warranties, express or implied, beyond those required by applicable law.</p>
+        </article>
+
+        <article class="card scroll-animate">
+          <h2 class="card-title">Prohibited Uses</h2>
+          <p>You may not use our platform to:</p>
+          <ul>
+            <li>Transport illegal, hazardous, or regulated substances</li>
+            <li>Engage in fraud or misrepresentation</li>
+            <li>Harass or threaten drivers, staff, or other users</li>
+            <li>Violate any applicable federal, state, or local laws</li>
+          </ul>
+        </article>
+
+        <article class="card scroll-animate">
+          <h2 class="card-title">Intellectual Property</h2>
+          <p>All content on the Keenway platform, including logos, design, text, and software, is the property of Keenway LLC and protected by applicable intellectual property laws. You may not reproduce or use our content without prior written permission.</p>
+        </article>
+
+        <article class="card scroll-animate">
+          <h2 class="card-title">Governing Law</h2>
+          <p>These Terms are governed by the laws of the State of California, without regard to conflict of law principles. Any disputes shall be resolved in the courts of Los Angeles County, California.</p>
+        </article>
+
+        <article class="card scroll-animate">
+          <h2 class="card-title">Changes to Terms</h2>
+          <p>We may update these Terms from time to time. Continued use of our services after changes are posted constitutes acceptance of the updated Terms. We will make reasonable efforts to notify users of material changes.</p>
+        </article>
+
+        <article class="card scroll-animate">
+          <h2 class="card-title">Contact Us</h2>
+          <p>For questions about these Terms, contact us at <a href="mailto:support@gokeenway.com">support@gokeenway.com</a>.</p>
+          <p>Keenway LLC &mdash; 400 Corporate Pointe Suite 300, Culver City, CA 90230</p>
+        </article>
+
+      </div>
+    </main>
+
+    <footer>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="https://gokeenway.com/privacy">Privacy Policy</a>
+        <a href="https://gokeenway.com/terms">Terms</a>
+        <a href="https://gokeenway.com/sms-consent">SMS Consent</a>
+      </nav>
+      <p class="copyright">Keenway<sup>sm</sup> is operated by Keenway LLC &mdash; Deliver Better.</p>
+    </footer>
+
+    <script>
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      hamburgerBtn.addEventListener('click', () => {
+        const isOpen = hamburgerBtn.classList.toggle('is-open');
+        mobileMenu.classList.toggle('is-open', isOpen);
+        hamburgerBtn.setAttribute('aria-expanded', isOpen);
+      });
+
+      const animatedEls = document.querySelectorAll('.hero-animate, .scroll-animate');
+      const observer = new IntersectionObserver(
+        (entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); observer.unobserve(entry.target); } }); },
+        { threshold: 0.12 }
+      );
+      animatedEls.forEach((el) => observer.observe(el));
+
+      const vid1 = document.getElementById('bg-video');
+      const vid2 = document.getElementById('bg-video-2');
+      let activeVideo = vid1, nextVideo = vid2;
+      vid1.addEventListener('ended', () => {
+        nextVideo.currentTime = 0; nextVideo.play();
+        nextVideo.style.opacity = '0.85'; activeVideo.style.opacity = '0';
+        [activeVideo, nextVideo] = [nextVideo, activeVideo];
+      });
+    </script>
+  </body>
+</html>
