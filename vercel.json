@@ -1,5 +1,6 @@
 {
   "rewrites": [
-    { "source": "/sms-consent", "destination": "/sms-consent.html" }
+    { "source": "/sms-consent", "destination": "/sms-consent.html" },
+    { "source": "/schedule-a-delivery", "destination": "/schedule-a-delivery.html" }
   ]
 }

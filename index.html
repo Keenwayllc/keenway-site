@@ -1263,6 +1263,67 @@
                 required
               />
             </div>
+            <input
+              type="tel"
+              id="quote-phone"
+              name="phone"
+              placeholder="Your Phone Number (optional)"
+              autocomplete="tel"
+              style="
+                width: 100%;
+                background: rgba(0,0,0,0.35);
+                border: 1px solid rgba(255,255,255,0.15);
+                border-radius: 10px;
+                padding: 0.8rem 1rem;
+                font-size: 0.95rem;
+                color: #fff;
+                outline: none;
+                transition: border-color 0.2s ease;
+                margin-bottom: 0.25rem;
+              "
+            />
+
+            <div style="
+              background: rgba(227,82,5,0.08);
+              border: 1px solid rgba(227,82,5,0.3);
+              border-radius: 10px;
+              padding: 1rem 1rem 0.75rem;
+              display: flex;
+              flex-direction: column;
+              gap: 0.6rem;
+              margin-bottom: 0.25rem;
+            ">
+              <label style="
+                display: flex; align-items: flex-start; gap: 0.65rem;
+                cursor: pointer; font-size: 0.85rem; font-weight: 400;
+                color: rgba(255,255,255,0.85); line-height: 1.5;
+                text-transform: none; letter-spacing: 0;
+              ">
+                <input
+                  type="checkbox"
+                  id="quote-sms-consent"
+                  name="sms_consent"
+                  style="
+                    width: 18px; height: 18px; min-width: 18px;
+                    accent-color: #e35205; cursor: pointer; margin-top: 2px;
+                    border: none; background: none; padding: 0;
+                  "
+                />
+                <span>
+                  I agree to receive SMS updates from Keenway<sup>sm</sup> about my delivery.
+                  Msg frequency varies. Msg &amp; data rates may apply.
+                  Reply <strong>STOP</strong> to opt out.
+                </span>
+              </label>
+              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.4); padding-left: 1.6rem; line-height: 1.5; margin: 0;">
+                <a href="https://gokeenway.com/privacy" target="_blank" rel="noopener noreferrer" style="color: #e35205; text-decoration: underline;">Privacy Policy</a>
+                &nbsp;&middot;&nbsp;
+                <a href="https://gokeenway.com/terms" target="_blank" rel="noopener noreferrer" style="color: #e35205; text-decoration: underline;">Terms</a>
+                &nbsp;&middot;&nbsp;
+                <a href="https://gokeenway.com/sms-consent" target="_blank" rel="noopener noreferrer" style="color: #e35205; text-decoration: underline;">SMS Consent</a>
+              </p>
+            </div>
+
             <button type="submit" id="submit-btn" class="btn-main submit-quote">
               Calculate Estimate
             </button>

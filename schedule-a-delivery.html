@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>Schedule a Delivery | Keenway</title>
+    <meta
+      name="description"
+      content="Schedule a same-day delivery with Keenway. Fast, reliable courier service in Los Angeles."
+    />
+    <link rel="icon" type="image/png" href="favicon.png" />
+    <style>
+      :root {
+        --brand-orange: #e35205;
+        --brand-orange-hover: #c94804;
+        --brand-black: #000000;
+        --white: #ffffff;
+        --font-main: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
+
+      body {
+        background-color: var(--brand-black);
+        min-height: 100vh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      /* ===== Video BG ===== */
+      #bg-video {
+        position: fixed; top: 0; left: 0;
+        width: 100%; height: 100%;
+        object-fit: cover; z-index: 0;
+        opacity: 0.85;
+        filter: contrast(1.1) saturate(1.2) brightness(0.9);
+        animation: cinematicZoom 60s ease-in-out infinite alternate;
+      }
+      @keyframes cinematicZoom { from { transform: scale(1); } to { transform: scale(1.1); } }
+      #bg-video-2 {
+        position: fixed; top: 0; left: 0;
+        width: 100%; height: 100%;
+        object-fit: cover; z-index: 0;
+        opacity: 0;
+        filter: contrast(1.1) saturate(1.2) brightness(0.9);
+        animation: cinematicZoom 60s ease-in-out infinite alternate;
+        transition: opacity 2s ease-in-out;
+      }
+
+      /* ===== Header ===== */
+      header {
+        position: fixed; top: 0; left: 0; width: 100%;
+        padding: 1rem 2rem;
+        display: flex; justify-content: space-between; align-items: center;
+        z-index: 100;
+        background: rgba(0,0,0,0.4);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+      }
+      .logo-link { display: flex; align-items: center; text-decoration: none; }
+      .logo-img { height: 48px; width: auto; }
+      .header-right { display: flex; align-items: center; gap: 2rem; }
+      .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+      .nav-link {
+        color: rgba(255,255,255,0.72); text-decoration: none;
+        font-size: 0.82rem; font-weight: 600; text-transform: uppercase;
+        letter-spacing: 0.08em; transition: var(--transition);
+        position: relative; padding-bottom: 3px;
+      }
+      .nav-link::after {
+        content: ''; position: absolute; bottom: 0; left: 0;
+        width: 0; height: 2px; background: var(--brand-orange);
+        border-radius: 1px; transition: width 0.25s ease;
+      }
+      .nav-link:hover { color: var(--white); }
+      .nav-link:hover::after { width: 100%; }
+      .google-play-wrapper { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+      .app-label { font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: rgba(255,255,255,0.55); }
+      .google-play-link { display: inline-block; text-decoration: none; }
+      .google-play-badge { height: 40px; width: auto; transition: var(--transition); }
+      .google-play-link:hover .google-play-badge { transform: translateY(-2px); }
+
+      /* ===== Hamburger ===== */
+      .hamburger-btn {
+        display: none; flex-direction: column; justify-content: center;
+        align-items: center; gap: 5px; width: 40px; height: 40px;
+        background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 8px; cursor: pointer; transition: var(--transition);
+        padding: 0; flex-shrink: 0;
+      }
+      .hamburger-btn:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.25); }
+      .hamburger-line { display: block; width: 18px; height: 2px; background: var(--white); border-radius: 2px; transition: var(--transition); transform-origin: center; }
+      .hamburger-btn.is-open .hamburger-line:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+      .hamburger-btn.is-open .hamburger-line:nth-child(2) { opacity: 0; transform: scaleX(0); }
+      .hamburger-btn.is-open .hamburger-line:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+      .mobile-menu {
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(5,5,5,0.96); backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px); border-bottom: 1px solid rgba(255,255,255,0.07);
+        padding: 0 1.5rem; display: flex; flex-direction: column; gap: 1.25rem;
+        max-height: 0; overflow: hidden; opacity: 0; transform: translateY(-6px);
+        transition: max-height 0.35s ease, opacity 0.25s ease, transform 0.25s ease, padding 0.35s ease;
+        pointer-events: none;
+      }
+      .mobile-menu.is-open { max-height: 400px; opacity: 1; transform: translateY(0); padding: 1.5rem 1.5rem 2rem; pointer-events: auto; }
+      .mobile-nav { display: flex; flex-direction: column; }
+      .mobile-nav-link {
+        display: block; color: rgba(255,255,255,0.68); text-decoration: none;
+        font-size: 0.95rem; font-weight: 600; text-transform: uppercase;
+        letter-spacing: 0.1em; padding: 1rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        transition: color 0.2s ease, padding-left 0.2s ease;
+      }
+      .mobile-nav-link:last-child { border-bottom: none; }
+      .mobile-nav-link:hover { color: var(--brand-orange); padding-left: 4px; }
+      .mobile-play-wrapper { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding-top: 0.25rem; }
+      .mobile-play-badge { height: 44px !important; }
+
+      /* ===== Page Layout ===== */
+      .container {
+        flex: 1; display: flex; flex-direction: column; align-items: center;
+        position: relative; z-index: 10;
+        padding-top: 120px; padding-bottom: 4rem; width: 100%;
+      }
+
+      .page-header {
+        text-align: center; margin-bottom: 2.5rem;
+        max-width: 680px; padding: 0 1.5rem;
+      }
+      h1 {
+        font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 900;
+        line-height: 1.1; letter-spacing: -0.04em; margin-bottom: 0.75rem;
+        color: var(--white); text-shadow: 0 4px 12px rgba(0,0,0,0.8);
+      }
+      .subtext {
+        font-size: clamp(0.95rem, 1.6vw, 1.1rem); color: rgba(255,255,255,0.75);
+        line-height: 1.6; text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+      }
+      .brand-highlight { color: var(--brand-orange); }
+
+      /* ===== Form Card ===== */
+      .form-card {
+        width: 100%; max-width: 600px; padding: 0 1.5rem;
+      }
+
+      form {
+        background: rgba(255,255,255,0.07);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 20px;
+        padding: 2.5rem;
+        display: flex; flex-direction: column; gap: 1.5rem;
+      }
+
+      .field-group { display: flex; flex-direction: column; gap: 0.5rem; }
+
+      label {
+        font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.1em; color: rgba(255,255,255,0.6);
+      }
+
+      input[type="text"],
+      input[type="tel"],
+      input[type="email"],
+      textarea,
+      select {
+        width: 100%;
+        background: rgba(0,0,0,0.35);
+        border: 1px solid rgba(255,255,255,0.15);
+        border-radius: 10px;
+        padding: 0.85rem 1rem;
+        font-size: 1rem;
+        color: var(--white);
+        outline: none;
+        transition: border-color 0.2s ease, background 0.2s ease;
+        -webkit-appearance: none;
+      }
+      input::placeholder, textarea::placeholder { color: rgba(255,255,255,0.3); }
+      input:focus, textarea:focus, select:focus {
+        border-color: var(--brand-orange);
+        background: rgba(0,0,0,0.5);
+      }
+      select option { background: #111; color: var(--white); }
+      textarea { resize: vertical; min-height: 90px; }
+
+      /* ===== SMS Consent Block ===== */
+      .sms-consent-block {
+        background: rgba(227, 82, 5, 0.08);
+        border: 1px solid rgba(227, 82, 5, 0.3);
+        border-radius: 12px;
+        padding: 1.25rem 1.25rem 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+      }
+
+      .checkbox-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      .checkbox-row input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        min-width: 20px;
+        accent-color: var(--brand-orange);
+        cursor: pointer;
+        margin-top: 2px;
+        border-radius: 4px;
+        border: none;
+        background: none;
+        padding: 0;
+      }
+
+      .checkbox-label {
+        font-size: 0.92rem;
+        color: rgba(255,255,255,0.85);
+        line-height: 1.55;
+        cursor: pointer;
+        font-weight: 400;
+        text-transform: none;
+        letter-spacing: 0;
+      }
+
+      .consent-links {
+        font-size: 0.8rem;
+        color: rgba(255,255,255,0.45);
+        padding-left: 1.75rem;
+        line-height: 1.5;
+      }
+
+      .consent-links a {
+        color: var(--brand-orange);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+        transition: color 0.2s ease;
+      }
+
+      .consent-links a:hover { color: #ff7a3d; }
+
+      /* ===== Submit Button ===== */
+      .btn-submit {
+        display: flex; align-items: center; justify-content: center;
+        background: var(--brand-orange); color: var(--white);
+        padding: 1.1rem 2rem; border-radius: 10px;
+        font-weight: 700; font-size: 1.05rem;
+        border: none; cursor: pointer;
+        transition: var(--transition);
+        box-shadow: 0 10px 25px -5px rgba(227,82,5,0.4);
+        width: 100%;
+      }
+      .btn-submit:hover { background: var(--brand-orange-hover, #c94804); transform: scale(1.02); box-shadow: 0 15px 30px -5px rgba(227,82,5,0.5); }
+      .btn-submit:active { transform: scale(0.97); }
+      .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+      /* ===== Success State ===== */
+      .success-msg {
+        display: none;
+        background: rgba(34, 197, 94, 0.12);
+        border: 1px solid rgba(34, 197, 94, 0.35);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        color: rgba(255,255,255,0.9);
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+      .success-msg strong { color: #4ade80; display: block; font-size: 1.15rem; margin-bottom: 0.5rem; }
+
+      /* ===== Footer ===== */
+      footer {
+        padding: 2rem; display: flex; flex-direction: column; align-items: center;
+        gap: 1rem; z-index: 10; position: relative;
+        background: rgba(0,0,0,0.6); backdrop-filter: blur(10px); margin-top: auto;
+      }
+      .footer-links { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+      .footer-links a {
+        color: rgba(255,255,255,0.4); text-decoration: none;
+        font-size: 0.75rem; font-weight: 500; text-transform: uppercase;
+        letter-spacing: 0.15em; transition: var(--transition);
+      }
+      .footer-links a:hover { color: var(--brand-orange); }
+      .copyright { color: rgba(255,255,255,0.3); font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; text-align: center; }
+
+      /* ===== Animations ===== */
+      .hero-animate { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+      .hero-animate.is-visible { opacity: 1; transform: translateY(0); }
+      .scroll-animate { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+      .scroll-animate.is-visible { opacity: 1; transform: translateY(0); }
+
+      /* ===== Responsive ===== */
+      @media (max-width: 768px) {
+        header { padding: 1rem 1.5rem; }
+        .header-right { gap: 0.75rem; }
+        .nav-links, .google-play-wrapper { display: none; }
+        .hamburger-btn { display: flex; }
+        .container { padding-top: 100px; }
+        form { padding: 1.75rem 1.5rem; }
+      }
+      @media (max-width: 480px) {
+        .logo-img { height: 32px; }
+        form { padding: 1.5rem 1.25rem; gap: 1.25rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <video id="bg-video" autoplay muted playsinline webkit-playsinline preload="auto">
+      <source src="street.mp4" type="video/mp4" />
+    </video>
+    <video id="bg-video-2" muted playsinline webkit-playsinline preload="auto">
+      <source src="405.mp4" type="video/mp4" />
+    </video>
+
+    <header id="site-header">
+      <a href="index.html" class="logo-link">
+        <img src="ow-logo-no-sm.svg" alt="Keenway" class="logo-img" />
+      </a>
+      <div class="header-right">
+        <nav class="nav-links">
+          <a href="index.html" class="nav-link">Home</a>
+          <a href="how-it-works.html" class="nav-link">How It Works</a>
+        </nav>
+        <div class="google-play-wrapper">
+          <span class="app-label">For Drivers App</span>
+          <a href="https://play.google.com/store/apps/details?id=com.gokeenway.driver" target="_blank" rel="noopener noreferrer" class="google-play-link">
+            <img src="google-play-badge.png" alt="Get it on Google Play" class="google-play-badge" />
+          </a>
+        </div>
+        <button class="hamburger-btn" id="hamburger-btn" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+          <span class="hamburger-line"></span>
+        </button>
+      </div>
+      <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
+        <div class="mobile-nav">
+          <a href="index.html" class="mobile-nav-link">Home</a>
+          <a href="how-it-works.html" class="mobile-nav-link">How It Works</a>
+        </div>
+        <div class="mobile-play-wrapper">
+          <span class="app-label">For Drivers App</span>
+          <a href="https://play.google.com/store/apps/details?id=com.gokeenway.driver" target="_blank" rel="noopener noreferrer" class="google-play-link">
+            <img src="google-play-badge.png" alt="Get it on Google Play" class="google-play-badge mobile-play-badge" />
+          </a>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <div class="page-header hero-animate">
+        <h1>Schedule a <span class="brand-highlight">Delivery</span></h1>
+        <p class="subtext">Fill out the form below and our dispatch team will confirm your booking.</p>
+      </div>
+
+      <div class="form-card scroll-animate">
+        <form id="booking-form" novalidate>
+
+          <div class="field-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Jane Smith" required autocomplete="name" />
+          </div>
+
+          <div class="field-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="jane@company.com" required autocomplete="email" />
+          </div>
+
+          <div class="field-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" placeholder="(323) 555-0100" required autocomplete="tel" />
+
+            <!-- SMS CONSENT — Required for Twilio Toll-Free Verification -->
+            <div class="sms-consent-block" role="group" aria-labelledby="sms-consent-label">
+              <div class="checkbox-row">
+                <input
+                  type="checkbox"
+                  id="sms-consent"
+                  name="sms_consent"
+                  required
+                  aria-required="true"
+                />
+                <label class="checkbox-label" for="sms-consent" id="sms-consent-label">
+                  I agree to receive SMS updates from Keenway<sup>sm</sup> regarding my delivery.
+                  Message frequency varies. Message and data rates may apply.
+                  Reply <strong>STOP</strong> to opt out.
+                </label>
+              </div>
+              <p class="consent-links">
+                <a href="https://gokeenway.com/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+                &nbsp;&middot;&nbsp;
+                <a href="https://gokeenway.com/terms" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions</a>
+                &nbsp;&middot;&nbsp;
+                <a href="https://gokeenway.com/sms-consent" target="_blank" rel="noopener noreferrer">SMS Consent</a>
+              </p>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="pickup">Pickup Address</label>
+            <input type="text" id="pickup" name="pickup" placeholder="123 Main St, Los Angeles, CA" required />
+          </div>
+
+          <div class="field-group">
+            <label for="dropoff">Drop-off Address</label>
+            <input type="text" id="dropoff" name="dropoff" placeholder="456 Sunset Blvd, Los Angeles, CA" required />
+          </div>
+
+          <div class="field-group">
+            <label for="delivery-type">Delivery Type</label>
+            <select id="delivery-type" name="delivery_type" required>
+              <option value="" disabled selected>Select a service</option>
+              <option value="same-day">Same-Day Delivery</option>
+              <option value="scheduled">Scheduled Delivery</option>
+              <option value="cargo">Cargo / Freight</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="field-group">
+            <label for="notes">Additional Notes (optional)</label>
+            <textarea id="notes" name="notes" placeholder="Package details, special instructions, preferred time window..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submit-btn">Request Delivery</button>
+
+          <div class="success-msg" id="success-msg" role="alert" aria-live="polite">
+            <strong>Request Received!</strong>
+            Our dispatch team will contact you shortly to confirm your delivery details.
+          </div>
+
+        </form>
+      </div>
+    </main>
+
+    <footer>
+      <nav class="footer-links" aria-label="Footer navigation">
+        <a href="index.html">Home</a>
+        <a href="how-it-works.html">How It Works</a>
+        <a href="https://gokeenway.com/privacy">Privacy Policy</a>
+        <a href="https://gokeenway.com/terms">Terms</a>
+        <a href="sms-consent.html">SMS Consent</a>
+      </nav>
+      <p class="copyright">
+        Keenway<sup>sm</sup> is operated by Keenway LLC &mdash; Deliver Better.
+      </p>
+    </footer>
+
+    <script>
+      // Hamburger
+      const hamburgerBtn = document.getElementById('hamburger-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      hamburgerBtn.addEventListener('click', () => {
+        const isOpen = hamburgerBtn.classList.toggle('is-open');
+        mobileMenu.classList.toggle('is-open', isOpen);
+        hamburgerBtn.setAttribute('aria-expanded', isOpen);
+      });
+
+      // Scroll animations
+      const animatedEls = document.querySelectorAll('.hero-animate, .scroll-animate');
+      const observer = new IntersectionObserver(
+        (entries) => { entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('is-visible'); observer.unobserve(e.target); } }); },
+        { threshold: 0.08 }
+      );
+      animatedEls.forEach((el) => observer.observe(el));
+
+      // Video crossfade
+      const vid1 = document.getElementById('bg-video');
+      const vid2 = document.getElementById('bg-video-2');
+      let activeVideo = vid1, nextVideo = vid2;
+      vid1.addEventListener('ended', () => {
+        nextVideo.currentTime = 0; nextVideo.play();
+        nextVideo.style.opacity = '0.85'; activeVideo.style.opacity = '0';
+        [activeVideo, nextVideo] = [nextVideo, activeVideo];
+      });
+
+      // Form submission — consent checkbox gating
+      const form = document.getElementById('booking-form');
+      const submitBtn = document.getElementById('submit-btn');
+      const successMsg = document.getElementById('success-msg');
+      const smsConsent = document.getElementById('sms-consent');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        if (!smsConsent.checked) {
+          smsConsent.focus();
+          smsConsent.closest('.sms-consent-block').style.borderColor = 'rgba(239,68,68,0.7)';
+          setTimeout(() => {
+            smsConsent.closest('.sms-consent-block').style.borderColor = 'rgba(227,82,5,0.3)';
+          }, 2000);
+          return;
+        }
+
+        // Collect form data and open mailto as fallback until backend is wired
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const pickup = document.getElementById('pickup').value;
+        const dropoff = document.getElementById('dropoff').value;
+        const type = document.getElementById('delivery-type').value;
+        const notes = document.getElementById('notes').value;
+
+        const subject = encodeURIComponent('Delivery Request — ' + name);
+        const body = encodeURIComponent(
+          'Name: ' + name + '\n' +
+          'Email: ' + email + '\n' +
+          'Phone: ' + phone + '\n' +
+          'Pickup: ' + pickup + '\n' +
+          'Drop-off: ' + dropoff + '\n' +
+          'Service: ' + type + '\n' +
+          'Notes: ' + notes + '\n' +
+          '\nSMS Consent: Agreed'
+        );
+
+        window.location.href = 'mailto:support@gokeenway.com?subject=' + subject + '&body=' + body;
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Request Sent';
+        successMsg.style.display = 'block';
+        form.querySelectorAll('input, textarea, select').forEach(el => el.disabled = true);
+      });
+    </script>
+  </body>
+</html>
