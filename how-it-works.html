@@ -339,66 +339,82 @@
 
       .steps-container {
         width: 100%;
-        max-width: 1000px;
+        max-width: 760px;
+        margin: 0 auto;
         padding: 0 1.5rem;
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
+        list-style: none;
       }
 
-      .step-card {
-        display: flex;
-        background: rgba(255, 255, 255, 0.07);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 16px;
-        overflow: hidden;
-        transition: var(--transition);
+      .step {
+        position: relative;
+        display: grid;
+        grid-template-columns: 60px 1fr;
+        gap: 1.75rem;
+        padding-bottom: 2.75rem;
       }
 
-      .step-card:hover {
-        background: rgba(255, 255, 255, 0.11);
-        border-color: rgba(227, 82, 5, 0.35);
-        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+      .step:last-child {
+        padding-bottom: 0;
       }
 
-      .step-number-container {
-        background: rgba(0, 0, 0, 0.4);
-        padding: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-width: 120px;
-        border-right: 1px solid rgba(255, 255, 255, 0.05);
+      /* dashed route connector — echoes the skyline delivery line */
+      .step:not(:last-child)::before {
+        content: "";
+        position: absolute;
+        top: 64px;
+        bottom: 0.25rem;
+        left: 30px;
+        border-left: 2px dashed rgba(227, 82, 5, 0.35);
       }
 
-      .step-number {
-        font-size: 3.5rem;
-        font-weight: 900;
+      .step-marker {
+        position: relative;
+        z-index: 1;
+      }
+
+      .step-num {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        display: grid;
+        place-items: center;
+        font-family: "Sora", ui-sans-serif, system-ui, sans-serif;
+        font-size: 1.45rem;
+        font-weight: 700;
         color: var(--brand-orange);
-        line-height: 1;
-        opacity: 0.9;
+        background: #ffffff;
+        border: 1px solid rgba(15, 27, 45, 0.12);
+        box-shadow: 0 1px 2px rgba(15, 27, 45, 0.05);
+        transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+          background 0.35s ease, color 0.35s ease, box-shadow 0.35s ease,
+          border-color 0.35s ease;
       }
 
-      .step-content {
-        padding: 2.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+      .step:hover .step-num {
+        background: var(--brand-orange);
+        color: #ffffff;
+        border-color: var(--brand-orange);
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 14px 28px -10px rgba(227, 82, 5, 0.6);
+      }
+
+      .step-body {
+        padding-top: 0.35rem;
       }
 
       .step-title {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         font-weight: 700;
-        color: var(--white);
-        margin-bottom: 0.75rem;
+        color: #0f1b2d;
+        margin-bottom: 0.5rem;
+        letter-spacing: -0.01em;
       }
 
       .step-desc {
-        font-size: 1.05rem;
-        color: rgba(255, 255, 255, 0.65);
-        line-height: 1.6;
+        font-size: 1.02rem;
+        color: #51607a;
+        line-height: 1.65;
+        max-width: 58ch;
       }
       
       .cta-container {
@@ -533,32 +549,18 @@
           padding-top: 100px;
         }
 
-        .step-card {
-          flex-direction: column;
-        }
-
-        .step-number-container {
-          border-right: none;
-          border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-          padding: 1.5rem;
-          min-height: auto;
-        }
-
-        .step-content {
-          padding: 1.5rem;
-          text-align: center;
-        }
-        
         .page-header {
            margin-bottom: 2.5rem;
         }
       }
-      
+
       @media (max-width: 480px) {
-        .logo-img { height: 32px; }
+        .logo-img { height: 40px; }
         .google-play-badge { height: 32px; }
-        .step-content { padding: 1.25rem; }
-        .step-title { font-size: 1.25rem; }
+        .step { grid-template-columns: 48px 1fr; gap: 1.25rem; }
+        .step:not(:last-child)::before { left: 24px; top: 52px; }
+        .step-num { width: 48px; height: 48px; font-size: 1.2rem; }
+        .step-title { font-size: 1.2rem; }
         .step-desc { font-size: 0.95rem; }
       }
       /* ===== Light techy-clean theme override ===== */
@@ -588,31 +590,11 @@
       .mobile-nav-link { color: #51607a; border-bottom: 1px solid rgba(15,27,45,0.09); }
       h1, .page-header h1 { color: #0f1b2d; text-shadow: none; }
       .subtext { color: #51607a; text-shadow: none; }
-      .step-card {
-        background: #ffffff;
-        border: 1px solid rgba(15,27,45,0.09);
-        -webkit-backdrop-filter: none; backdrop-filter: none;
-        box-shadow: 0 1px 2px rgba(15,27,45,0.04);
-      }
-      .step-card:hover {
-        background: #ffffff;
-        border-color: rgba(227,82,5,0.4);
-        box-shadow: 0 20px 40px -18px rgba(15,27,45,0.22);
-      }
-      .step-number-container {
-        background: rgba(227,82,5,0.06);
-        border-right: 1px solid rgba(15,27,45,0.08);
-      }
-      .step-title { color: #0f1b2d; }
-      .step-desc { color: #51607a; }
       .btn-main { box-shadow: 0 8px 20px -10px rgba(227,82,5,0.55); }
       footer { background: rgba(255,255,255,0.85); border-top: 1px solid rgba(15,27,45,0.09); }
       .footer-links a { color: #51607a; }
       .footer-links a:hover { color: #e35205; }
       .copyright { color: #8a96aa; }
-      @media (max-width: 768px) {
-        .step-number-container { border-right: none; border-bottom: 1px solid rgba(15,27,45,0.08); }
-      }
           /* Display font for headings */
       h1, h2, h3,
       .features-headline, .quote-heading, .feature-title,
@@ -734,57 +716,49 @@
         </p>
       </div>
 
-      <div class="steps-container">
-        
-        <div class="step-card scroll-animate">
-          <div class="step-number-container">
-            <span class="step-number">1</span>
-          </div>
-          <div class="step-content">
+      <ol class="steps-container">
+
+        <li class="step scroll-animate">
+          <div class="step-marker"><span class="step-num">1</span></div>
+          <div class="step-body">
             <h3 class="step-title">Get an Instant Quote</h3>
             <p class="step-desc">
-              Enter your pickup, dropoff, and cargo details into our smart calculator. Our pricing engine instantly analyzes distance and vehicle requirements to give you a transparent, upfront price—no hidden fees, no negotiation needed.
+              Enter your pickup, dropoff, and cargo details into our smart calculator. Our pricing engine instantly analyzes distance and vehicle requirements to give you a transparent, upfront price, with no hidden fees and no negotiation needed.
             </p>
           </div>
-        </div>
+        </li>
 
-        <div class="step-card scroll-animate">
-          <div class="step-number-container">
-            <span class="step-number">2</span>
-          </div>
-          <div class="step-content">
+        <li class="step scroll-animate">
+          <div class="step-marker"><span class="step-num">2</span></div>
+          <div class="step-body">
             <h3 class="step-title">Connect with a Pro</h3>
             <p class="step-desc">
-              Once you confirm your order, our matching algorithm dispatches a verified, background-checked driver from our professional network. Ensure your shipment is handled by an expert equipped with the right vehicle for the task.
+              Once you confirm your order, our matching algorithm dispatches a verified, background-checked driver from our professional network, so your shipment is handled by an expert with the right vehicle for the task.
             </p>
           </div>
-        </div>
+        </li>
 
-        <div class="step-card scroll-animate">
-          <div class="step-number-container">
-            <span class="step-number">3</span>
-          </div>
-          <div class="step-content">
+        <li class="step scroll-animate">
+          <div class="step-marker"><span class="step-num">3</span></div>
+          <div class="step-body">
             <h3 class="step-title">Track in Real-Time</h3>
             <p class="step-desc">
-              Never wonder where your freight is. Access our live GPS tracking map from any device, no app download required. Follow your driver's route minute-by-minute and easily share the tracking link with your team or recipients.
+              Never wonder where your freight is. Access our live GPS tracking map from any device, no app download required. Follow your driver's route minute-by-minute and share the tracking link with your team or recipients.
             </p>
           </div>
-        </div>
+        </li>
 
-        <div class="step-card scroll-animate">
-          <div class="step-number-container">
-            <span class="step-number">4</span>
-          </div>
-          <div class="step-content">
+        <li class="step scroll-animate">
+          <div class="step-marker"><span class="step-num">4</span></div>
+          <div class="step-body">
             <h3 class="step-title">Secure Delivery</h3>
             <p class="step-desc">
-              Receive immediate confirmation upon arrival. Our drivers capture digital photo proofs of delivery (POD) at the dropoff point. And if anything comes up, our dedicated dispatch operations team is actively monitoring every load to provide reliable support.
+              Receive immediate confirmation upon arrival. Our drivers capture digital photo proof of delivery (POD) at the dropoff point, and our dispatch team monitors every load to provide reliable support.
             </p>
           </div>
-        </div>
+        </li>
 
-      </div>
+      </ol>
       
       <div class="cta-container scroll-animate">
         <a href="https://app.gokeenway.com/register" class="btn-main">Start Shipping Now</a>
