@@ -21,6 +21,15 @@
         --brand-black-hover: #1a1a1a;
         --white: #ffffff;
         --slate-100: #f1f5f9;
+        /* Light techy-clean theme */
+        --ink: #0f1b2d;
+        --ink-soft: #51607a;
+        --ink-faint: #8a96aa;
+        --surface: #ffffff;
+        --line: rgba(15, 27, 45, 0.09);
+        --line-strong: rgba(15, 27, 45, 0.14);
+        --bg-1: #f7f9fc;
+        --bg-2: #eaeef6;
         --font-main:
           -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto,
           sans-serif;
@@ -36,7 +45,17 @@
 
       body {
         position: relative;
-        background-color: var(--brand-black);
+        color: var(--ink);
+        background-color: var(--bg-1);
+        background-image:
+          radial-gradient(
+            circle at 1px 1px,
+            rgba(15, 27, 45, 0.05) 1px,
+            transparent 0
+          ),
+          linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+        background-size: 26px 26px, 100% 100%;
+        background-attachment: fixed;
         height: 100vh;
         height: 100dvh;
         display: flex;
@@ -47,81 +66,17 @@
         -moz-osx-font-smoothing: grayscale;
       }
 
-      /* Video Background */
-      #bg-video {
+      /* Line-art LA skyline backdrop */
+      #bg-skyline {
         position: fixed;
-        top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        z-index: 0;
+        right: 0;
+        bottom: 0;
+        height: 44vh;
+        background: url("la-skyline.svg") no-repeat bottom center;
+        background-size: min(1500px, 132%) auto;
         opacity: 0.85;
-        filter: contrast(1.1) saturate(1.2) brightness(0.9);
-        animation: cinematicZoom 60s ease-in-out infinite alternate;
-      }
-
-      @keyframes cinematicZoom {
-        from {
-          transform: scale(1);
-        }
-        to {
-          transform: scale(1.1);
-        }
-      }
-
-      .video-credits {
-        position: relative;
-        z-index: 50;
-        font-size: 0.6rem;
-        color: rgba(255, 255, 255, 0.4);
-        text-align: center;
-        line-height: 1.4;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        transition: var(--transition);
-      }
-
-      .video-credits a {
-        color: rgba(255, 255, 255, 0.4);
-        text-decoration: underline;
-        pointer-events: auto;
-        font-weight: 500;
-        transition: var(--transition);
-      }
-
-      .video-credits a:hover {
-        color: var(--white);
-      }
-
-      /* Secondary video for crossfade */
-      #bg-video-2 {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
         z-index: 0;
-        opacity: 0;
-        filter: contrast(1.1) saturate(1.2) brightness(0.9);
-        animation: cinematicZoom 60s ease-in-out infinite alternate;
-        transition: opacity 2s ease-in-out;
-      }
-
-      /* Video Overlay - Cinematic Vignette */
-      .video-overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(
-          circle,
-          rgba(0, 0, 0, 0.1) 0%,
-          rgba(0, 0, 0, 0.6) 100%
-        );
-        z-index: 1;
         pointer-events: none;
       }
 
@@ -135,10 +90,10 @@
         justify-content: space-between;
         align-items: center;
         z-index: 100;
-        background: rgba(0, 0, 0, 0.4);
+        background: rgba(255, 255, 255, 0.78);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        border-bottom: 1px solid var(--line);
       }
 
       .logo-link {
@@ -179,7 +134,7 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.15em;
-        color: rgba(255, 255, 255, 0.55);
+        color: var(--ink-faint);
       }
 
       .customer-label {
@@ -187,7 +142,7 @@
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.12em;
-        color: rgba(255, 255, 255, 0.5);
+        color: var(--ink-faint);
         margin-top: 0.75rem;
       }
 
@@ -220,29 +175,53 @@
 
       .hero-badge {
         margin-bottom: 2rem;
-        filter: drop-shadow(0 0 20px rgba(227, 82, 5, 0.4));
+      }
+
+      .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.66rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: var(--brand-orange);
+        background: rgba(227, 82, 5, 0.08);
+        border: 1px solid rgba(227, 82, 5, 0.22);
+        padding: 0.4rem 0.85rem;
+        border-radius: 999px;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero-eyebrow::before {
+        content: "";
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--brand-orange);
+        box-shadow: 0 0 0 3px rgba(227, 82, 5, 0.18);
       }
 
       h1 {
         font-size: clamp(2.5rem, 8vw, 4.5rem);
         font-weight: 900;
-        line-height: 1.1;
+        line-height: 1.08;
         letter-spacing: -0.04em;
         margin-bottom: 1.5rem;
-        color: var(--white);
-        text-shadow:
-          0 4px 12px rgba(0, 0, 0, 0.8),
-          0 0 40px rgba(0, 0, 0, 0.4);
+        color: var(--ink);
+      }
+
+      h1 .accent {
+        color: var(--brand-orange);
       }
 
       .subtext {
         font-size: clamp(1rem, 1.8vw, 1.2rem);
-        color: var(--white);
+        color: var(--ink-soft);
         max-width: 580px;
         margin-bottom: 3rem;
         line-height: 1.6;
         font-weight: 500;
-        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
       }
 
       .cta-group {
@@ -265,13 +244,13 @@
         text-decoration: none;
         font-size: 1.125rem;
         transition: var(--transition);
-        box-shadow: 0 10px 25px -5px rgba(227, 82, 5, 0.4);
+        box-shadow: 0 8px 20px -10px rgba(227, 82, 5, 0.55);
       }
 
       .btn-main:hover {
         background-color: var(--brand-orange-hover);
-        transform: scale(1.02);
-        box-shadow: 0 15px 30px -5px rgba(227, 82, 5, 0.5);
+        transform: translateY(-1px);
+        box-shadow: 0 12px 26px -10px rgba(227, 82, 5, 0.6);
       }
 
       .btn-outline {
@@ -279,21 +258,21 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        background-color: rgba(255, 255, 255, 0.15);
-        color: var(--white);
+        background-color: var(--surface);
+        color: var(--ink);
         padding: 1.1rem 2.5rem;
         border-radius: 8px;
         font-weight: 700;
         text-decoration: none;
         font-size: 1.125rem;
         transition: var(--transition);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid var(--line-strong);
       }
 
       .btn-outline:hover {
-        background-color: rgba(255, 255, 255, 0.25);
-        border-color: rgba(255, 255, 255, 0.4);
+        border-color: var(--brand-orange);
+        color: var(--brand-orange);
+        transform: translateY(-1px);
       }
 
       footer {
@@ -304,6 +283,10 @@
         gap: 1rem;
         z-index: 10;
         position: relative;
+        border-top: 1px solid var(--line);
+        background: rgba(247, 249, 252, 0.85);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
       }
 
       .footer-links {
@@ -312,10 +295,10 @@
       }
 
       .footer-links a {
-        color: rgba(255, 255, 255, 0.3);
+        color: var(--ink-soft);
         text-decoration: none;
         font-size: 0.7rem;
-        font-weight: 400;
+        font-weight: 500;
         text-transform: uppercase;
         letter-spacing: 0.15em;
         transition: var(--transition);
@@ -326,18 +309,18 @@
       }
 
       .copyright {
-        color: rgba(255, 255, 255, 0.25);
+        color: var(--ink-faint);
         font-size: 0.65rem;
         letter-spacing: 0.1em;
-        font-weight: 300;
+        font-weight: 400;
         text-transform: uppercase;
       }
 
       .mailing-address {
-        color: rgba(255, 255, 255, 0.3);
+        color: var(--ink-faint);
         font-size: 0.7rem;
         letter-spacing: 0.05em;
-        font-weight: 300;
+        font-weight: 400;
         text-align: center;
         line-height: 1.5;
         max-width: 90%;
@@ -458,10 +441,6 @@
           padding: 1rem 2rem;
           font-size: 1rem;
         }
-
-        .video-credits {
-          font-size: 0.55rem;
-        }
       }
 
       /* Mobile phones */
@@ -556,10 +535,6 @@
           font-size: 0.55rem;
           text-align: center;
         }
-
-        .video-credits {
-          font-size: 0.5rem;
-        }
       }
 
       /* Small mobile phones */
@@ -576,10 +551,6 @@
         .btn-outline {
           padding: 0.875rem 1.25rem;
           font-size: 0.9rem;
-        }
-
-        .video-credits {
-          font-size: 0.45rem;
         }
       }
 
@@ -602,16 +573,16 @@
       /* Quote Form */
       .quote-form-container {
         margin-top: 0;
-        background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 12px;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 16px;
         padding: 2.5rem;
         width: 100%;
         max-width: 480px;
         text-align: left;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+        box-shadow:
+          0 1px 2px rgba(15, 27, 45, 0.04),
+          0 18px 48px -18px rgba(15, 27, 45, 0.22);
         animation: fadeIn 1s ease-out forwards;
         flex-shrink: 0;
       }
@@ -628,12 +599,12 @@
       }
 
       .quote-heading {
-        color: var(--white);
+        color: var(--ink);
         margin-bottom: 1.5rem;
         font-size: 1.35rem;
-        font-weight: 600;
+        font-weight: 700;
         text-align: center;
-        letter-spacing: 0.02em;
+        letter-spacing: -0.01em;
       }
 
       .quote-form {
@@ -664,8 +635,8 @@
         width: 24px;
         height: 24px;
         border: none;
-        background: rgba(255, 255, 255, 0.15);
-        color: rgba(255, 255, 255, 0.6);
+        background: rgba(15, 27, 45, 0.08);
+        color: var(--ink-soft);
         border-radius: 50%;
         font-size: 0.85rem;
         cursor: pointer;
@@ -679,7 +650,7 @@
       }
 
       .clear-input:hover {
-        background: rgba(227, 82, 5, 0.6);
+        background: var(--brand-orange);
         color: var(--white);
       }
 
@@ -691,25 +662,25 @@
       .quote-form textarea {
         width: 100%;
         padding: 0.9rem 1.1rem;
-        background: rgba(0, 0, 0, 0.5);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 8px;
-        color: var(--white);
+        background: #f4f6fa;
+        border: 1px solid var(--line-strong);
+        border-radius: 10px;
+        color: var(--ink);
         font-size: 0.95rem;
         transition: var(--transition);
       }
 
       .quote-form input::placeholder,
       .quote-form textarea::placeholder {
-        color: rgba(255, 255, 255, 0.4);
+        color: var(--ink-faint);
       }
 
       .quote-form input:focus,
       .quote-form textarea:focus {
         outline: none;
         border-color: var(--brand-orange);
-        background: rgba(0, 0, 0, 0.7);
-        box-shadow: 0 0 0 3px rgba(227, 82, 5, 0.2);
+        background: var(--surface);
+        box-shadow: 0 0 0 3px rgba(227, 82, 5, 0.15);
       }
 
       .submit-quote {
@@ -774,11 +745,11 @@
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.18em;
-        color: rgba(255, 255, 255, 0.3);
+        color: var(--ink-faint);
       }
 
       .scroll-chevron {
-        color: rgba(255, 255, 255, 0.3);
+        color: var(--ink-faint);
         animation: bounceChevron 1.8s ease-in-out infinite;
       }
 
@@ -797,62 +768,84 @@
         position: relative;
         z-index: 10;
         width: 100%;
-        max-width: 1200px;
+        max-width: 1080px;
         margin: 0 auto;
-        padding: 3rem 2rem 2rem;
+        padding: 5.5rem 2rem 3.5rem;
+        display: grid;
+        grid-template-columns: 0.85fr 1.35fr;
+        gap: 3.5rem;
+        align-items: start;
       }
 
       .features-eyebrow {
-        text-align: center;
         font-size: 0.62rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.22em;
-        color: rgba(255, 255, 255, 0.35);
-        margin-bottom: 1.75rem;
+        color: var(--brand-orange);
+        margin-bottom: 1rem;
       }
 
-      .features-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
+      .features-headline {
+        font-size: clamp(1.5rem, 3vw, 2.1rem);
+        font-weight: 800;
+        line-height: 1.12;
+        letter-spacing: -0.025em;
+        color: var(--ink);
+      }
+
+      .features-sub {
+        margin-top: 0.9rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        max-width: 34ch;
+      }
+
+      .features-list {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .feature-row {
+        display: flex;
         gap: 1.25rem;
+        padding: 1.6rem 0;
+        border-top: 1px solid var(--line);
       }
 
-      .feature-card {
-        background: rgba(255, 255, 255, 0.07);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        border-radius: 12px;
-        padding: 2rem 1.75rem;
-        transition: var(--transition);
-      }
-
-      .feature-card:hover {
-        background: rgba(255, 255, 255, 0.11);
-        border-color: rgba(227, 82, 5, 0.35);
-        transform: translateY(-3px);
-        box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+      .feature-row:first-child {
+        padding-top: 0.25rem;
+        border-top: none;
       }
 
       .feature-icon {
-        width: 36px;
-        height: 36px;
-        margin-bottom: 1.1rem;
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+        padding: 0.6rem;
+        border-radius: 12px;
         color: var(--brand-orange);
+        background: rgba(227, 82, 5, 0.09);
+        box-sizing: content-box;
+        transition: transform 0.3s ease;
+      }
+
+      .feature-row:hover .feature-icon {
+        transform: translateY(-2px);
       }
 
       .feature-title {
-        font-size: 1rem;
+        font-size: 1.05rem;
         font-weight: 700;
-        color: var(--white);
-        margin-bottom: 0.55rem;
+        color: var(--ink);
+        margin-bottom: 0.4rem;
         letter-spacing: -0.01em;
       }
 
       .feature-desc {
-        font-size: 0.875rem;
-        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.9rem;
+        color: var(--ink-soft);
         line-height: 1.65;
         font-weight: 400;
       }
@@ -866,16 +859,11 @@
         }
       }
 
-      @media (max-width: 768px) {
+      @media (max-width: 860px) {
         .features-section {
-          padding: 2rem 1.5rem 1rem;
-        }
-        .features-grid {
           grid-template-columns: 1fr;
-          gap: 1rem;
-        }
-        .feature-card {
-          padding: 1.5rem;
+          gap: 1.75rem;
+          padding: 3.5rem 1.5rem 1.5rem;
         }
       }
 
@@ -884,16 +872,13 @@
           display: none;
         }
         .features-section {
-          padding: 1.5rem 1rem 0.5rem;
-        }
-        .feature-card {
-          padding: 1.25rem;
+          padding: 2.5rem 1.25rem 1rem;
         }
         .feature-title {
-          font-size: 0.95rem;
+          font-size: 1rem;
         }
         .feature-desc {
-          font-size: 0.82rem;
+          font-size: 0.85rem;
         }
       }
 
@@ -911,7 +896,7 @@
       }
 
       .nav-link {
-        color: rgba(255, 255, 255, 0.72);
+        color: var(--ink-soft);
         text-decoration: none;
         font-size: 0.82rem;
         font-weight: 600;
@@ -934,7 +919,7 @@
         transition: width 0.25s ease;
       }
 
-      .nav-link:hover { color: var(--white); }
+      .nav-link:hover { color: var(--ink); }
       .nav-link:hover::after,
       .nav-link--active::after { width: 100%; }
       .nav-link--active { color: var(--brand-orange); }
@@ -948,8 +933,8 @@
         gap: 5px;
         width: 40px;
         height: 40px;
-        background: rgba(255, 255, 255, 0.07);
-        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: rgba(15, 27, 45, 0.04);
+        border: 1px solid var(--line-strong);
         border-radius: 8px;
         cursor: pointer;
         transition: var(--transition);
@@ -958,15 +943,15 @@
       }
 
       .hamburger-btn:hover {
-        background: rgba(255, 255, 255, 0.14);
-        border-color: rgba(255, 255, 255, 0.25);
+        background: rgba(15, 27, 45, 0.08);
+        border-color: var(--brand-orange);
       }
 
       .hamburger-line {
         display: block;
         width: 18px;
         height: 2px;
-        background: var(--white);
+        background: var(--ink);
         border-radius: 2px;
         transition: var(--transition);
         transform-origin: center;
@@ -989,10 +974,10 @@
         top: 100%;
         left: 0;
         right: 0;
-        background: rgba(5, 5, 5, 0.96);
+        background: rgba(255, 255, 255, 0.97);
         backdrop-filter: blur(24px);
         -webkit-backdrop-filter: blur(24px);
-        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        border-bottom: 1px solid var(--line);
         padding: 0 1.5rem;
         display: flex;
         flex-direction: column;
@@ -1020,14 +1005,14 @@
 
       .mobile-nav-link {
         display: block;
-        color: rgba(255, 255, 255, 0.68);
+        color: var(--ink-soft);
         text-decoration: none;
         font-size: 0.95rem;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.1em;
         padding: 1rem 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        border-bottom: 1px solid var(--line);
         transition: color 0.2s ease, padding-left 0.2s ease;
       }
 
@@ -1081,15 +1066,6 @@
         transform: scale(1.02);
       }
 
-      /* Feature icon scale on card hover */
-      .feature-card .feature-icon {
-        transition: transform 0.3s ease;
-      }
-
-      .feature-card:hover .feature-icon {
-        transform: scale(1.1);
-      }
-
       /* Quote form animate in */
       .quote-form-container {
         animation: none; /* override old fadeIn — JS handles it */
@@ -1097,23 +1073,11 @@
     </style>
   </head>
   <body>
-    <video
-      id="bg-video"
-      autoplay
-      muted
-      playsinline
-      webkit-playsinline
-      preload="auto"
-    >
-      <source src="street.mp4" type="video/mp4" />
-    </video>
-    <video id="bg-video-2" muted playsinline webkit-playsinline preload="auto">
-      <source src="405.mp4" type="video/mp4" />
-    </video>
+    <div id="bg-skyline" aria-hidden="true"></div>
 
     <header id="site-header">
       <a href="index.html" class="logo-link">
-        <img src="ow-logo-no-sm.svg" alt="Keenway" class="logo-img" />
+        <img src="ow-logo-dark.svg" alt="Keenway" class="logo-img" />
       </a>
       <div class="header-right">
         <nav class="nav-links">
@@ -1167,7 +1131,8 @@
     <div class="container">
       <main style="padding-bottom: 5vh">
         <div class="hero-content">
-          <h1 class="hero-animate">Experience better logistics with our next-generation platform</h1>
+          <span class="hero-eyebrow hero-animate">Same-day freight in Los Angeles</span>
+          <h1 class="hero-animate">Deliver better with the <span class="accent">Keenway</span> platform</h1>
           <p class="subtext hero-animate">
             Freight that moves as fast as you do. Real-time GPS tracking,
             instant price estimates, and background-checked drivers — on demand,
@@ -1271,12 +1236,12 @@
               autocomplete="tel"
               style="
                 width: 100%;
-                background: rgba(0,0,0,0.35);
-                border: 1px solid rgba(255,255,255,0.15);
+                background: #f4f6fa;
+                border: 1px solid rgba(15,27,45,0.14);
                 border-radius: 10px;
                 padding: 0.8rem 1rem;
                 font-size: 0.95rem;
-                color: #fff;
+                color: #0f1b2d;
                 outline: none;
                 transition: border-color 0.2s ease;
                 margin-bottom: 0.25rem;
@@ -1296,7 +1261,7 @@
               <label style="
                 display: flex; align-items: flex-start; gap: 0.65rem;
                 cursor: pointer; font-size: 0.85rem; font-weight: 400;
-                color: rgba(255,255,255,0.85); line-height: 1.5;
+                color: #51607a; line-height: 1.5;
                 text-transform: none; letter-spacing: 0;
               ">
                 <input
@@ -1315,7 +1280,7 @@
                   Reply <strong>STOP</strong> to opt out.
                 </span>
               </label>
-              <p style="font-size: 0.75rem; color: rgba(255,255,255,0.4); padding-left: 1.6rem; line-height: 1.5; margin: 0;">
+              <p style="font-size: 0.75rem; color: #8a96aa; padding-left: 1.6rem; line-height: 1.5; margin: 0;">
                 <a href="https://gokeenway.com/privacy" target="_blank" rel="noopener noreferrer" style="color: #e35205; text-decoration: underline;">Privacy Policy</a>
                 &nbsp;&middot;&nbsp;
                 <a href="https://gokeenway.com/terms" target="_blank" rel="noopener noreferrer" style="color: #e35205; text-decoration: underline;">Terms</a>
@@ -1334,16 +1299,16 @@
                 display: none;
                 margin-top: 1.5rem;
                 padding: 1.5rem;
-                background: rgba(0, 0, 0, 0.4);
-                border-radius: 8px;
-                border: 1px solid rgba(227, 82, 5, 0.3);
+                background: rgba(227, 82, 5, 0.06);
+                border-radius: 12px;
+                border: 1px solid rgba(227, 82, 5, 0.25);
                 text-align: center;
               "
             >
               <div
                 style="
                   font-size: 0.9rem;
-                  color: rgba(255, 255, 255, 0.7);
+                  color: #51607a;
                   margin-bottom: 0.5rem;
                 "
                 id="route-text"
@@ -1356,7 +1321,6 @@
                   font-weight: 800;
                   color: var(--brand-orange);
                   line-height: 1;
-                  text-shadow: 0 0 20px rgba(227, 82, 5, 0.4);
                 "
                 id="calculated-price"
               >
@@ -1369,9 +1333,19 @@
     </div>
 
     <section class="features-section" aria-label="Why Choose Keenway">
-      <p class="features-eyebrow scroll-animate">Why Keenway</p>
-      <div class="features-grid">
-        <div class="feature-card scroll-animate">
+      <div class="features-intro">
+        <p class="features-eyebrow scroll-animate">Why Keenway</p>
+        <h2 class="features-headline scroll-animate">
+          Freight that keeps your business moving
+        </h2>
+        <p class="features-sub scroll-animate">
+          Real infrastructure behind every delivery, built for speed and
+          reliability across Los Angeles.
+        </p>
+      </div>
+
+      <div class="features-list">
+        <div class="feature-row scroll-animate">
           <svg
             class="feature-icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -1385,14 +1359,16 @@
           >
             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
           </svg>
-          <h3 class="feature-title">Same-Day Freight</h3>
-          <p class="feature-desc">
-            Real-time tracking from pickup to delivery. We move cargo fast so
-            your business never waits on a load.
-          </p>
+          <div>
+            <h3 class="feature-title">Same-Day Freight</h3>
+            <p class="feature-desc">
+              Real-time tracking from pickup to delivery. We move cargo fast so
+              your business never waits on a load.
+            </p>
+          </div>
         </div>
 
-        <div class="feature-card scroll-animate">
+        <div class="feature-row scroll-animate">
           <svg
             class="feature-icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -1407,15 +1383,16 @@
             <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
             <path d="M9 12l2 2 4-4" />
           </svg>
-          <h3 class="feature-title">Professional Network</h3>
-          <p class="feature-desc">
-            Drivers on our platform undergo thorough screening processes and
-            maintain valid licenses, ensuring your freight is in dependable
-            hands.
-          </p>
+          <div>
+            <h3 class="feature-title">Professional Network</h3>
+            <p class="feature-desc">
+              Drivers on our platform undergo thorough screening and maintain
+              valid licenses, keeping your freight in dependable hands.
+            </p>
+          </div>
         </div>
 
-        <div class="feature-card scroll-animate">
+        <div class="feature-row scroll-animate">
           <svg
             class="feature-icon"
             xmlns="http://www.w3.org/2000/svg"
@@ -1431,12 +1408,13 @@
               d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 1.18 2 2 0 014 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
             />
           </svg>
-          <h3 class="feature-title">Reliable Support</h3>
-          <p class="feature-desc">
-            Our dedicated operations team provides consistent communication and
-            assistance during business hours to keep your logistics running
-            smoothly.
-          </p>
+          <div>
+            <h3 class="feature-title">Reliable Support</h3>
+            <p class="feature-desc">
+              A dedicated operations team keeps communication open during
+              business hours so your logistics keep running smoothly.
+            </p>
+          </div>
         </div>
       </div>
     </section>
@@ -1454,34 +1432,11 @@
         © 2026 Keenway<span style="text-transform: none">ˢᵐ</span> | Engineered
         by Keenway Technologies
       </div>
-      <div class="video-credits" id="video-credits">
-        VIDEOS BY
-        <a
-          href="https://www.pexels.com/video/nighttime-highway-traffic-timelapse-with-bokeh-effect-35471093/"
-          target="_blank"
-          rel="noopener noreferrer"
-          >LEONARD FERHATI</a
-        >
-        &middot;
-        <a
-          href="https://www.pexels.com/video/city-illuminated-at-night-10681533/"
-          target="_blank"
-          rel="noopener noreferrer"
-          >EGOR AVSYUKOV</a
-        >
-        &middot;
-        <a
-          href="https://www.pexels.com/video/aerial-view-of-traffic-on-city-highway-31455842/"
-          target="_blank"
-          rel="noopener noreferrer"
-          >AHMET ARIKAYA</a
-        >
-      </div>
     </footer>
 
     <style>
       .spinner {
-        border: 3px solid rgba(255, 255, 255, 0.1);
+        border: 3px solid rgba(15, 27, 45, 0.12);
         width: 20px;
         height: 20px;
         border-radius: 50%;
@@ -1496,36 +1451,35 @@
           transform: rotate(360deg);
         }
       }
-      /* Style the google pac container to match dark mode */
+      /* Style the google pac container to match the light form */
       .pac-container {
-        background-color: #1a1a1a;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 8px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        background-color: var(--surface);
+        border: 1px solid var(--line-strong);
+        border-radius: 10px;
+        box-shadow: 0 18px 48px -18px rgba(15, 27, 45, 0.28);
         font-family: var(--font-main);
-        color: #fff;
+        color: var(--ink);
         margin-top: 4px;
         z-index: 1000 !important;
       }
       .pac-item {
         padding: 8px 12px;
         cursor: pointer;
-        color: rgba(255, 255, 255, 0.7);
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        color: var(--ink-soft);
+        border-top: 1px solid var(--line);
       }
       .pac-item:hover {
-        background-color: rgba(227, 82, 5, 0.1);
+        background-color: rgba(227, 82, 5, 0.08);
       }
       .pac-item-query {
-        color: #fff;
+        color: var(--ink);
         font-size: 14px;
       }
       .pac-logo:after {
         display: none;
       }
       .pac-icon {
-        filter: invert(1);
-        opacity: 0.5;
+        opacity: 0.6;
       }
 
       /* Fix for Google Maps "Oops" error overlapping inputs */
@@ -1578,88 +1532,6 @@
     </script>
 
     <script>
-      // ... (Background video logic remains unchanged) ...
-      const videoData = [
-        {
-          src: "street.mp4",
-          author: "LEONARD FERHATI",
-          url: "https://www.pexels.com/video/nighttime-highway-traffic-timelapse-with-bokeh-effect-35471093/",
-        },
-        {
-          src: "405.mp4",
-          author: "EGOR AVSYUKOV",
-          url: "https://www.pexels.com/video/city-illuminated-at-night-10681533/",
-        },
-        {
-          src: "freeway.mp4",
-          author: "AHMET ARIKAYA",
-          url: "https://www.pexels.com/video/aerial-view-of-traffic-on-city-highway-31455842/",
-        },
-      ];
-      let currentIndex = 0;
-      let isUsingVideo1 = true;
-
-      const v1 = document.getElementById("bg-video");
-      const v2 = document.getElementById("bg-video-2");
-      // Credits are now static in the footer (all 3 creators listed)
-
-      function setupCrossfade() {
-        const active = isUsingVideo1 ? v1 : v2;
-        const checkInterval = setInterval(() => {
-          if (active.duration && active.duration - active.currentTime < 2.5) {
-            clearInterval(checkInterval);
-            triggerTransition();
-          }
-        }, 250);
-        active.onended = () => {
-          clearInterval(checkInterval);
-          triggerTransition();
-        };
-      }
-
-      function triggerTransition() {
-        const active = isUsingVideo1 ? v1 : v2;
-        const next = isUsingVideo1 ? v2 : v1;
-
-        currentIndex = (currentIndex + 1) % videoData.length;
-        const current = videoData[currentIndex];
-
-        next.src = current.src;
-        next.load();
-
-        next
-          .play()
-          .then(() => {
-            active.style.opacity = "0";
-            next.style.opacity = "0.85";
-            // Credits are static — all three creators listed in the footer
-            isUsingVideo1 = !isUsingVideo1;
-            setupCrossfade();
-          })
-          .catch((err) => {
-            active.currentTime = 0;
-            active.play();
-            setupCrossfade();
-          });
-      }
-
-      v1.load();
-      v1.play()
-        .then(() => {
-          setupCrossfade();
-        })
-        .catch((err) => {
-          document.body.addEventListener(
-            "click",
-            () => {
-              v1.play().then(() => {
-                setupCrossfade();
-              });
-            },
-            { once: true },
-          );
-        });
-
       // ----- Google Maps API Integration -----
       let pickupPlace = null;
       let dropoffPlace = null;
@@ -2089,9 +1961,12 @@
         var header = document.getElementById("site-header");
         function onHeaderScroll() {
           var progress = Math.min(window.scrollY / 120, 1); // 0→1 over first 120 px
-          var alpha = 0.4 + progress * 0.55; // 0.4 → 0.95
-          header.style.background =
-            "rgba(0, 0, 0, " + alpha + ")";
+          var alpha = 0.72 + progress * 0.24; // 0.72 → 0.96
+          header.style.background = "rgba(255, 255, 255, " + alpha + ")";
+          header.style.boxShadow =
+            progress > 0.02
+              ? "0 6px 24px -16px rgba(15, 27, 45, 0.5)"
+              : "none";
         }
         window.addEventListener("scroll", onHeaderScroll, { passive: true });
         onHeaderScroll(); // initial state
@@ -2129,18 +2004,6 @@
             el.style.transform = "translateY(0)";
           });
         }
-
-        // ── 4. Hero background parallax on scroll ─────────────────────────
-        var bgVideo1 = document.getElementById("bg-video");
-        var bgVideo2 = document.getElementById("bg-video-2");
-        function onParallaxScroll() {
-          // Move bg videos upward at ~16% of scroll distance for subtle parallax
-          var y = window.scrollY * 0.16;
-          // Preserve the existing cinematic zoom animation by layering translateY
-          bgVideo1.style.transform = "translateY(" + y + "px) scale(1)";
-          bgVideo2.style.transform = "translateY(" + y + "px) scale(1)";
-        }
-        window.addEventListener("scroll", onParallaxScroll, { passive: true });
       })();
     </script>
   </body>

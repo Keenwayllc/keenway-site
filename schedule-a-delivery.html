@@ -314,19 +314,86 @@
         .logo-img { height: 32px; }
         form { padding: 1.5rem 1.25rem; gap: 1.25rem; }
       }
+    
+      /* ===== Light techy-clean theme override ===== */
+      #bg-skyline {
+        position: fixed; left: 0; right: 0; bottom: 0; height: 44vh;
+        background: url("la-skyline.svg") no-repeat bottom center;
+        background-size: min(1500px, 132%) auto;
+        opacity: 0.85; z-index: 0; pointer-events: none;
+      }
+      body {
+        color: #0f1b2d;
+        background-color: #f7f9fc;
+        background-image:
+          radial-gradient(circle at 1px 1px, rgba(15,27,45,0.05) 1px, transparent 0),
+          linear-gradient(180deg, #f7f9fc 0%, #eaeef6 100%);
+        background-size: 26px 26px, 100% 100%;
+        background-attachment: fixed;
+      }
+      header { background: rgba(255,255,255,0.82); border-bottom: 1px solid rgba(15,27,45,0.09); }
+      .nav-link { color: #51607a; }
+      .nav-link:hover { color: #0f1b2d; }
+      .app-label { color: #8a96aa; }
+      .hamburger-btn { background: rgba(15,27,45,0.04); border: 1px solid rgba(15,27,45,0.14); }
+      .hamburger-btn:hover { background: rgba(15,27,45,0.08); border-color: #e35205; }
+      .hamburger-line { background: #0f1b2d; }
+      .mobile-menu { background: rgba(255,255,255,0.97); border-bottom: 1px solid rgba(15,27,45,0.09); }
+      .mobile-nav-link { color: #51607a; border-bottom: 1px solid rgba(15,27,45,0.09); }
+      h1 { color: #0f1b2d; text-shadow: none; }
+      .subtext { color: #51607a; text-shadow: none; }
+      .effective-date { color: #8a96aa; }
+      .card {
+        background: #ffffff;
+        border: 1px solid rgba(15,27,45,0.09);
+        box-shadow: 0 1px 2px rgba(15,27,45,0.04);
+        -webkit-backdrop-filter: none; backdrop-filter: none;
+      }
+      .card:hover { background: #ffffff; border-color: rgba(227,82,5,0.4); box-shadow: 0 20px 40px -18px rgba(15,27,45,0.22); }
+      .card p { color: #3c4759; }
+      .card ul li { color: #51607a; }
+      footer {
+        background: rgba(255,255,255,0.85);
+        border-top: 1px solid rgba(15,27,45,0.09);
+        -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+      }
+      .footer-links a { color: #51607a; }
+      .footer-links a:hover { color: #e35205; }
+      .copyright { color: #8a96aa; }
+      /* schedule form light */
+      form {
+        background: #ffffff;
+        border: 1px solid rgba(15,27,45,0.09);
+        -webkit-backdrop-filter: none; backdrop-filter: none;
+        box-shadow: 0 1px 2px rgba(15,27,45,0.04), 0 18px 48px -18px rgba(15,27,45,0.18);
+      }
+      label { color: #51607a; }
+      input[type="text"], input[type="tel"], input[type="email"], textarea, select {
+        background: #f4f6fa;
+        border: 1px solid rgba(15,27,45,0.14);
+        color: #0f1b2d;
+      }
+      input::placeholder, textarea::placeholder { color: #8a96aa; }
+      input:focus, textarea:focus, select:focus {
+        border-color: #e35205;
+        background: #ffffff;
+        box-shadow: 0 0 0 3px rgba(227,82,5,0.15);
+      }
+      select option { background: #ffffff; color: #0f1b2d; }
+      .checkbox-label { color: #3c4759; }
+      .checkbox-label strong { color: #0f1b2d; }
+      .consent-links { color: #8a96aa; }
+      .btn-submit { box-shadow: 0 8px 20px -10px rgba(227,82,5,0.55); }
+      .btn-submit:hover { box-shadow: 0 12px 26px -10px rgba(227,82,5,0.6); }
+      .success-msg { color: #2f6b3a; background: rgba(34,197,94,0.1); border-color: rgba(34,197,94,0.3); }
+      .success-msg strong { color: #1f9d4d; }
     </style>
   </head>
   <body>
-    <video id="bg-video" autoplay muted playsinline webkit-playsinline preload="auto">
-      <source src="street.mp4" type="video/mp4" />
-    </video>
-    <video id="bg-video-2" muted playsinline webkit-playsinline preload="auto">
-      <source src="405.mp4" type="video/mp4" />
-    </video>
-
-    <header id="site-header">
+    <div id="bg-skyline" aria-hidden="true"></div>
+<header id="site-header">
       <a href="index.html" class="logo-link">
-        <img src="ow-logo-no-sm.svg" alt="Keenway" class="logo-img" />
+        <img src="ow-logo-dark.svg" alt="Keenway" class="logo-img" />
       </a>
       <div class="header-right">
         <nav class="nav-links">
@@ -370,17 +437,17 @@
 
           <div class="field-group">
             <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" placeholder="Jane Smith" required autocomplete="name" />
+            <input type="text" id="name" name="name" placeholder="Marcus Delgado" required autocomplete="name" />
           </div>
 
           <div class="field-group">
             <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="jane@company.com" required autocomplete="email" />
+            <input type="email" id="email" name="email" placeholder="marcus.delgado@gmail.com" required autocomplete="email" />
           </div>
 
           <div class="field-group">
             <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="(323) 555-0100" required autocomplete="tel" />
+            <input type="tel" id="phone" name="phone" placeholder="(213) 478-2091" required autocomplete="tel" />
 
             <!-- SMS CONSENT — Required for Twilio Toll-Free Verification -->
             <div class="sms-consent-block" role="group" aria-labelledby="sms-consent-label">
@@ -410,12 +477,12 @@
 
           <div class="field-group">
             <label for="pickup">Pickup Address</label>
-            <input type="text" id="pickup" name="pickup" placeholder="123 Main St, Los Angeles, CA" required />
+            <input type="text" id="pickup" name="pickup" placeholder="1248 Wilshire Blvd, Los Angeles, CA" required />
           </div>
 
           <div class="field-group">
             <label for="dropoff">Drop-off Address</label>
-            <input type="text" id="dropoff" name="dropoff" placeholder="456 Sunset Blvd, Los Angeles, CA" required />
+            <input type="text" id="dropoff" name="dropoff" placeholder="880 S Hope St, Los Angeles, CA" required />
           </div>
 
           <div class="field-group">
@@ -477,14 +544,6 @@
       animatedEls.forEach((el) => observer.observe(el));
 
       // Video crossfade
-      const vid1 = document.getElementById('bg-video');
-      const vid2 = document.getElementById('bg-video-2');
-      let activeVideo = vid1, nextVideo = vid2;
-      vid1.addEventListener('ended', () => {
-        nextVideo.currentTime = 0; nextVideo.play();
-        nextVideo.style.opacity = '0.85'; activeVideo.style.opacity = '0';
-        [activeVideo, nextVideo] = [nextVideo, activeVideo];
-      });
 
       // Form submission — consent checkbox gating
       const form = document.getElementById('booking-form');

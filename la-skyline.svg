@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 380" fill="none" role="img" aria-label="Line-art Los Angeles skyline">
+  <defs>
+    <style>
+      .b { stroke: #aab6c8; stroke-width: 2.4; stroke-linejoin: round; }
+      .w { stroke: #c2ccda; stroke-width: 2; stroke-linecap: round; }
+      .accent { stroke: #e35205; stroke-width: 2.4; stroke-linecap: round; }
+    </style>
+  </defs>
+
+  <!-- ground line -->
+  <line x1="0" y1="360" x2="1600" y2="360" stroke="#c2ccda" stroke-width="2"/>
+
+  <!-- left palm -->
+  <g class="b" stroke-linecap="round">
+    <path d="M126 360 C124 320 128 290 130 268"/>
+    <path d="M130 266 C108 252 86 252 68 264"/>
+    <path d="M130 266 C112 246 92 234 70 230"/>
+    <path d="M130 266 C128 240 132 218 144 200"/>
+    <path d="M130 266 C152 248 176 244 198 252"/>
+    <path d="M130 266 C150 244 174 232 196 230"/>
+  </g>
+
+  <!-- skyline buildings (outlined) -->
+  <g class="b">
+    <rect x="236" y="244" width="58" height="116"/>
+    <rect x="304" y="208" width="50" height="152"/>
+    <rect x="364" y="262" width="44" height="98"/>
+    <!-- tapered tower -->
+    <path d="M428 360 L428 176 L452 152 L476 176 L476 360 Z"/>
+    <rect x="488" y="226" width="56" height="134"/>
+    <rect x="554" y="256" width="40" height="104"/>
+    <!-- tall center tower with spire -->
+    <rect x="606" y="138" width="78" height="222"/>
+    <line x1="645" y1="138" x2="645" y2="92" class="b"/>
+    <rect x="696" y="232" width="52" height="128"/>
+    <rect x="758" y="200" width="60" height="160"/>
+    <rect x="828" y="250" width="42" height="110"/>
+    <!-- second tapered tower -->
+    <path d="M884 360 L884 196 L906 174 L928 196 L928 360 Z"/>
+    <rect x="940" y="222" width="58" height="138"/>
+    <rect x="1008" y="258" width="44" height="102"/>
+    <rect x="1062" y="214" width="62" height="146"/>
+    <rect x="1134" y="248" width="46" height="112"/>
+    <rect x="1190" y="276" width="50" height="84"/>
+    <rect x="1250" y="236" width="54" height="124"/>
+  </g>
+
+  <!-- window ticks -->
+  <g class="w">
+    <line x1="252" y1="266" x2="278" y2="266"/>
+    <line x1="252" y1="292" x2="278" y2="292"/>
+    <line x1="252" y1="318" x2="278" y2="318"/>
+    <line x1="318" y1="232" x2="340" y2="232"/>
+    <line x1="318" y1="262" x2="340" y2="262"/>
+    <line x1="318" y1="292" x2="340" y2="292"/>
+    <line x1="318" y1="322" x2="340" y2="322"/>
+    <line x1="624" y1="170" x2="666" y2="170"/>
+    <line x1="624" y1="200" x2="666" y2="200"/>
+    <line x1="624" y1="230" x2="666" y2="230"/>
+    <line x1="624" y1="260" x2="666" y2="260"/>
+    <line x1="624" y1="290" x2="666" y2="290"/>
+    <line x1="624" y1="320" x2="666" y2="320"/>
+    <line x1="772" y1="226" x2="804" y2="226"/>
+    <line x1="772" y1="256" x2="804" y2="256"/>
+    <line x1="772" y1="286" x2="804" y2="286"/>
+    <line x1="772" y1="316" x2="804" y2="316"/>
+    <line x1="954" y1="246" x2="984" y2="246"/>
+    <line x1="954" y1="276" x2="984" y2="276"/>
+    <line x1="954" y1="306" x2="984" y2="306"/>
+    <line x1="1076" y1="238" x2="1110" y2="238"/>
+    <line x1="1076" y1="268" x2="1110" y2="268"/>
+    <line x1="1076" y1="298" x2="1110" y2="298"/>
+  </g>
+
+  <!-- right palm -->
+  <g class="b" stroke-linecap="round">
+    <path d="M1452 360 C1450 312 1454 278 1456 252"/>
+    <path d="M1456 250 C1430 234 1404 234 1384 248"/>
+    <path d="M1456 250 C1434 226 1410 212 1384 208"/>
+    <path d="M1456 250 C1454 220 1458 194 1472 174"/>
+    <path d="M1456 250 C1482 230 1510 226 1534 236"/>
+    <path d="M1456 250 C1478 226 1506 212 1532 208"/>
+  </g>
+
+  <!-- orange delivery route arc with pins -->
+  <path class="accent" stroke-dasharray="2 9" d="M150 150 C460 40 1120 40 1430 150"/>
+  <g>
+    <circle cx="150" cy="150" r="8" fill="#e35205"/>
+    <circle cx="150" cy="150" r="3" fill="#ffffff"/>
+    <circle cx="1430" cy="150" r="8" fill="#e35205"/>
+    <circle cx="1430" cy="150" r="3" fill="#ffffff"/>
+  </g>
+</svg>

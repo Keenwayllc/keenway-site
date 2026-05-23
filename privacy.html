@@ -168,19 +168,59 @@
         .card { padding: 1.5rem 1.25rem; }
         .card p, .card ul li { font-size: 0.95rem; }
       }
+    
+      /* ===== Light techy-clean theme override ===== */
+      #bg-skyline {
+        position: fixed; left: 0; right: 0; bottom: 0; height: 44vh;
+        background: url("la-skyline.svg") no-repeat bottom center;
+        background-size: min(1500px, 132%) auto;
+        opacity: 0.85; z-index: 0; pointer-events: none;
+      }
+      body {
+        color: #0f1b2d;
+        background-color: #f7f9fc;
+        background-image:
+          radial-gradient(circle at 1px 1px, rgba(15,27,45,0.05) 1px, transparent 0),
+          linear-gradient(180deg, #f7f9fc 0%, #eaeef6 100%);
+        background-size: 26px 26px, 100% 100%;
+        background-attachment: fixed;
+      }
+      header { background: rgba(255,255,255,0.82); border-bottom: 1px solid rgba(15,27,45,0.09); }
+      .nav-link { color: #51607a; }
+      .nav-link:hover { color: #0f1b2d; }
+      .app-label { color: #8a96aa; }
+      .hamburger-btn { background: rgba(15,27,45,0.04); border: 1px solid rgba(15,27,45,0.14); }
+      .hamburger-btn:hover { background: rgba(15,27,45,0.08); border-color: #e35205; }
+      .hamburger-line { background: #0f1b2d; }
+      .mobile-menu { background: rgba(255,255,255,0.97); border-bottom: 1px solid rgba(15,27,45,0.09); }
+      .mobile-nav-link { color: #51607a; border-bottom: 1px solid rgba(15,27,45,0.09); }
+      h1 { color: #0f1b2d; text-shadow: none; }
+      .subtext { color: #51607a; text-shadow: none; }
+      .effective-date { color: #8a96aa; }
+      .card {
+        background: #ffffff;
+        border: 1px solid rgba(15,27,45,0.09);
+        box-shadow: 0 1px 2px rgba(15,27,45,0.04);
+        -webkit-backdrop-filter: none; backdrop-filter: none;
+      }
+      .card:hover { background: #ffffff; border-color: rgba(227,82,5,0.4); box-shadow: 0 20px 40px -18px rgba(15,27,45,0.22); }
+      .card p { color: #3c4759; }
+      .card ul li { color: #51607a; }
+      footer {
+        background: rgba(255,255,255,0.85);
+        border-top: 1px solid rgba(15,27,45,0.09);
+        -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+      }
+      .footer-links a { color: #51607a; }
+      .footer-links a:hover { color: #e35205; }
+      .copyright { color: #8a96aa; }
     </style>
   </head>
   <body>
-    <video id="bg-video" autoplay muted playsinline webkit-playsinline preload="auto">
-      <source src="street.mp4" type="video/mp4" />
-    </video>
-    <video id="bg-video-2" muted playsinline webkit-playsinline preload="auto">
-      <source src="405.mp4" type="video/mp4" />
-    </video>
-
-    <header id="site-header">
+    <div id="bg-skyline" aria-hidden="true"></div>
+<header id="site-header">
       <a href="index.html" class="logo-link">
-        <img src="ow-logo-no-sm.svg" alt="Keenway" class="logo-img" />
+        <img src="ow-logo-dark.svg" alt="Keenway" class="logo-img" />
       </a>
       <div class="header-right">
         <nav class="nav-links">
@@ -256,7 +296,7 @@
         <article class="card scroll-animate">
           <h2 class="card-title">SMS Messaging</h2>
           <p>If you provide your phone number and consent to SMS, we will send you text messages related to your deliveries and account. Message frequency varies. Message and data rates may apply.</p>
-          <p>Reply <strong style="color:#fff;">STOP</strong> at any time to opt out. Reply <strong style="color:#fff;">HELP</strong> for assistance. See our <a href="https://gokeenway.com/sms-consent">SMS Consent page</a> for full details.</p>
+          <p>Reply <strong style="color:#0f1b2d;">STOP</strong> at any time to opt out. Reply <strong style="color:#0f1b2d;">HELP</strong> for assistance. See our <a href="https://gokeenway.com/sms-consent">SMS Consent page</a> for full details.</p>
         </article>
 
         <article class="card scroll-animate">
@@ -329,15 +369,6 @@
         { threshold: 0.12 }
       );
       animatedEls.forEach((el) => observer.observe(el));
-
-      const vid1 = document.getElementById('bg-video');
-      const vid2 = document.getElementById('bg-video-2');
-      let activeVideo = vid1, nextVideo = vid2;
-      vid1.addEventListener('ended', () => {
-        nextVideo.currentTime = 0; nextVideo.play();
-        nextVideo.style.opacity = '0.85'; activeVideo.style.opacity = '0';
-        [activeVideo, nextVideo] = [nextVideo, activeVideo];
-      });
     </script>
   </body>
 </html>
