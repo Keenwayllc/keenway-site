@@ -555,7 +555,7 @@
 
         .header-right { gap: 0.75rem; }
         .nav-links,
-        .google-play-wrapper { display: none; }
+        .google-play-wrapper, .app-menu { display: none; }
         .hamburger-btn { display: flex; }
         
         .container {
@@ -609,7 +609,7 @@
       .footer-links a:hover { color: #e35205; }
       .copyright { color: #8a96aa; }
           /* Display font for headings */
-      h1, h2, h3,
+      h1, h2, h3, h1 span, h2 span, h3 span, .accent, .brand-highlight,
       .features-headline, .quote-heading, .feature-title,
       .step-title, .card-title {
         font-family: "Sora", ui-sans-serif, system-ui, -apple-system, sans-serif;
@@ -631,6 +631,38 @@
         .logo-svg { animation: none; }
         .logo-link:hover .logo-mark { transform: none; }
       }
+          /* ===== Get-the-App dropdown ===== */
+      .app-menu { position: relative; }
+      .app-menu-trigger {
+        display: inline-flex; align-items: center; gap: 0.55rem;
+        padding: 0.6rem 1.05rem; background: #ffffff;
+        border: 1px solid rgba(15,27,45,0.14); border-radius: 999px;
+        color: #0f1b2d; font-size: 0.82rem; font-weight: 600;
+        letter-spacing: 0.01em; cursor: pointer; transition: var(--transition);
+        box-shadow: 0 1px 2px rgba(15,27,45,0.04);
+      }
+      .app-menu-trigger:hover { transform: translateY(-1px); box-shadow: 0 8px 18px -10px rgba(15,27,45,0.22); }
+      .app-menu-trigger:active { transform: translateY(0); }
+      .app-menu-icon { width: 17px; height: 17px; color: var(--brand-orange); flex-shrink: 0; }
+      .app-menu-chevron { width: 13px; height: 13px; color: #8a96aa; transition: transform 0.3s cubic-bezier(0.16,1,0.3,1); }
+      .app-menu.is-open .app-menu-chevron { transform: rotate(180deg); }
+      .app-menu-panel {
+        position: absolute; top: calc(100% + 0.75rem); right: 0; width: 264px;
+        padding: 1rem 1rem 0.85rem; background: #ffffff; border: 1px solid rgba(15,27,45,0.09);
+        border-radius: 22px;
+        box-shadow: 0 24px 48px -20px rgba(15,27,45,0.26), 0 2px 6px rgba(15,27,45,0.05), inset 0 1px 0 rgba(255,255,255,0.6);
+        display: flex; flex-direction: column; gap: 0.85rem;
+        opacity: 0; transform: translateY(-8px) scale(0.97); transform-origin: top right;
+        pointer-events: none;
+        transition: opacity 0.26s cubic-bezier(0.16,1,0.3,1), transform 0.26s cubic-bezier(0.16,1,0.3,1);
+        z-index: 120;
+      }
+      .app-menu.is-open .app-menu-panel { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+      .app-menu-item { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 0.75rem 0.5rem; border-radius: 16px; text-decoration: none; transition: background 0.2s ease; }
+      .app-menu-item:hover { background: #f7f9fc; }
+      .app-menu-item-label { font-size: 0.62rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.16em; color: #8a96aa; }
+      .app-menu-badge { height: 42px; width: auto; display: block; }
+      .app-menu-note { margin: 0; padding-top: 0.85rem; border-top: 1px solid rgba(15,27,45,0.09); font-size: 0.58rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.5; color: #8a96aa; text-align: center; }
     </style>
   </head>
   <body>
@@ -680,20 +712,23 @@
           <a href="/about" class="nav-link">About</a>
           <a href="/contact" class="nav-link">Contact</a>
         </nav>
-        <div class="google-play-wrapper">
-          <span class="app-label">For Drivers App</span>
-          <a
-            href="https://play.google.com/store/apps/details?id=com.gokeenway.driver"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="google-play-link"
-          >
-            <img
-              src="google-play-badge.png"
-              alt="Get it on Google Play"
-              class="google-play-badge"
-            />
-          </a>
+        <div class="app-menu" id="app-menu">
+          <button type="button" class="app-menu-trigger" id="app-menu-trigger" aria-haspopup="true" aria-expanded="false" aria-controls="app-menu-panel">
+            <svg class="app-menu-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.6" /><line x1="10.5" y1="18" x2="13.5" y2="18" /></svg>
+            <span>Get the App</span>
+            <svg class="app-menu-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+          </button>
+          <div class="app-menu-panel" id="app-menu-panel" role="menu" aria-label="Download the Keenway apps">
+            <a class="app-menu-item" role="menuitem" href="https://play.google.com/store/apps/details?id=com.gokeenway.customer" target="_blank" rel="noopener noreferrer">
+              <span class="app-menu-item-label">Customer App</span>
+              <img src="google-play-badge.png" alt="Get it on Google Play, Customer App" class="app-menu-badge" />
+            </a>
+            <a class="app-menu-item" role="menuitem" href="https://play.google.com/store/apps/details?id=com.gokeenway.driver" target="_blank" rel="noopener noreferrer">
+              <span class="app-menu-item-label">Driver App</span>
+              <img src="google-play-badge.png" alt="Get it on Google Play, Driver App" class="app-menu-badge" />
+            </a>
+            <p class="app-menu-note">iOS coming soon to the App Store</p>
+          </div>
         </div>
         <button class="hamburger-btn" id="hamburger-btn" aria-label="Toggle menu" aria-expanded="false">
           <span class="hamburger-line"></span>
@@ -710,19 +745,11 @@
           <a href="/contact" class="mobile-nav-link">Contact</a>
         </nav>
         <div class="mobile-play-wrapper">
-          <span class="app-label">For Drivers App</span>
-          <a
-            href="https://play.google.com/store/apps/details?id=com.gokeenway.driver"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="google-play-link"
-          >
-            <img
-              src="google-play-badge.png"
-              alt="Get it on Google Play"
-              class="google-play-badge mobile-play-badge"
-            />
-          </a>
+          <span class="app-label">Customer App</span>
+          <a href="https://play.google.com/store/apps/details?id=com.gokeenway.customer" target="_blank" rel="noopener noreferrer" class="google-play-link"><img src="google-play-badge.png" alt="Get it on Google Play, Customer App" class="google-play-badge mobile-play-badge" /></a>
+          <span class="app-label">Driver App</span>
+          <a href="https://play.google.com/store/apps/details?id=com.gokeenway.driver" target="_blank" rel="noopener noreferrer" class="google-play-link"><img src="google-play-badge.png" alt="Get it on Google Play, Driver App" class="google-play-badge mobile-play-badge" /></a>
+          <p class="app-label" style="opacity:0.75; margin-top:4px;">iOS coming soon to the App Store</p>
         </div>
       </div>
     </header>
@@ -1015,6 +1042,17 @@
         });
       })();
 
+    </script>
+      <script>
+      (function () {
+        var menu = document.getElementById("app-menu");
+        var trigger = document.getElementById("app-menu-trigger");
+        if (!menu || !trigger) return;
+        function setOpen(open){ menu.classList.toggle("is-open", open); trigger.setAttribute("aria-expanded", String(open)); }
+        trigger.addEventListener("click", function (e){ e.stopPropagation(); setOpen(!menu.classList.contains("is-open")); });
+        document.addEventListener("click", function (e){ if (menu.classList.contains("is-open") && !menu.contains(e.target)) setOpen(false); });
+        document.addEventListener("keydown", function (e){ if (e.key === "Escape" && menu.classList.contains("is-open")) { setOpen(false); trigger.focus(); } });
+      })();
     </script>
   </body>
 </html>
