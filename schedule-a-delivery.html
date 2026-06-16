@@ -499,86 +499,31 @@
     <main class="container">
       <div class="page-header hero-animate">
         <h1>Schedule a <span class="brand-highlight">Delivery</span></h1>
-        <p class="subtext">Fill out the form below and Keenway will confirm your booking.</p>
+        <p class="subtext">Create a free Keenway account to enter your delivery details, get an upfront price, and book securely.</p>
       </div>
 
       <div class="form-card scroll-animate">
-        <form id="booking-form" novalidate>
-
-          <div class="field-group">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" placeholder="Marcus Delgado" required autocomplete="name" />
-          </div>
-
-          <div class="field-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" name="email" placeholder="marcus.delgado@gmail.com" required autocomplete="email" />
-          </div>
-
-          <div class="field-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" name="phone" placeholder="(213) 478-2091" required autocomplete="tel" />
-
-            <!-- SMS CONSENT — Required for Twilio Toll-Free Verification -->
-            <div class="sms-consent-block" role="group" aria-labelledby="sms-consent-label">
-              <div class="checkbox-row">
-                <input
-                  type="checkbox"
-                  id="sms-consent"
-                  name="sms_consent"
-                  required
-                  aria-required="true"
-                />
-                <label class="checkbox-label" for="sms-consent" id="sms-consent-label">
-                  I agree to receive SMS updates from Keenway<sup>sm</sup> regarding my delivery.
-                  Message frequency varies. Message and data rates may apply.
-                  Reply <strong>STOP</strong> to opt out.
-                </label>
-              </div>
-              <p class="consent-links">
-                <a href="/privacy" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
-                &nbsp;&middot;&nbsp;
-                <a href="/terms" target="_blank" rel="noopener noreferrer">Terms &amp; Conditions</a>
-                &nbsp;&middot;&nbsp;
-                <a href="/sms-consent" target="_blank" rel="noopener noreferrer">SMS Consent</a>
-              </p>
-            </div>
-          </div>
-
-          <div class="field-group">
-            <label for="pickup">Pickup Address</label>
-            <input type="text" id="pickup" name="pickup" placeholder="1248 Wilshire Blvd, Los Angeles, CA" required />
-          </div>
-
-          <div class="field-group">
-            <label for="dropoff">Drop-off Address</label>
-            <input type="text" id="dropoff" name="dropoff" placeholder="880 S Hope St, Los Angeles, CA" required />
-          </div>
-
-          <div class="field-group">
-            <label for="delivery-type">Delivery Type</label>
-            <select id="delivery-type" name="delivery_type" required>
-              <option value="" disabled selected>Select a service</option>
-              <option value="same-day">Same-Day Delivery</option>
-              <option value="scheduled">Scheduled Delivery</option>
-              <option value="cargo">Cargo / Freight</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          <div class="field-group">
-            <label for="notes">Additional Notes (optional)</label>
-            <textarea id="notes" name="notes" placeholder="Package details, special instructions, preferred time window..."></textarea>
-          </div>
-
-          <button type="submit" class="btn-submit" id="submit-btn">Request Delivery</button>
-
-          <div class="success-msg" id="success-msg" role="alert" aria-live="polite">
-            <strong>Request Received!</strong>
-            Keenway will contact you shortly to confirm your delivery details.
-          </div>
-
-        </form>
+        <div class="booking-funnel">
+          <p style="color:#51607a; line-height:1.65; margin-bottom:1.25rem;">
+            Keenway bookings run through your free Keenway account, where you enter pickup and
+            delivery details, get an upfront price, and check out securely.
+          </p>
+          <ol style="color:#51607a; line-height:1.75; margin:0 0 1.75rem 1.15rem; padding:0;">
+            <li><strong style="color:#0f1b2d;">Create your account</strong> &mdash; it takes about a minute.</li>
+            <li><strong style="color:#0f1b2d;">Enter your delivery</strong> &mdash; pickup, drop-off, item details, and timing.</li>
+            <li><strong style="color:#0f1b2d;">Get a price &amp; book</strong> &mdash; see the cost upfront and confirm checkout.</li>
+          </ol>
+          <a class="btn-submit" href="https://app.gokeenway.com/register" style="display:block; text-align:center; text-decoration:none;">Create Your Account &amp; Book</a>
+          <p style="text-align:center; color:#51607a; margin-top:1rem;">
+            Already have an account?
+            <a href="https://app.gokeenway.com/login" style="color:#e35205; font-weight:600;">Log in to book</a>.
+          </p>
+          <p style="text-align:center; color:#8a96aa; font-size:0.85rem; margin-top:1.25rem;">
+            Questions before you book? Call or text
+            <a href="tel:+18585336929" style="color:#e35205;">(858)&nbsp;533-6929</a> or email
+            <a href="mailto:support@gokeenway.com" style="color:#e35205;">support@gokeenway.com</a>.
+          </p>
+        </div>
       </div>
     </main>
 
@@ -588,7 +533,7 @@
         <a href="/how-it-works">How It Works</a>
         <a href="/privacy">Privacy Policy</a>
         <a href="/terms">Terms</a>
-        <a href="sms-consent.html">SMS Consent</a>
+        <a href="/sms-consent">SMS Consent</a>
       </nav>
       <p class="copyright">
         Keenway<sup>sm</sup> is operated by Keenway LLC &mdash; Deliver Better.
@@ -614,53 +559,6 @@
       animatedEls.forEach((el) => observer.observe(el));
 
       // Video crossfade
-
-      // Form submission — consent checkbox gating
-      const form = document.getElementById('booking-form');
-      const submitBtn = document.getElementById('submit-btn');
-      const successMsg = document.getElementById('success-msg');
-      const smsConsent = document.getElementById('sms-consent');
-
-      form.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        if (!smsConsent.checked) {
-          smsConsent.focus();
-          smsConsent.closest('.sms-consent-block').style.borderColor = 'rgba(239,68,68,0.7)';
-          setTimeout(() => {
-            smsConsent.closest('.sms-consent-block').style.borderColor = 'rgba(227,82,5,0.3)';
-          }, 2000);
-          return;
-        }
-
-        // Collect form data and open mailto as fallback until backend is wired
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value;
-        const pickup = document.getElementById('pickup').value;
-        const dropoff = document.getElementById('dropoff').value;
-        const type = document.getElementById('delivery-type').value;
-        const notes = document.getElementById('notes').value;
-
-        const subject = encodeURIComponent('Delivery Request — ' + name);
-        const body = encodeURIComponent(
-          'Name: ' + name + '\n' +
-          'Email: ' + email + '\n' +
-          'Phone: ' + phone + '\n' +
-          'Pickup: ' + pickup + '\n' +
-          'Drop-off: ' + dropoff + '\n' +
-          'Service: ' + type + '\n' +
-          'Notes: ' + notes + '\n' +
-          '\nSMS Consent: Agreed'
-        );
-
-        window.location.href = 'mailto:support@gokeenway.com?subject=' + subject + '&body=' + body;
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Request Sent';
-        successMsg.style.display = 'block';
-        form.querySelectorAll('input, textarea, select').forEach(el => el.disabled = true);
-      });
     </script>
   </body>
 </html>
