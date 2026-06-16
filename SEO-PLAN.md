@@ -15,16 +15,17 @@ same-day, scheduled, and final-mile pickup & delivery. Owner-operated voice — 
   apex→www redirect, HTTPS, unique titles/meta/OG on all 9 pages, sitemap.xml, robots.txt,
   expanded internal linking, unique Services/About/Contact pages, owner-operated copy.
 
-## ⚠️ Needs your confirmation (so I don't publish wrong data)
-1. **Business phone** — none is published on the site (the booking form shows a
-   placeholder `(213) 478-2091`). If you want calls/texts to drive hires, give me the
-   real number and I'll add it to the footer + schema (`telephone`). A phone is one of
-   the strongest local-hire signals.
-2. **Address consistency** — legal/footer says **Culver City (400 Corporate Pointe Ste 300)**
-   but the marketing copy says "based in North Hollywood." Pick the one true business
-   address. For Google Business Profile, a virtual/suite address can cause problems —
-   a **service-area business** (no public storefront, hide address, list service areas)
-   is usually the right setup for delivery. Confirm and I'll make NAP identical everywhere.
+## NAP — confirmed from Google Business Profile and synced site-wide
+Synced the site (footer, contact page, and `LocalBusiness` schema) to match the GBP exactly:
+- **Name:** Keenway (legal: Keenway LLC)
+- **Phone:** (858) 533-6929 — now in the homepage footer, contact page, and schema.
+- **Address:** 400 Corporate Pointe, Suite 300, Culver City, CA 90230
+- **Service areas:** Los Angeles County, San Fernando Valley, San Bernardino County (added to copy + schema).
+- **Hours:** Mon–Fri 8:00 AM–3:00 PM (in footer, contact page, and schema).
+- **Category:** Delivery service. **Instagram** (instagram.com/keenwaykeenway) added to schema `sameAs`.
+
+Note: the booking form's phone field placeholder `(213) 478-2091` is just an example for the
+customer's own number — not the business line — so it was left as-is.
 
 ## Keyword → page map (target terms by page)
 | Page | Primary keyword | Supporting terms |
