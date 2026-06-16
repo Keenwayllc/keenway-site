@@ -1,8 +1,12 @@
 {
-  "rewrites": [
-    { "source": "/sms-consent", "destination": "/sms-consent.html" },
-    { "source": "/schedule-a-delivery", "destination": "/schedule-a-delivery.html" },
-    { "source": "/privacy", "destination": "/privacy.html" },
-    { "source": "/terms", "destination": "/terms.html" }
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "gokeenway.com" }],
+      "destination": "https://www.gokeenway.com/$1",
+      "permanent": true
+    }
   ]
 }
