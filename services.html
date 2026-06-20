@@ -578,11 +578,17 @@
       }
       /* ===== Light techy-clean theme override ===== */
       #bg-skyline {
-        position: fixed; left: 0; right: 0; bottom: 0; height: 44vh;
-        background: url("la-skyline.svg") no-repeat bottom center;
-        background-size: min(1500px, 132%) auto;
-        opacity: 0.85; z-index: 0; pointer-events: none;
+        position: fixed; left: 0; right: 0; bottom: 0; height: 30vh;
+        opacity: 0.38; z-index: 0; pointer-events: none;
       }
+      #bg-skyline .skyline-art {
+        position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+        width: min(1500px, 132%); height: auto;
+        mix-blend-mode: multiply;
+        -webkit-mask-image: linear-gradient(to top, #000 28%, transparent 72%);
+        mask-image: linear-gradient(to top, #000 28%, transparent 72%);
+      }
+      @media (max-width: 480px) { #bg-skyline { height: 22vh; opacity: 0.3; } }
       body {
         color: #0f1b2d;
         background-color: #f7f9fc;
@@ -666,7 +672,7 @@
     </style>
   </head>
   <body>
-    <div id="bg-skyline" aria-hidden="true"></div>
+    <div id="bg-skyline" aria-hidden="true"><img src="home-icons/la-skyline-art.png" alt="" class="skyline-art" /></div>
 
     <header id="site-header">
       <a href="/" class="logo-link">

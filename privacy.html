@@ -186,11 +186,17 @@
     
       /* ===== Light techy-clean theme override ===== */
       #bg-skyline {
-        position: fixed; left: 0; right: 0; bottom: 0; height: 44vh;
-        background: url("la-skyline.svg") no-repeat bottom center;
-        background-size: min(1500px, 132%) auto;
-        opacity: 0.85; z-index: 0; pointer-events: none;
+        position: fixed; left: 0; right: 0; bottom: 0; height: 30vh;
+        opacity: 0.38; z-index: 0; pointer-events: none;
       }
+      #bg-skyline .skyline-art {
+        position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+        width: min(1500px, 132%); height: auto;
+        mix-blend-mode: multiply;
+        -webkit-mask-image: linear-gradient(to top, #000 28%, transparent 72%);
+        mask-image: linear-gradient(to top, #000 28%, transparent 72%);
+      }
+      @media (max-width: 480px) { #bg-skyline { height: 22vh; opacity: 0.3; } }
       body {
         color: #0f1b2d;
         background-color: #f7f9fc;
@@ -287,7 +293,7 @@
     </style>
   </head>
   <body>
-    <div id="bg-skyline" aria-hidden="true"></div>
+    <div id="bg-skyline" aria-hidden="true"><img src="home-icons/la-skyline-art.png" alt="" class="skyline-art" /></div>
 <header id="site-header">
       <a href="/" class="logo-link">
         <svg class="logo-img logo-svg" viewBox="0 0 900 293" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Keenway"><path class="logo-mark" fill="#f05a26" fill-rule="evenodd" d="M35.89,177c21.74-33.99,43.49-67.99,65.23-101.98,2.64-4.12-.32-9.52-5.21-9.52h-36.3c-2.11,0-4.07,1.07-5.21,2.85L12.53,133.82c-1.3,2.03-1.3,4.63,0,6.66l23.36,36.52h0ZM47.34,194.92h47.6c2.11,0,4.07-1.07,5.21-2.85l74.86-117.05c2.64-4.12-.32-9.52-5.21-9.52h-36.3c-2.11,0-4.07,1.07-5.21,2.85l-80.95,126.56h.01ZM146.73,155.07l-19.4,30.33c-2.64,4.12.32,9.52,5.21,9.52h28.38c4.88,0,7.84-5.4,5.21-9.52l-19.4-30.33h-.01Z"/>
