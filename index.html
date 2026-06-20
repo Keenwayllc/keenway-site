@@ -156,18 +156,25 @@
         left: 0;
         right: 0;
         bottom: 0;
-        height: 44vh;
-        opacity: 0.85;
+        height: 30vh;
+        opacity: 0.38;
         z-index: 0;
         pointer-events: none;
       }
-      #bg-skyline svg {
+      #bg-skyline .skyline-art {
         position: absolute;
         bottom: 0;
         left: 50%;
         transform: translateX(-50%);
         width: min(1500px, 132%);
         height: auto;
+        /* Drop the white background out against the light page so only the
+           clean line-art shows. */
+        mix-blend-mode: multiply;
+        /* Fade the upper part of the skyline to transparent so the tall towers
+           dissolve into a low band well below the text — keeps copy readable. */
+        -webkit-mask-image: linear-gradient(to top, #000 28%, transparent 72%);
+        mask-image: linear-gradient(to top, #000 28%, transparent 72%);
       }
       #bg-skyline .b {
         stroke: #aab6c8;
@@ -1088,19 +1095,29 @@
       }
 
       .feature-icon {
-        width: 24px;
-        height: 24px;
+        width: 56px;
+        height: 56px;
         flex-shrink: 0;
-        padding: 0.6rem;
-        border-radius: 12px;
-        color: var(--brand-orange);
+        padding: 0.7rem;
+        border-radius: 16px;
         background: rgba(227, 82, 5, 0.09);
         box-sizing: content-box;
-        transition: transform 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      }
+
+      .feature-icon svg {
+        width: 100%;
+        height: 100%;
+        display: block;
       }
 
       .feature-row:hover .feature-icon {
-        transform: translateY(-2px);
+        transform: translateY(-3px) scale(1.04);
+        background: rgba(227, 82, 5, 0.14);
+        box-shadow: 0 14px 30px -12px rgba(227, 82, 5, 0.45);
       }
 
       .feature-title {
@@ -1147,6 +1164,19 @@
         }
         .feature-desc {
           font-size: 0.85rem;
+        }
+        /* Slightly smaller animated icons on phones so the row stays balanced. */
+        .feature-icon {
+          width: 46px;
+          height: 46px;
+          padding: 0.55rem;
+          border-radius: 14px;
+        }
+        /* Keep the skyline a faint, low band on tall narrow screens so it never
+           competes with the stacked copy. */
+        #bg-skyline {
+          height: 22vh;
+          opacity: 0.3;
         }
       }
 
@@ -1365,79 +1395,7 @@
   </head>
   <body>
     <div id="bg-skyline" aria-hidden="true">
-      <svg viewBox="0 0 1600 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="0" y1="360" x2="1600" y2="360" stroke="#c2ccda" stroke-width="2" />
-        <g class="b" stroke-linecap="round">
-          <path d="M126 360 C124 320 128 290 130 268" />
-          <path d="M130 266 C108 252 86 252 68 264" />
-          <path d="M130 266 C112 246 92 234 70 230" />
-          <path d="M130 266 C128 240 132 218 144 200" />
-          <path d="M130 266 C152 248 176 244 198 252" />
-          <path d="M130 266 C150 244 174 232 196 230" />
-        </g>
-        <g class="b">
-          <rect x="236" y="244" width="58" height="116" />
-          <rect x="304" y="208" width="50" height="152" />
-          <rect x="364" y="262" width="44" height="98" />
-          <path d="M428 360 L428 176 L452 152 L476 176 L476 360 Z" />
-          <rect x="488" y="226" width="56" height="134" />
-          <rect x="554" y="256" width="40" height="104" />
-          <rect x="606" y="138" width="78" height="222" />
-          <line x1="645" y1="138" x2="645" y2="92" />
-          <rect x="696" y="232" width="52" height="128" />
-          <rect x="758" y="200" width="60" height="160" />
-          <rect x="828" y="250" width="42" height="110" />
-          <path d="M884 360 L884 196 L906 174 L928 196 L928 360 Z" />
-          <rect x="940" y="222" width="58" height="138" />
-          <rect x="1008" y="258" width="44" height="102" />
-          <rect x="1062" y="214" width="62" height="146" />
-          <rect x="1134" y="248" width="46" height="112" />
-          <rect x="1190" y="276" width="50" height="84" />
-          <rect x="1250" y="236" width="54" height="124" />
-        </g>
-        <g class="w">
-          <line x1="252" y1="266" x2="278" y2="266" />
-          <line x1="252" y1="292" x2="278" y2="292" />
-          <line x1="252" y1="318" x2="278" y2="318" />
-          <line x1="318" y1="232" x2="340" y2="232" />
-          <line x1="318" y1="262" x2="340" y2="262" />
-          <line x1="318" y1="292" x2="340" y2="292" />
-          <line x1="318" y1="322" x2="340" y2="322" />
-          <line x1="624" y1="170" x2="666" y2="170" />
-          <line x1="624" y1="200" x2="666" y2="200" />
-          <line x1="624" y1="230" x2="666" y2="230" />
-          <line x1="624" y1="260" x2="666" y2="260" />
-          <line x1="624" y1="290" x2="666" y2="290" />
-          <line x1="624" y1="320" x2="666" y2="320" />
-          <line x1="772" y1="226" x2="804" y2="226" />
-          <line x1="772" y1="256" x2="804" y2="256" />
-          <line x1="772" y1="286" x2="804" y2="286" />
-          <line x1="772" y1="316" x2="804" y2="316" />
-          <line x1="954" y1="246" x2="984" y2="246" />
-          <line x1="954" y1="276" x2="984" y2="276" />
-          <line x1="954" y1="306" x2="984" y2="306" />
-          <line x1="1076" y1="238" x2="1110" y2="238" />
-          <line x1="1076" y1="268" x2="1110" y2="268" />
-          <line x1="1076" y1="298" x2="1110" y2="298" />
-        </g>
-        <g class="b" stroke-linecap="round">
-          <path d="M1452 360 C1450 312 1454 278 1456 252" />
-          <path d="M1456 250 C1430 234 1404 234 1384 248" />
-          <path d="M1456 250 C1434 226 1410 212 1384 208" />
-          <path d="M1456 250 C1454 220 1458 194 1472 174" />
-          <path d="M1456 250 C1482 230 1510 226 1534 236" />
-          <path d="M1456 250 C1478 226 1506 212 1532 208" />
-        </g>
-        <path class="accent route" stroke-dasharray="2 9" d="M150 150 C460 40 1120 40 1430 150" />
-        <g>
-          <circle class="pin-ring" cx="150" cy="150" r="8" fill="none" stroke="#e35205" stroke-width="2" />
-          <circle class="pin-ring pin-ring--b" cx="1430" cy="150" r="8" fill="none" stroke="#e35205" stroke-width="2" />
-          <circle cx="150" cy="150" r="8" fill="#e35205" />
-          <circle cx="150" cy="150" r="3" fill="#ffffff" />
-          <circle cx="1430" cy="150" r="8" fill="#e35205" />
-          <circle cx="1430" cy="150" r="3" fill="#ffffff" />
-        </g>
-      </svg>
+      <img src="home-icons/la-skyline-art.png" alt="" class="skyline-art" />
     </div>
 
     <header id="site-header">
@@ -1798,19 +1756,11 @@
 
       <div class="features-list">
         <div class="feature-row scroll-animate">
-          <svg
+          <div
             class="feature-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.75"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            data-lottie="home-icons/same-day-freight.json"
             aria-hidden="true"
-          >
-            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
-          </svg>
+          ></div>
           <div>
             <h3 class="feature-title">Same-Day Freight</h3>
             <p class="feature-desc">
@@ -1821,20 +1771,11 @@
         </div>
 
         <div class="feature-row scroll-animate">
-          <svg
+          <div
             class="feature-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.75"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            data-lottie="home-icons/professional-reliable.json"
             aria-hidden="true"
-          >
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            <path d="M9 12l2 2 4-4" />
-          </svg>
+          ></div>
           <div>
             <h3 class="feature-title">Professional &amp; Reliable</h3>
             <p class="feature-desc">
@@ -1845,21 +1786,11 @@
         </div>
 
         <div class="feature-row scroll-animate">
-          <svg
+          <div
             class="feature-icon"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.75"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            data-lottie="home-icons/reliable-support.json"
             aria-hidden="true"
-          >
-            <path
-              d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 012 1.18 2 2 0 014 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"
-            />
-          </svg>
+          ></div>
           <div>
             <h3 class="feature-title">Reliable Support</h3>
             <p class="feature-desc">
@@ -2493,6 +2424,54 @@
             el.style.transform = "translateY(0)";
           });
         }
+      })();
+    </script>
+
+    <!-- Animated feature icons (Lottie, vendored locally) -->
+    <script src="lottie.min.js" defer></script>
+    <script>
+      (function () {
+        function initLottieIcons() {
+          if (!window.lottie) return;
+          var nodes = document.querySelectorAll("[data-lottie]");
+          nodes.forEach(function (el) {
+            if (el._lottieInit) return; // idempotent
+            el._lottieInit = true;
+            var anim = window.lottie.loadAnimation({
+              container: el,
+              renderer: "svg",
+              loop: false,
+              autoplay: false,
+              path: el.getAttribute("data-lottie"),
+            });
+            var played = false;
+            // Play once when the icon scrolls into view so visitors see it.
+            if ("IntersectionObserver" in window) {
+              var io = new IntersectionObserver(
+                function (entries) {
+                  entries.forEach(function (e) {
+                    if (e.isIntersecting && !played) {
+                      played = true;
+                      anim.goToAndPlay(0, true);
+                    }
+                  });
+                },
+                { threshold: 0.4 }
+              );
+              io.observe(el);
+            } else {
+              anim.goToAndPlay(0, true);
+            }
+            // Replay when the visitor hovers the feature row.
+            var row = el.closest(".feature-row") || el;
+            row.addEventListener("mouseenter", function () {
+              anim.goToAndPlay(0, true);
+            });
+          });
+        }
+        // lottie.min.js is deferred → ready by DOMContentLoaded; also guard on load.
+        document.addEventListener("DOMContentLoaded", initLottieIcons);
+        window.addEventListener("load", initLottieIcons);
       })();
     </script>
   </body>
