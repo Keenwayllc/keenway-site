@@ -1,0 +1,170 @@
+/* Keenway trust badges: injected into every footer by trust-badges.js */
+.kw-trust {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.625rem;
+  width: 100%;
+}
+
+.kw-trust-item {
+  position: relative;
+}
+
+.kw-trust-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--line, rgba(15, 23, 42, 0.12));
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  font-family: inherit;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #475569;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.kw-trust-badge:hover,
+.kw-trust-badge:focus-visible,
+.kw-trust-badge[aria-expanded="true"] {
+  border-color: rgba(227, 82, 5, 0.45);
+  color: #0f172a;
+  background: #fff;
+}
+
+.kw-trust-badge:focus-visible {
+  outline: 2px solid rgba(227, 82, 5, 0.5);
+  outline-offset: 2px;
+}
+
+.kw-trust-badge svg {
+  width: 15px;
+  height: 15px;
+  color: #e35205;
+  flex-shrink: 0;
+}
+
+/* Spring pop on the icon; tap-down on press. Disabled under reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .kw-trust-badge svg {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .kw-trust-badge:hover svg,
+  .kw-trust-badge:focus-visible svg {
+    transform: scale(1.2) rotate(-6deg);
+  }
+  .kw-trust-badge:active {
+    transform: scale(0.96);
+    transition: transform 0.1s ease-out;
+  }
+}
+
+.kw-trust-pop {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(280px, 82vw);
+  padding: 0.8rem 0.9rem;
+  border: 1px solid var(--line, rgba(15, 23, 42, 0.12));
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 18px 40px -18px rgba(15, 23, 42, 0.3);
+  font-size: 0.74rem;
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: 0;
+  text-transform: none;
+  text-align: left;
+  color: #475569;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 60;
+  transition: opacity 0.18s ease-out, visibility 0.18s;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .kw-trust-pop {
+    transform: translateX(-50%) translateY(4px);
+    transition: opacity 0.18s ease-out, transform 0.18s ease-out, visibility 0.18s;
+  }
+}
+
+.kw-trust-item.is-open .kw-trust-pop {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.kw-trust-pop strong {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0f172a;
+}
+
+.kw-trust-pop::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  transform: translateX(-50%) rotate(45deg);
+  background: #fff;
+  border-right: 1px solid var(--line, rgba(15, 23, 42, 0.12));
+  border-bottom: 1px solid var(--line, rgba(15, 23, 42, 0.12));
+}
+
+.kw-trust-hint {
+  width: 100%;
+  margin: 0;
+  text-align: center;
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #94a3b8;
+}
+
+@media (max-width: 640px) {
+  .kw-trust {
+    gap: 0.5rem;
+  }
+  .kw-trust-badge {
+    padding: 0.45rem 0.7rem;
+    font-size: 0.6rem;
+  }
+  /* Keep popovers on-screen for badges near the viewport edges */
+  .kw-trust-item:first-child .kw-trust-pop {
+    left: 0;
+    transform: translateX(0);
+  }
+  .kw-trust-item:first-child .kw-trust-pop::after {
+    left: 18%;
+  }
+  .kw-trust-item:last-child .kw-trust-pop {
+    left: auto;
+    right: 0;
+    transform: translateX(0);
+  }
+  .kw-trust-item:last-child .kw-trust-pop::after {
+    left: 82%;
+  }
+  .kw-trust-item.is-open .kw-trust-pop {
+    transform: translateX(0) translateY(0);
+  }
+  .kw-trust-item:not(:first-child):not(:last-child).is-open .kw-trust-pop {
+    transform: translateX(-50%) translateY(0);
+  }
+}
