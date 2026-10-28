@@ -1070,6 +1070,173 @@
       }
 
       /* Features Section */
+      .visibility-section {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 3.5rem 2rem 4rem;
+        display: grid;
+        grid-template-columns: 0.9fr 1.1fr;
+        gap: clamp(2rem, 5vw, 5rem);
+        align-items: center;
+      }
+
+      .visibility-kicker {
+        color: var(--brand-orange);
+        font-size: 0.65rem;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+      }
+
+      .visibility-title {
+        color: var(--ink);
+        font-size: clamp(1.9rem, 3.4vw, 2.8rem);
+        font-weight: 800;
+        letter-spacing: -0.045em;
+        line-height: 1.08;
+        margin: 0;
+      }
+
+      .visibility-copy {
+        color: var(--ink-soft);
+        font-size: 0.98rem;
+        line-height: 1.7;
+        max-width: 42ch;
+        margin: 1.25rem 0 1.6rem;
+      }
+
+      .visibility-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        color: var(--brand-orange);
+        text-decoration: none;
+        font-size: 0.87rem;
+        font-weight: 800;
+        border-bottom: 1px solid currentColor;
+        padding-bottom: 0.25rem;
+      }
+
+      .visibility-link:hover { gap: 0.9rem; }
+
+      .shipment-preview {
+        border: 1px solid #e1e5eb;
+        border-radius: 19px;
+        overflow: hidden;
+        background: #fff;
+        box-shadow: 0 24px 65px -43px rgba(24, 38, 58, 0.45);
+      }
+
+      .shipment-top {
+        padding: 1.15rem 1.4rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        border-bottom: 1px solid #edf0f3;
+      }
+
+      .shipment-top-label {
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.06em;
+        color: #1f3046;
+        text-transform: uppercase;
+      }
+
+      .shipment-sample {
+        color: #66758a;
+        background: #f3f5f7;
+        border-radius: 6px;
+        padding: 0.35rem 0.55rem;
+        font-size: 0.69rem;
+        font-weight: 700;
+      }
+
+      .shipment-body { padding: 1.5rem 1.4rem 1.6rem; }
+
+      .shipment-route {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+        color: #1d2c40;
+        font-size: clamp(0.95rem, 2vw, 1.1rem);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+
+      .shipment-route-arrow { color: var(--brand-orange); font-size: 1.15rem; }
+
+      .shipment-detail {
+        color: #728095;
+        margin-top: 0.4rem;
+        font-size: 0.76rem;
+      }
+
+      .shipment-progress {
+        height: 4px;
+        background: #edf0f3;
+        border-radius: 99px;
+        margin: 1.6rem 0 1.35rem;
+        overflow: hidden;
+      }
+
+      .shipment-progress span {
+        display: block;
+        width: 72%;
+        height: 100%;
+        background: var(--brand-orange);
+        border-radius: inherit;
+        transform-origin: left;
+        animation: shipment-fill 1.35s ease-out both;
+      }
+
+      @keyframes shipment-fill {
+        from { transform: scaleX(0); }
+        to { transform: scaleX(1); }
+      }
+
+      .shipment-steps {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+      }
+
+      .shipment-step { display: flex; flex-direction: column; gap: 0.4rem; }
+      .shipment-step strong { color: #25364b; font-size: 0.76rem; }
+      .shipment-step small { color: #7b8796; font-size: 0.68rem; }
+      .shipment-step.current strong { color: var(--brand-orange); }
+
+      .shipment-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.95rem 1.4rem;
+        background: #f8f9fb;
+        border-top: 1px solid #edf0f3;
+        color: #52637a;
+        font-size: 0.73rem;
+      }
+
+      .shipment-footer strong { color: #23334a; }
+
+      @media (max-width: 760px) {
+        .visibility-section { grid-template-columns: 1fr; padding: 3rem 1.5rem; gap: 2rem; }
+      }
+
+      @media (max-width: 480px) {
+        .visibility-section { padding: 2.5rem 1.25rem; }
+        .shipment-body { padding: 1.25rem 1rem; }
+        .shipment-top, .shipment-footer { padding-left: 1rem; padding-right: 1rem; }
+        .shipment-route { gap: 0.5rem; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .shipment-progress span { animation: none; }
+        .visibility-link { transition: none; }
+      }
+
       .features-section {
         position: relative;
         z-index: 10;
@@ -1870,6 +2037,39 @@
         </div>
       </main>
     </div>
+
+    <section class="visibility-section" aria-labelledby="visibility-title">
+      <div>
+        <p class="visibility-kicker">A clearer delivery experience</p>
+        <h2 class="visibility-title" id="visibility-title">From pickup to proof. Know where things stand.</h2>
+        <p class="visibility-copy">Track your delivery, follow status updates, and get confirmation when the job is done. One straightforward view from booking through drop-off.</p>
+        <a class="visibility-link" href="/how-it-works">See how Keenway works <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="shipment-preview" aria-label="Illustrative shipment tracking preview">
+        <div class="shipment-top">
+          <span class="shipment-top-label">Delivery overview</span>
+          <span class="shipment-sample">Sample preview</span>
+        </div>
+        <div class="shipment-body">
+          <div class="shipment-route">
+            <span>North Hollywood</span>
+            <span class="shipment-route-arrow" aria-hidden="true">→</span>
+            <span>Culver City</span>
+          </div>
+          <p class="shipment-detail">Same-day delivery · Los Angeles County</p>
+          <div class="shipment-progress" aria-hidden="true"><span></span></div>
+          <div class="shipment-steps">
+            <div class="shipment-step"><strong>Booked</strong><small>Confirmed</small></div>
+            <div class="shipment-step current"><strong>In transit</strong><small>On the way</small></div>
+            <div class="shipment-step"><strong>Delivered</strong><small>Proof at drop-off</small></div>
+          </div>
+        </div>
+        <div class="shipment-footer">
+          <span>Tracking updates for your delivery</span>
+          <strong>Deliver Better.</strong>
+        </div>
+      </div>
+    </section>
 
     <section class="features-section" aria-label="Why Choose Keenway">
       <div class="features-intro">
