@@ -28,6 +28,18 @@
     <!-- The cursor is still over the clicked link when the next page loads; skip header transitions until the page settles so that link does not fade in. -->
     <script>document.documentElement.classList.add("kw-nav-loading");addEventListener("load",function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove("kw-nav-loading");});});});</script>
     <style>.kw-nav-loading header *, .kw-nav-loading header *::before, .kw-nav-loading header *::after { transition: none !important; }</style>
+    <!-- Cross-page view transition: header and skyline stay put, page content cross-fades instead of hard-swapping. -->
+    <style>
+      @view-transition { navigation: auto; }
+      #site-header { view-transition-name: kw-header; }
+      #bg-skyline { view-transition-name: kw-skyline; }
+      ::view-transition-group(root) { animation-duration: 0.18s; }
+      ::view-transition-group(kw-header), ::view-transition-group(kw-skyline),
+      ::view-transition-old(kw-header), ::view-transition-new(kw-header),
+      ::view-transition-old(kw-skyline), ::view-transition-new(kw-skyline) { animation: none; }
+      ::view-transition-old(kw-header), ::view-transition-old(kw-skyline) { display: none; }
+      @media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+    </style>
     <style>
       :root {
         --brand-orange: #e35205;
