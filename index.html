@@ -1268,11 +1268,7 @@
         width: 100%;
         max-width: 1080px;
         margin: 0 auto;
-        padding: 5.5rem 2rem 3.5rem;
-        display: grid;
-        grid-template-columns: 0.85fr 1.35fr;
-        gap: 3.5rem;
-        align-items: start;
+        padding: 4.2rem 2rem 5rem;
       }
 
       .features-eyebrow {
@@ -1285,11 +1281,12 @@
       }
 
       .features-headline {
-        font-size: clamp(1.5rem, 3vw, 2.1rem);
+        font-size: clamp(1.9rem, 3.6vw, 2.8rem);
         font-weight: 800;
-        line-height: 1.12;
-        letter-spacing: -0.025em;
+        line-height: 1.08;
+        letter-spacing: -0.045em;
         color: var(--ink);
+        max-width: 19ch;
       }
 
       .features-sub {
@@ -1297,50 +1294,44 @@
         font-size: 0.95rem;
         line-height: 1.6;
         color: var(--ink-soft);
-        max-width: 34ch;
+        max-width: 54ch;
       }
 
       .features-list {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 2.3rem;
       }
 
       .feature-row {
         display: flex;
-        gap: 1.25rem;
-        padding: 1.6rem 0;
-        border-top: 1px solid var(--line);
+        flex-direction: column;
+        gap: 1.55rem;
+        min-height: 235px;
+        padding: 1.7rem;
+        border: 1px solid #e4e8ee;
+        border-radius: 15px;
+        background: #fff;
+        box-shadow: 0 14px 36px -32px rgba(15, 27, 45, 0.3);
+        transition: border-color 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
       }
 
-      .feature-row:first-child {
-        padding-top: 0.25rem;
-        border-top: none;
+      .feature-row:hover {
+        border-color: rgba(227, 82, 5, 0.28);
+        box-shadow: 0 19px 36px -31px rgba(15, 27, 45, 0.34);
       }
 
-      .feature-icon {
-        width: 56px;
-        height: 56px;
-        flex-shrink: 0;
-        padding: 0.7rem;
-        border-radius: 16px;
-        background: rgba(227, 82, 5, 0.09);
-        box-sizing: content-box;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
-      }
+      .features-section .scroll-animate { transform: translateY(14px); }
 
-      .feature-icon svg {
-        width: 100%;
-        height: 100%;
-        display: block;
-      }
-
-      .feature-row:hover .feature-icon {
-        transform: translateY(-3px) scale(1.04);
-        background: rgba(227, 82, 5, 0.14);
-        box-shadow: 0 14px 30px -12px rgba(227, 82, 5, 0.45);
+      .feature-number {
+        color: var(--brand-orange);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        align-self: flex-start;
+        border-bottom: 1px solid rgba(227, 82, 5, 0.35);
+        padding-bottom: 0.55rem;
       }
 
       .feature-title {
@@ -1362,17 +1353,19 @@
         .scroll-hint {
           align-items: center;
         }
-        .features-section {
-          max-width: 90%;
-        }
       }
 
       @media (max-width: 860px) {
         .features-section {
-          grid-template-columns: 1fr;
-          gap: 1.75rem;
-          padding: 3.5rem 1.5rem 1.5rem;
+          padding: 3.5rem 1.5rem;
         }
+        .features-list { grid-template-columns: 1fr; gap: 0.8rem; }
+        .feature-row { min-height: 0; gap: 1rem; padding: 1.4rem; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .features-section .scroll-animate { opacity: 1; transform: none; }
+        .feature-row { transition: none; }
       }
 
       @media (max-width: 480px) {
@@ -1380,20 +1373,13 @@
           display: none;
         }
         .features-section {
-          padding: 2.5rem 1.25rem 1rem;
+          padding: 2.5rem 1.25rem 3rem;
         }
         .feature-title {
           font-size: 1rem;
         }
         .feature-desc {
           font-size: 0.85rem;
-        }
-        /* Slightly smaller animated icons on phones so the row stays balanced. */
-        .feature-icon {
-          width: 46px;
-          height: 46px;
-          padding: 0.55rem;
-          border-radius: 14px;
         }
         /* Keep the skyline a faint, low band on tall narrow screens so it never
            competes with the stacked copy. */
@@ -2229,56 +2215,44 @@
       <div class="features-intro">
         <p class="features-eyebrow scroll-animate">Why Keenway</p>
         <h2 class="features-headline scroll-animate">
-          Freight that keeps your business moving
+          Your delivery handled. Every step accounted for.
         </h2>
         <p class="features-sub scroll-animate">
-          Real infrastructure behind every delivery, built for speed and
-          reliability across Los Angeles.
+          Direct service, clear updates, and proof at drop-off. The details
+          matter when your business depends on a delivery.
         </p>
       </div>
 
       <div class="features-list">
         <div class="feature-row scroll-animate">
-          <div
-            class="feature-icon"
-            data-lottie="home-icons/same-day-freight.json"
-            aria-hidden="true"
-          ></div>
+          <span class="feature-number" aria-hidden="true">01 / VISIBILITY</span>
           <div>
-            <h3 class="feature-title">Same-Day Freight</h3>
+            <h3 class="feature-title">Tracking from pickup</h3>
             <p class="feature-desc">
-              Real-time tracking from pickup to delivery. We move cargo fast so
-              your business never waits on a load.
+              Follow your delivery in real time and share its progress with
+              the person waiting at the destination.
             </p>
           </div>
         </div>
 
         <div class="feature-row scroll-animate">
-          <div
-            class="feature-icon"
-            data-lottie="home-icons/professional-reliable.json"
-            aria-hidden="true"
-          ></div>
+          <span class="feature-number" aria-hidden="true">02 / HANDLING</span>
           <div>
-            <h3 class="feature-title">Professional &amp; Reliable</h3>
+            <h3 class="feature-title">Handled by a professional</h3>
             <p class="feature-desc">
-              Every delivery is handled by a licensed, professional owner-operator
-              with a CDL freight background, keeping your cargo in dependable hands.
+              An experienced owner-operator handles loading, transport, and
+              delivery with direct accountability.
             </p>
           </div>
         </div>
 
         <div class="feature-row scroll-animate">
-          <div
-            class="feature-icon"
-            data-lottie="home-icons/reliable-support.json"
-            aria-hidden="true"
-          ></div>
+          <span class="feature-number" aria-hidden="true">03 / CONFIRMATION</span>
           <div>
-            <h3 class="feature-title">Reliable Support</h3>
+            <h3 class="feature-title">Proof at drop-off</h3>
             <p class="feature-desc">
-              A dedicated operations team keeps communication open during
-              business hours so your logistics keep running smoothly.
+              Get delivery confirmation with photo proof and a signature
+              when the job requires one.
             </p>
           </div>
         </div>
@@ -2985,7 +2959,12 @@
 
         // ── 3. Scroll-triggered fade-up for features section ─────────────
         var scrollEls = document.querySelectorAll(".scroll-animate");
-        if ("IntersectionObserver" in window) {
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+          scrollEls.forEach(function (el) {
+            el.style.opacity = "1";
+            el.style.transform = "none";
+          });
+        } else if ("IntersectionObserver" in window) {
           var observer = new IntersectionObserver(
             function (entries) {
               entries.forEach(function (entry) {
@@ -2994,8 +2973,9 @@
                   var idx = parseInt(el.getAttribute("data-anim-index") || "0", 10);
                   var delay = idx * 80; // stagger by 80 ms per card
                   setTimeout(function () {
-                    el.style.transition =
-                      "opacity 0.6s ease, transform 0.6s ease";
+                    el.style.transition = el.classList.contains("feature-row")
+                      ? "opacity 0.6s ease, transform 0.6s ease, border-color 0.22s ease, box-shadow 0.22s ease"
+                      : "opacity 0.6s ease, transform 0.6s ease";
                     el.style.opacity = "1";
                     el.style.transform = "translateY(0)";
                   }, delay);
