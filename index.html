@@ -1036,8 +1036,8 @@
         align-items: flex-start;
         gap: 0.2rem;
         margin-top: 1.75rem;
-        opacity: 0;
-        animation: fadeInScroll 1s ease-out 2s forwards;
+        opacity: 1;
+        animation: none;
       }
 
       @keyframes fadeInScroll {
@@ -1322,7 +1322,7 @@
         box-shadow: 0 19px 36px -31px rgba(15, 27, 45, 0.34);
       }
 
-      .features-section .scroll-animate { transform: translateY(14px); }
+      .features-section .scroll-animate { transform: none; }
 
       .feature-number {
         color: var(--brand-orange);
@@ -1795,7 +1795,7 @@
         from { opacity: 0; transform: translateX(-12px); }
         to { opacity: 1; transform: translateX(0); }
       }
-      .logo-svg { animation: logoIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+      .logo-svg { animation: none; }
       .logo-mark {
         transform-box: fill-box;
         transform-origin: center;
