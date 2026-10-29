@@ -1184,17 +1184,11 @@
 
       .shipment-progress span {
         display: block;
-        width: 72%;
+        width: 10%;
         height: 100%;
         background: var(--brand-orange);
         border-radius: inherit;
-        transform-origin: left;
-        animation: shipment-fill 1.35s ease-out both;
-      }
-
-      @keyframes shipment-fill {
-        from { transform: scaleX(0); }
-        to { transform: scaleX(1); }
+        transition: width 1.1s cubic-bezier(0.2, 0.75, 0.25, 1);
       }
 
       .shipment-steps {
@@ -1204,9 +1198,39 @@
       }
 
       .shipment-step { display: flex; flex-direction: column; gap: 0.4rem; }
-      .shipment-step strong { color: #25364b; font-size: 0.76rem; }
+      .shipment-step strong { color: #7a8798; font-size: 0.76rem; transition: color 0.4s ease; }
       .shipment-step small { color: #7b8796; font-size: 0.68rem; }
       .shipment-step.current strong { color: var(--brand-orange); }
+      .shipment-step.complete strong { color: #25364b; }
+
+      .shipment-state {
+        display: flex;
+        align-items: center;
+        gap: 0.45rem;
+        font-size: 0.76rem;
+        font-weight: 700;
+        color: #365d4c;
+        margin-top: 1.4rem;
+        min-height: 1.1rem;
+      }
+
+      .shipment-state::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        flex: 0 0 7px;
+        background: #5aa17b;
+        border-radius: 50%;
+      }
+
+      .shipment-preview.is-visible {
+        animation: shipment-enter 0.8s ease-out both;
+      }
+
+      @keyframes shipment-enter {
+        from { opacity: 0.75; transform: translateY(16px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
 
       .shipment-footer {
         display: flex;
@@ -1233,7 +1257,8 @@
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .shipment-progress span { animation: none; }
+        .shipment-progress span, .shipment-step strong { transition: none; }
+        .shipment-preview.is-visible { animation: none; }
         .visibility-link { transition: none; }
       }
 
@@ -2040,12 +2065,12 @@
 
     <section class="visibility-section" aria-labelledby="visibility-title">
       <div>
-        <p class="visibility-kicker">A clearer delivery experience</p>
-        <h2 class="visibility-title" id="visibility-title">From pickup to proof. Know where things stand.</h2>
-        <p class="visibility-copy">Track your delivery, follow status updates, and get confirmation when the job is done. One straightforward view from booking through drop-off.</p>
+        <p class="visibility-kicker">Delivery visibility</p>
+        <h2 class="visibility-title" id="visibility-title">No chasing updates. Know where your delivery stands.</h2>
+        <p class="visibility-copy">From pickup to drop-off, follow your order with tracking updates and proof of delivery. Clear answers for you and your customer.</p>
         <a class="visibility-link" href="/how-it-works">See how Keenway works <span aria-hidden="true">↗</span></a>
       </div>
-      <div class="shipment-preview" aria-label="Illustrative shipment tracking preview">
+      <div class="shipment-preview" id="shipment-demo" aria-label="Illustrative shipment tracking preview">
         <div class="shipment-top">
           <span class="shipment-top-label">Delivery overview</span>
           <span class="shipment-sample">Sample preview</span>
@@ -2057,12 +2082,13 @@
             <span>Culver City</span>
           </div>
           <p class="shipment-detail">Same-day delivery · Los Angeles County</p>
-          <div class="shipment-progress" aria-hidden="true"><span></span></div>
+          <div class="shipment-progress" aria-hidden="true"><span id="shipment-fill"></span></div>
           <div class="shipment-steps">
-            <div class="shipment-step"><strong>Booked</strong><small>Confirmed</small></div>
-            <div class="shipment-step current"><strong>In transit</strong><small>On the way</small></div>
+            <div class="shipment-step current"><strong>Booked</strong><small>Confirmed</small></div>
+            <div class="shipment-step"><strong>In transit</strong><small>On the way</small></div>
             <div class="shipment-step"><strong>Delivered</strong><small>Proof at drop-off</small></div>
           </div>
+          <p class="shipment-state" id="shipment-state">Booking confirmed</p>
         </div>
         <div class="shipment-footer">
           <span>Tracking updates for your delivery</span>
@@ -2700,6 +2726,51 @@
         btn.addEventListener("mouseleave", function () {
           ripple.classList.remove("go");
         });
+      })();
+    </script>
+
+    <!-- Illustrative delivery progress: starts only when the sample enters view. -->
+    <script>
+      (function () {
+        var demo = document.getElementById("shipment-demo");
+        if (!demo) return;
+        var fill = document.getElementById("shipment-fill");
+        var status = document.getElementById("shipment-state");
+        var steps = demo.querySelectorAll(".shipment-step");
+        var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var stages = [
+          { width: "10%", text: "Booking confirmed" },
+          { width: "67%", text: "Your delivery is on the way" },
+          { width: "100%", text: "Delivered · proof recorded" }
+        ];
+        function showStage(index) {
+          fill.style.width = stages[index].width;
+          status.textContent = stages[index].text;
+          steps.forEach(function (step, i) {
+            step.classList.toggle("current", i === index);
+            step.classList.toggle("complete", i < index);
+          });
+        }
+        function playDemo() {
+          demo.classList.add("is-visible");
+          if (reducedMotion) {
+            showStage(2);
+            return;
+          }
+          window.setTimeout(function () { showStage(1); }, 900);
+          window.setTimeout(function () { showStage(2); }, 3100);
+        }
+        if ("IntersectionObserver" in window) {
+          var observer = new IntersectionObserver(function (entries) {
+            if (entries[0].isIntersecting) {
+              playDemo();
+              observer.disconnect();
+            }
+          }, { threshold: 0.3 });
+          observer.observe(demo);
+        } else {
+          playDemo();
+        }
       })();
     </script>
 
