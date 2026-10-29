@@ -492,10 +492,10 @@
       }
 
       h1 {
-        font-size: clamp(2.5rem, 8vw, 4.5rem);
-        font-weight: 900;
-        line-height: 1.08;
-        letter-spacing: -0.04em;
+        font-size: clamp(2.5rem, 6.2vw, 4.25rem);
+        font-weight: 800;
+        line-height: 1.09;
+        letter-spacing: -0.052em;
         margin-bottom: 1.5rem;
         color: var(--ink);
       }
@@ -1743,7 +1743,11 @@
       /* Hero stagger, starts invisible, JS will animate in */
       .hero-animate {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(12px);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .hero-animate { opacity: 1; transform: none; }
       }
 
       /* Feature cards and eyebrow, starts invisible */
@@ -1977,11 +1981,11 @@
       <main style="padding-bottom: 5vh">
         <div class="hero-content">
           <span class="hero-eyebrow hero-animate">Same-day delivery in Los Angeles County</span>
-          <h1 class="hero-animate">Los Angeles County <span class="accent">final-mile delivery</span> service</h1>
+          <h1 class="hero-animate">Stop wondering where your <span class="accent">delivery</span> is.</h1>
           <p class="subtext hero-animate">
-            Same-day and scheduled pickup and delivery for local businesses,
-            with real-time GPS tracking, upfront pricing, and proof of delivery,
-            handled directly by a professional owner-operator.
+            Same-day and scheduled deliveries across Los Angeles County.
+            Professional handling, real-time GPS tracking, and proof of delivery
+            from pickup to drop-off.
           </p>
 
 
@@ -2933,11 +2937,17 @@
       (function () {
         // ── 1. Hero stagger-in on page load ──────────────────────────────
         var heroEls = document.querySelectorAll(".hero-animate");
+        var reduceHeroMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         heroEls.forEach(function (el, i) {
-          var delay = 80 + i * 110; // stagger ~110 ms apart, start after 80 ms
+          if (reduceHeroMotion) {
+            el.style.opacity = "1";
+            el.style.transform = "none";
+            return;
+          }
+          var delay = 50 + i * 75;
           setTimeout(function () {
             el.style.transition =
-              "opacity 0.65s ease, transform 0.65s ease";
+              "opacity 0.55s ease, transform 0.55s cubic-bezier(0.16, 1, 0.3, 1)";
             el.style.opacity = "1";
             el.style.transform = "translateY(0)";
           }, delay);
