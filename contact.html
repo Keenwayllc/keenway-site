@@ -29,6 +29,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Hold first paint until the page is parsed, so navigation swaps whole pages instead of flashing a half-loaded one. -->
+    <link rel="expect" href="#site-footer" blocking="render" />
+    <!-- The cursor is still over the clicked link when the next page loads; skip header transitions until the page settles so that link does not fade in. -->
+    <script>document.documentElement.classList.add("kw-nav-loading");addEventListener("load",function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove("kw-nav-loading");});});});</script>
+    <style>.kw-nav-loading header *, .kw-nav-loading header *::before, .kw-nav-loading header *::after { transition: none !important; }</style>
     <style>
       :root {
         --brand-orange: #e35205;
@@ -823,7 +828,7 @@
       </div>
     </div>
 
-    <footer>
+    <footer id="site-footer">
       <div class="footer-links">
         <a href="/">Home</a>
         <a href="/services">Services</a>
