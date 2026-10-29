@@ -1857,12 +1857,12 @@
             <div class="services-panel" id="services-panel">
               <p class="services-panel-heading">Delivery solutions</p>
               <div class="services-panel-grid">
-                <a class="services-panel-item" style="--menu-order:0" href="/services"><span class="services-panel-mark">01</span><span class="services-panel-copy"><strong>Same-Day Delivery</strong><small>Urgent local pickups and drop-offs.</small></span></a>
-                <a class="services-panel-item" style="--menu-order:1" href="/services"><span class="services-panel-mark">02</span><span class="services-panel-copy"><strong>Scheduled Delivery</strong><small>Planned pickups and recurring runs.</small></span></a>
-                <a class="services-panel-item" style="--menu-order:2" href="/services"><span class="services-panel-mark">03</span><span class="services-panel-copy"><strong>Final-Mile Delivery</strong><small>From a local business to the doorstep.</small></span></a>
-                <a class="services-panel-item" style="--menu-order:3" href="/services"><span class="services-panel-mark">04</span><span class="services-panel-copy"><strong>Auto Parts</strong><small>Parts runs for shops and suppliers.</small></span></a>
-                <a class="services-panel-item" style="--menu-order:4" href="/services"><span class="services-panel-mark">05</span><span class="services-panel-copy"><strong>Retail &amp; Business</strong><small>Local orders handled with care.</small></span></a>
-                <a class="services-panel-item" style="--menu-order:5" href="/services"><span class="services-panel-mark">06</span><span class="services-panel-copy"><strong>Bulky Items</strong><small>Furniture, fixtures, and supplies.</small></span></a>
+                <a class="services-panel-item" style="--menu-order:0" href="/services#same-day-delivery"><span class="services-panel-mark">01</span><span class="services-panel-copy"><strong>Same-Day Delivery</strong><small>Urgent local pickups and drop-offs.</small></span></a>
+                <a class="services-panel-item" style="--menu-order:1" href="/services#scheduled-delivery"><span class="services-panel-mark">02</span><span class="services-panel-copy"><strong>Scheduled Delivery</strong><small>Planned pickups and recurring runs.</small></span></a>
+                <a class="services-panel-item" style="--menu-order:2" href="/services#final-mile-delivery"><span class="services-panel-mark">03</span><span class="services-panel-copy"><strong>Final-Mile Delivery</strong><small>From a local business to the doorstep.</small></span></a>
+                <a class="services-panel-item" style="--menu-order:3" href="/services#auto-parts-delivery"><span class="services-panel-mark">04</span><span class="services-panel-copy"><strong>Auto Parts</strong><small>Parts runs for shops and suppliers.</small></span></a>
+                <a class="services-panel-item" style="--menu-order:4" href="/services#retail-business-delivery"><span class="services-panel-mark">05</span><span class="services-panel-copy"><strong>Retail &amp; Business</strong><small>Local orders handled with care.</small></span></a>
+                <a class="services-panel-item" style="--menu-order:5" href="/services#bulky-item-delivery"><span class="services-panel-mark">06</span><span class="services-panel-copy"><strong>Bulky Items</strong><small>Furniture, fixtures, and supplies.</small></span></a>
               </div>
             </div>
           </div>
@@ -1939,12 +1939,12 @@
           </div>
           <div class="mobile-services-panel" id="mobile-services-panel" inert>
             <div class="mobile-services-inner">
-              <a class="mobile-service-link" href="/services"><strong>Same-Day Delivery</strong><small>Urgent local deliveries</small></a>
-              <a class="mobile-service-link" href="/services"><strong>Scheduled Delivery</strong><small>Planned and recurring runs</small></a>
-              <a class="mobile-service-link" href="/services"><strong>Final-Mile Delivery</strong><small>Business to doorstep</small></a>
-              <a class="mobile-service-link" href="/services"><strong>Auto Parts</strong><small>Shops and suppliers</small></a>
-              <a class="mobile-service-link" href="/services"><strong>Retail &amp; Business</strong><small>Local business orders</small></a>
-              <a class="mobile-service-link" href="/services"><strong>Bulky Items</strong><small>Furniture and materials</small></a>
+              <a class="mobile-service-link" href="/services#same-day-delivery"><strong>Same-Day Delivery</strong><small>Urgent local deliveries</small></a>
+              <a class="mobile-service-link" href="/services#scheduled-delivery"><strong>Scheduled Delivery</strong><small>Planned and recurring runs</small></a>
+              <a class="mobile-service-link" href="/services#final-mile-delivery"><strong>Final-Mile Delivery</strong><small>Business to doorstep</small></a>
+              <a class="mobile-service-link" href="/services#auto-parts-delivery"><strong>Auto Parts</strong><small>Shops and suppliers</small></a>
+              <a class="mobile-service-link" href="/services#retail-business-delivery"><strong>Retail &amp; Business</strong><small>Local business orders</small></a>
+              <a class="mobile-service-link" href="/services#bulky-item-delivery"><strong>Bulky Items</strong><small>Furniture and materials</small></a>
             </div>
           </div>
           <a href="/how-it-works" class="mobile-nav-link">How It Works</a>
@@ -2705,8 +2705,12 @@
         nav.addEventListener("pointerleave", function (event) {
           if (event.pointerType === "mouse") closeTimer = window.setTimeout(function () { setDesktopOpen(false); }, 130);
         });
-        trigger.addEventListener("click", function () {
-          setDesktopOpen(!nav.classList.contains("is-open"));
+        trigger.addEventListener("click", function (event) {
+          if (event.detail > 0 && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+            setDesktopOpen(true);
+          } else {
+            setDesktopOpen(!nav.classList.contains("is-open"));
+          }
         });
         nav.addEventListener("focusin", function (event) {
           if (event.target !== trigger) setDesktopOpen(true);
