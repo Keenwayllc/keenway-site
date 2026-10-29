@@ -1445,6 +1445,103 @@
       .nav-link--active::after { width: 100%; }
       .nav-link--active { color: var(--brand-orange); }
 
+      /* Services navigation: compact product-style panel */
+      .services-nav { position: relative; display: flex; align-items: center; gap: 0.22rem; }
+      .services-nav .nav-link { white-space: nowrap; }
+      .services-trigger {
+        display: grid;
+        place-items: center;
+        width: 23px;
+        height: 27px;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--ink-soft);
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      .services-trigger:hover, .services-trigger:focus-visible { color: var(--brand-orange); background: rgba(227, 82, 5, 0.07); }
+      .services-trigger svg { width: 13px; height: 13px; transition: transform 0.2s ease; }
+      .services-nav.is-open .services-trigger svg { transform: rotate(180deg); }
+      .services-panel {
+        position: absolute;
+        top: calc(100% + 18px);
+        left: 50%;
+        width: min(590px, calc(100vw - 44px));
+        padding: 1.35rem;
+        background: #fff;
+        border: 1px solid #e3e7ed;
+        border-radius: 14px;
+        box-shadow: 0 24px 55px -25px rgba(15, 27, 45, 0.25);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translate(-50%, -7px);
+        transition: opacity 0.2s ease, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s linear 0.24s;
+        z-index: 300;
+      }
+      .services-panel::before { content: ""; position: absolute; height: 21px; left: 0; right: 0; bottom: 100%; }
+      .services-nav.is-open .services-panel {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translate(-50%, 0);
+        transition: opacity 0.2s ease, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1), visibility 0s;
+      }
+      .services-panel-heading {
+        margin: 0 0 0.9rem 0.35rem;
+        color: #8490a0;
+        font-size: 0.63rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+      }
+      .services-panel-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.35rem; }
+      .services-panel-item {
+        display: flex;
+        gap: 0.8rem;
+        min-height: 67px;
+        padding: 0.75rem;
+        border-radius: 9px;
+        text-decoration: none;
+        transition: background 0.18s ease;
+      }
+      .services-panel-item:hover, .services-panel-item:focus-visible { background: #f5f6f8; outline-offset: -2px; }
+      .services-panel-mark {
+        width: 31px;
+        height: 31px;
+        flex: 0 0 31px;
+        display: grid;
+        place-items: center;
+        border: 1px solid #e6e9ed;
+        border-radius: 8px;
+        color: var(--brand-orange);
+        font-weight: 800;
+        font-size: 0.68rem;
+      }
+      .services-panel-copy { display: flex; flex-direction: column; gap: 0.25rem; }
+      .services-panel-copy strong { color: #1e2d40; font-size: 0.83rem; line-height: 1.3; }
+      .services-panel-copy small { color: #778397; font-size: 0.72rem; line-height: 1.45; }
+      .services-panel-item { opacity: 0; transform: translateY(5px); }
+      .services-nav.is-open .services-panel-item { opacity: 1; transform: translateY(0); transition: opacity 0.25s ease, transform 0.25s ease, background 0.18s ease; transition-delay: calc(var(--menu-order) * 25ms); }
+
+      .mobile-services-heading { display: flex; align-items: center; border-bottom: 1px solid var(--line); }
+      .mobile-services-heading .mobile-nav-link { flex: 1; border: 0; }
+      .mobile-services-trigger { background: none; border: 0; color: var(--ink-soft); padding: 0.8rem 0.45rem; cursor: pointer; }
+      .mobile-services-trigger svg { width: 18px; height: 18px; transition: transform 0.2s ease; }
+      .mobile-services-trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+      .mobile-services-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.25s ease; }
+      .mobile-services-panel.is-open { grid-template-rows: 1fr; }
+      .mobile-services-inner { min-height: 0; overflow: hidden; }
+      .mobile-service-link { display: block; text-decoration: none; padding: 0.78rem 0.8rem; border-bottom: 1px solid #edf0f3; }
+      .mobile-service-link strong { display: block; font-size: 0.84rem; color: var(--ink); }
+      .mobile-service-link small { display: block; font-size: 0.72rem; color: var(--ink-soft); margin-top: 0.2rem; }
+      .mobile-service-link:hover { background: #f8f9fa; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .services-panel, .services-panel-item, .services-trigger svg, .mobile-services-panel, .mobile-services-trigger svg { transition: none !important; }
+      }
+
       /* ===== Hamburger Button ===== */
       .hamburger-btn {
         display: none;
@@ -1752,7 +1849,23 @@
       <div class="header-right">
         <nav class="nav-links">
           <a href="/" class="nav-link nav-link--active">Home</a>
-          <a href="/services" class="nav-link">Services</a>
+          <div class="services-nav" id="services-nav">
+            <a href="/services" class="nav-link">Services</a>
+            <button type="button" class="services-trigger" id="services-trigger" aria-label="Show delivery services" aria-expanded="false" aria-controls="services-panel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="services-panel" id="services-panel">
+              <p class="services-panel-heading">Delivery solutions</p>
+              <div class="services-panel-grid">
+                <a class="services-panel-item" style="--menu-order:0" href="/services"><span class="services-panel-mark">01</span><span class="services-panel-copy"><strong>Same-Day Delivery</strong><small>Urgent local pickups and drop-offs.</small></span></a>
+                <a class="services-panel-item" style="--menu-order:1" href="/services"><span class="services-panel-mark">02</span><span class="services-panel-copy"><strong>Scheduled Delivery</strong><small>Planned pickups and recurring runs.</small></span></a>
+                <a class="services-panel-item" style="--menu-order:2" href="/services"><span class="services-panel-mark">03</span><span class="services-panel-copy"><strong>Final-Mile Delivery</strong><small>From a local business to the doorstep.</small></span></a>
+                <a class="services-panel-item" style="--menu-order:3" href="/services"><span class="services-panel-mark">04</span><span class="services-panel-copy"><strong>Auto Parts</strong><small>Parts runs for shops and suppliers.</small></span></a>
+                <a class="services-panel-item" style="--menu-order:4" href="/services"><span class="services-panel-mark">05</span><span class="services-panel-copy"><strong>Retail &amp; Business</strong><small>Local orders handled with care.</small></span></a>
+                <a class="services-panel-item" style="--menu-order:5" href="/services"><span class="services-panel-mark">06</span><span class="services-panel-copy"><strong>Bulky Items</strong><small>Furniture, fixtures, and supplies.</small></span></a>
+              </div>
+            </div>
+          </div>
           <a href="/how-it-works" class="nav-link">How It Works</a>
           <a href="/about" class="nav-link">About</a>
           <a href="/contact" class="nav-link">Contact</a>
@@ -1818,7 +1931,22 @@
       <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
         <nav class="mobile-nav">
           <a href="/" class="mobile-nav-link mobile-nav-link--active">Home</a>
-          <a href="/services" class="mobile-nav-link">Services</a>
+          <div class="mobile-services-heading">
+            <a href="/services" class="mobile-nav-link">Services</a>
+            <button class="mobile-services-trigger" type="button" id="mobile-services-trigger" aria-label="Show delivery services" aria-expanded="false" aria-controls="mobile-services-panel">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+          </div>
+          <div class="mobile-services-panel" id="mobile-services-panel" inert>
+            <div class="mobile-services-inner">
+              <a class="mobile-service-link" href="/services"><strong>Same-Day Delivery</strong><small>Urgent local deliveries</small></a>
+              <a class="mobile-service-link" href="/services"><strong>Scheduled Delivery</strong><small>Planned and recurring runs</small></a>
+              <a class="mobile-service-link" href="/services"><strong>Final-Mile Delivery</strong><small>Business to doorstep</small></a>
+              <a class="mobile-service-link" href="/services"><strong>Auto Parts</strong><small>Shops and suppliers</small></a>
+              <a class="mobile-service-link" href="/services"><strong>Retail &amp; Business</strong><small>Local business orders</small></a>
+              <a class="mobile-service-link" href="/services"><strong>Bulky Items</strong><small>Furniture and materials</small></a>
+            </div>
+          </div>
           <a href="/how-it-works" class="mobile-nav-link">How It Works</a>
           <a href="/about" class="mobile-nav-link">About</a>
           <a href="/contact" class="mobile-nav-link">Contact</a>
@@ -2555,6 +2683,54 @@
           resultDiv.style.opacity = "1";
           resultDiv.style.transform = "translateY(0)";
         });
+
+      // ===== Services Navigation =====
+      (function () {
+        const nav = document.getElementById("services-nav");
+        const trigger = document.getElementById("services-trigger");
+        const mobileTrigger = document.getElementById("mobile-services-trigger");
+        const mobilePanel = document.getElementById("mobile-services-panel");
+        if (!nav || !trigger || !mobileTrigger || !mobilePanel) return;
+        let closeTimer;
+
+        function setDesktopOpen(open) {
+          window.clearTimeout(closeTimer);
+          nav.classList.toggle("is-open", open);
+          trigger.setAttribute("aria-expanded", String(open));
+        }
+
+        nav.addEventListener("pointerenter", function (event) {
+          if (event.pointerType === "mouse") setDesktopOpen(true);
+        });
+        nav.addEventListener("pointerleave", function (event) {
+          if (event.pointerType === "mouse") closeTimer = window.setTimeout(function () { setDesktopOpen(false); }, 130);
+        });
+        trigger.addEventListener("click", function () {
+          setDesktopOpen(!nav.classList.contains("is-open"));
+        });
+        nav.addEventListener("focusin", function (event) {
+          if (event.target !== trigger) setDesktopOpen(true);
+        });
+        nav.addEventListener("focusout", function (event) {
+          if (!nav.contains(event.relatedTarget)) setDesktopOpen(false);
+        });
+        document.addEventListener("pointerdown", function (event) {
+          if (!nav.contains(event.target)) setDesktopOpen(false);
+        });
+        document.addEventListener("keydown", function (event) {
+          if (event.key === "Escape" && nav.classList.contains("is-open")) {
+            setDesktopOpen(false);
+            trigger.focus();
+          }
+        });
+
+        mobileTrigger.addEventListener("click", function () {
+          const open = mobileTrigger.getAttribute("aria-expanded") !== "true";
+          mobileTrigger.setAttribute("aria-expanded", String(open));
+          mobilePanel.classList.toggle("is-open", open);
+          mobilePanel.inert = !open;
+        });
+      })();
 
       // ===== Mobile Menu Toggle =====
       (function () {
