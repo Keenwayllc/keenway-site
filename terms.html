@@ -23,6 +23,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Hold first paint until the page is parsed, so navigation swaps whole pages instead of flashing a half-loaded one. -->
+    <link rel="expect" href="#site-footer" blocking="render" />
+    <!-- The cursor is still over the clicked link when the next page loads; skip header transitions until the page settles so that link does not fade in. -->
+    <script>document.documentElement.classList.add("kw-nav-loading");addEventListener("load",function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove("kw-nav-loading");});});});</script>
+    <style>.kw-nav-loading header *, .kw-nav-loading header *::before, .kw-nav-loading header *::after { transition: none !important; }</style>
     <style>
       :root {
         --brand-orange: #e35205;
@@ -150,9 +155,9 @@
       .footer-links a:hover { color: var(--brand-orange); }
       .copyright { color: rgba(255,255,255,0.3); font-size: 0.7rem; letter-spacing: 0.1em; font-weight: 400; text-transform: uppercase; text-align: center; }
 
-      .hero-animate { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+      .hero-animate { opacity: 1; transform: none; }
       .hero-animate.is-visible { opacity: 1; transform: translateY(0); }
-      .scroll-animate { opacity: 0; transform: translateY(40px); transition: opacity 0.6s ease, transform 0.6s ease; }
+      .scroll-animate { opacity: 1; transform: none; }
       .scroll-animate.is-visible { opacity: 1; transform: translateY(0); }
 
       @media (max-width: 768px) {
@@ -232,7 +237,7 @@
         from { opacity: 0; transform: translateX(-12px); }
         to { opacity: 1; transform: translateX(0); }
       }
-      .logo-svg { animation: logoIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+      .logo-svg { animation: none; }
       .logo-mark {
         transform-box: fill-box;
         transform-origin: center;
@@ -460,7 +465,7 @@
       </div>
     </main>
 
-    <footer>
+    <footer id="site-footer">
       <nav class="footer-links" aria-label="Footer navigation">
         <a href="/">Home</a>
         <a href="/how-it-works">How It Works</a>

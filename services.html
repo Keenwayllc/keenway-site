@@ -29,6 +29,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
+    <!-- Hold first paint until the page is parsed, so navigation swaps whole pages instead of flashing a half-loaded one. -->
+    <link rel="expect" href="#site-footer" blocking="render" />
+    <!-- The cursor is still over the clicked link when the next page loads; skip header transitions until the page settles so that link does not fade in. -->
+    <script>document.documentElement.classList.add("kw-nav-loading");addEventListener("load",function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove("kw-nav-loading");});});});</script>
+    <style>.kw-nav-loading header *, .kw-nav-loading header *::before, .kw-nav-loading header *::after { transition: none !important; }</style>
     <style>
       :root {
         --brand-orange: #e35205;
@@ -413,6 +418,7 @@
 
       .step-body {
         padding-top: 0.35rem;
+        scroll-margin-top: 120px;
       }
 
       .step-title {
@@ -521,9 +527,8 @@
       /* ===== Scroll-triggered Animations ===== */
 
       .hero-animate {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.6s ease, transform 0.6s ease;
+        opacity: 1;
+        transform: none;
       }
 
       .hero-animate.is-visible {
@@ -532,9 +537,8 @@
       }
 
       .scroll-animate {
-        opacity: 0;
-        transform: translateY(40px);
-        transition: opacity 0.6s ease, transform 0.6s ease;
+        opacity: 1;
+        transform: none;
       }
 
       .scroll-animate.is-visible {
@@ -626,7 +630,7 @@
         from { opacity: 0; transform: translateX(-12px); }
         to { opacity: 1; transform: translateX(0); }
       }
-      .logo-svg { animation: logoIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+      .logo-svg { animation: none; }
       .logo-mark {
         transform-box: fill-box;
         transform-origin: center;
@@ -770,49 +774,49 @@
 
       <div class="steps-container">
 
-        <div class="step-body scroll-animate">
+        <div class="step-body scroll-animate" id="same-day-delivery">
           <h2 class="step-title">Same-Day Delivery</h2>
           <p class="step-desc">
             When something has to move today, same-day delivery in Los Angeles gets it picked up and dropped off within hours. It is the right fit for urgent parts, last-minute orders, time-sensitive paperwork, and anything a courier left behind. You get a single point of contact from pickup to drop-off, so there is no call center and no guessing where your delivery is.
           </p>
         </div>
 
-        <div class="step-body scroll-animate">
+        <div class="step-body scroll-animate" id="scheduled-delivery">
           <h2 class="step-title">Scheduled Pickup &amp; Delivery</h2>
           <p class="step-desc">
             Set a pickup window in advance and keep your day predictable. Scheduled pickup and delivery works well for recurring routes, standing orders, and businesses that ship to the same customers each week. Lock in the date and time and the run is handled on schedule.
           </p>
         </div>
 
-        <div class="step-body scroll-animate">
+        <div class="step-body scroll-animate" id="final-mile-delivery">
           <h2 class="step-title">Final-Mile Delivery</h2>
           <p class="step-desc">
             Final-mile delivery covers the last leg from a warehouse, supplier, or store to the customer's door. It is the part of the trip where most delays happen, so it gets careful handling, clear communication, and proof of delivery at the drop-off.
           </p>
         </div>
 
-        <div class="step-body scroll-animate">
+        <div class="step-body scroll-animate" id="auto-parts-delivery">
           <h2 class="step-title">Auto Parts Delivery</h2>
           <p class="step-desc">
             Shops and parts counters in Los Angeles count on fast parts runs to keep bays moving. Auto parts delivery handles wholesale-to-shop transfers, dealer runs, and urgent parts a technician is waiting on, with cargo-van capacity for bumpers, glass, and bulky components.
           </p>
         </div>
 
-        <div class="step-body scroll-animate">
+        <div class="step-body scroll-animate" id="medical-lab-delivery">
           <h2 class="step-title">Medical &amp; Lab Pickup Support</h2>
           <p class="step-desc">
             Clinics, labs, and offices often need a careful pickup handled discreetly and on time. Medical and lab pickup support covers specimen and document transport between locations with attention to chain-of-custody handling, signature capture, and timing.
           </p>
         </div>
 
-        <div class="step-body scroll-animate">
+        <div class="step-body scroll-animate" id="retail-business-delivery">
           <h2 class="step-title">Retail &amp; Business Delivery</h2>
           <p class="step-desc">
             Local retailers and B2B suppliers use business delivery service to get orders to customers the same day. Whether it is a single high-value item or a stack of orders for one route, deliveries are confirmed with photo updates and signature capture when needed.
           </p>
         </div>
 
-        <div class="step-body scroll-animate">
+        <div class="step-body scroll-animate" id="bulky-item-delivery">
           <h2 class="step-title">Furniture &amp; Bulky Item Delivery</h2>
           <p class="step-desc">
             Cargo-van capacity makes bulky item delivery practical for furniture, fixtures, displays, and oversized boxes that will not fit in a car. Items are loaded, secured, and delivered with care, and you get updates along the way.
@@ -885,7 +889,7 @@
     }
     </script>
 
-    <footer>
+    <footer id="site-footer">
       <div class="footer-links">
         <a href="/">Home</a>
         <a href="/services">Services</a>
