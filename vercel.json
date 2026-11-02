@@ -12,60 +12,71 @@
       ],
       "destination": "https://www.gokeenway.com/$1",
       "permanent": true
-    }
-  ],
-  "rewrites": [
+    },
     {
       "source": "/",
-      "destination": "/closure.html"
+      "destination": "/closure",
+      "permanent": false
     },
     {
       "source": "/index",
-      "destination": "/closure.html"
+      "destination": "/closure",
+      "permanent": false
     },
     {
       "source": "/index.html",
-      "destination": "/closure.html"
+      "destination": "/closure",
+      "permanent": false
     },
     {
       "source": "/about",
-      "destination": "/closure.html"
+      "destination": "/closure",
+      "permanent": false
     },
     {
       "source": "/about.html",
-      "destination": "/closure.html"
+      "destination": "/closure",
+      "permanent": false
     },
     {
       "source": "/contact",
-      "destination": "/closure.html"
+      "destination": "/closure",
+      "permanent": false
     },
     {
       "source": "/contact.html",
-      "destination": "/closure.html"
+      "destination": "/closure",
+      "permanent": false
     },
     {
       "source": "/services",
-      "destination": "/closure.html"
+      "destination": "/closure",
+      "permanent": false
     },
     {
       "source": "/services.html",
-      "destination": "/closure.html"
+      "destination": "/closure",
+      "permanent": false
     },
     {
       "source": "/how-it-works",
-      "destination": "/closure.html"
+      "destination": "/closure",
+      "permanent": false
     },
     {
       "source": "/how-it-works.html",
-      "destination": "/closure.html"
+      "destination": "/closure",
+      "permanent": false
     },
     {
       "source": "/schedule-a-delivery",
-      "destination": "/closure.html"
+      "destination": "/closure",
+      "permanent": false
     },
     {
       "source": "/schedule-a-delivery.html",
-      "destination": "/closure.html"
+      "destination": "/closure",
+      "permanent": false
     }
   ],
   "headers": [
