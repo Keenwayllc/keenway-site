@@ -4,9 +4,205 @@
   "redirects": [
     {
       "source": "/(.*)",
-      "has": [{ "type": "host", "value": "gokeenway.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "gokeenway.com"
+        }
+      ],
       "destination": "https://www.gokeenway.com/$1",
       "permanent": true
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/closure.html"
+    },
+    {
+      "source": "/index",
+      "destination": "/closure.html"
+    },
+    {
+      "source": "/index.html",
+      "destination": "/closure.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/closure.html"
+    },
+    {
+      "source": "/about.html",
+      "destination": "/closure.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/closure.html"
+    },
+    {
+      "source": "/contact.html",
+      "destination": "/closure.html"
+    },
+    {
+      "source": "/services",
+      "destination": "/closure.html"
+    },
+    {
+      "source": "/services.html",
+      "destination": "/closure.html"
+    },
+    {
+      "source": "/how-it-works",
+      "destination": "/closure.html"
+    },
+    {
+      "source": "/how-it-works.html",
+      "destination": "/closure.html"
+    },
+    {
+      "source": "/schedule-a-delivery",
+      "destination": "/closure.html"
+    },
+    {
+      "source": "/schedule-a-delivery.html",
+      "destination": "/closure.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/index",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/index.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/about",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/about.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/contact",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/contact.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/services",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/services.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/how-it-works",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/how-it-works.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/schedule-a-delivery",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/schedule-a-delivery.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/closure",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/closure.html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
     }
   ]
 }
