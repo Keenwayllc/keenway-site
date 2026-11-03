@@ -673,7 +673,9 @@
       .app-menu-badge { height: 42px; width: auto; display: block; }
       .app-menu-note { margin: 0; padding-top: 0.85rem; border-top: 1px solid rgba(15,27,45,0.09); font-size: 0.58rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.5; color: #8a96aa; text-align: center; }
         </style>
-  </head>
+  <link rel="stylesheet" href="/closure-modal.css">
+<script src="/closure-modal.js" defer></script>
+</head>
   <body>
     <div id="bg-skyline" aria-hidden="true"><img src="home-icons/la-skyline-art.png" alt="" class="skyline-art" /></div>
 
@@ -1026,5 +1028,20 @@
     </script>
     <link rel="stylesheet" href="/trust-badges.css" />
     <script src="/trust-badges.js" defer></script>
-  </body>
+  
+<!-- Owner-authorized temporary closure. Existing page remains in the background. -->
+<div id="kw-closure-backdrop" class="kwClosureBackdrop" aria-hidden="true"></div>
+<dialog id="kw-closure-modal" class="kwClosureModal" open aria-modal="true" aria-labelledby="kw-closure-title" aria-describedby="kw-closure-description">
+  <img class="kwClosureLogo" src="/ow-logo-dark.svg" alt="Keenway, Deliver Better" width="220" height="72">
+  <span class="kwClosureAccent" aria-hidden="true"></span>
+  <h1 id="kw-closure-title" class="kwClosureTitle">Temporarily closed</h1>
+  <p id="kw-closure-description" class="kwClosureCopy">Keenwayˢᵐ has temporarily paused operations. We are currently not accepting new orders, and account sign-in is temporarily unavailable.</p>
+  <p class="kwClosureHelp">Questions about an existing delivery, payment, or account?</p>
+  <a class="kwClosureButton" href="mailto:support@gokeenway.com">Contact support</a>
+  <span class="kwClosureEmail">support@gokeenway.com</span>
+  <p class="kwClosureThanks">Thank you for your patience, understanding, and support.</p>
+</dialog>
+
+</body>
 </html>
+

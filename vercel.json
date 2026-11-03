@@ -14,68 +14,13 @@
       "permanent": true
     },
     {
-      "source": "/",
-      "destination": "/closure",
+      "source": "/closure",
+      "destination": "/",
       "permanent": false
     },
     {
-      "source": "/index",
-      "destination": "/closure",
-      "permanent": false
-    },
-    {
-      "source": "/index.html",
-      "destination": "/closure",
-      "permanent": false
-    },
-    {
-      "source": "/about",
-      "destination": "/closure",
-      "permanent": false
-    },
-    {
-      "source": "/about.html",
-      "destination": "/closure",
-      "permanent": false
-    },
-    {
-      "source": "/contact",
-      "destination": "/closure",
-      "permanent": false
-    },
-    {
-      "source": "/contact.html",
-      "destination": "/closure",
-      "permanent": false
-    },
-    {
-      "source": "/services",
-      "destination": "/closure",
-      "permanent": false
-    },
-    {
-      "source": "/services.html",
-      "destination": "/closure",
-      "permanent": false
-    },
-    {
-      "source": "/how-it-works",
-      "destination": "/closure",
-      "permanent": false
-    },
-    {
-      "source": "/how-it-works.html",
-      "destination": "/closure",
-      "permanent": false
-    },
-    {
-      "source": "/schedule-a-delivery",
-      "destination": "/closure",
-      "permanent": false
-    },
-    {
-      "source": "/schedule-a-delivery.html",
-      "destination": "/closure",
+      "source": "/closure.html",
+      "destination": "/",
       "permanent": false
     }
   ],
