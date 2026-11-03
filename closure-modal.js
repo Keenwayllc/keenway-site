@@ -12,7 +12,14 @@
   document.body.prepend(background);
   document.body.style.overflow = 'hidden';
   document.documentElement.style.overflow = 'hidden';
+  dialog.setAttribute('closedby', 'none');
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') { event.preventDefault(); event.stopImmediatePropagation(); }
+  }, true);
   dialog.addEventListener('cancel', function (event) { event.preventDefault(); });
+  dialog.addEventListener('close', function () {
+    if (!dialog.open && dialog.isConnected && typeof dialog.showModal === 'function') dialog.showModal();
+  });
   if (typeof dialog.showModal === 'function') {
     dialog.removeAttribute('open');
     dialog.showModal();
