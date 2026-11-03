@@ -673,7 +673,7 @@
       .app-menu-badge { height: 42px; width: auto; display: block; }
       .app-menu-note { margin: 0; padding-top: 0.85rem; border-top: 1px solid rgba(15,27,45,0.09); font-size: 0.58rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; line-height: 1.5; color: #8a96aa; text-align: center; }
         </style>
-  <link rel="stylesheet" href="/closure-modal.css">
+  <link rel="stylesheet" href="/closure-modal.css?v=farewell-1">
 <script src="/closure-modal.js" defer></script>
 </head>
   <body>
@@ -1029,17 +1029,23 @@
     <link rel="stylesheet" href="/trust-badges.css" />
     <script src="/trust-badges.js" defer></script>
   
-<!-- Owner-authorized temporary closure. Existing page remains in the background. -->
+<!-- Owner-authorized farewell notice. Existing page remains in the background. -->
 <div id="kw-closure-backdrop" class="kwClosureBackdrop" aria-hidden="true"></div>
-<dialog id="kw-closure-modal" class="kwClosureModal" open aria-modal="true" aria-labelledby="kw-closure-title" aria-describedby="kw-closure-description">
-  <img class="kwClosureLogo" src="/ow-logo-dark.svg" alt="Keenway, Deliver Better" width="220" height="72">
-  <span class="kwClosureAccent" aria-hidden="true"></span>
-  <h1 id="kw-closure-title" class="kwClosureTitle">Operations ceased</h1>
-  <p id="kw-closure-description" class="kwClosureCopy">Keenwayˢᵐ has ceased operations. We are no longer accepting orders. Customer and driver sign-in is unavailable.</p>
-  <p class="kwClosureHelp">Questions about an existing delivery, payment, or account?</p>
-  <a class="kwClosureButton" href="mailto:support@gokeenway.com">Contact support</a>
-  <span class="kwClosureEmail">support@gokeenway.com</span>
-  <p class="kwClosureThanks">Thank you to everyone who supported Keenwayˢᵐ. To our business customers, thank you for trusting us with your deliveries.</p>
+<dialog id="kw-closure-modal" class="kwClosureModal" tabindex="-1" autofocus open aria-modal="true" aria-labelledby="kw-closure-title" aria-describedby="kw-closure-description">
+  <div class="kwClosurePhoto"><img src="/keenway-farewell.jpg" alt="A Keenway van driving away along a winding mountain highway at sunset" width="1448" height="1086" fetchpriority="high"></div>
+  <div class="kwClosureMessage">
+    <img class="kwClosureLogo" src="/ow-logo-dark.svg" alt="Keenway, Deliver Better" width="220" height="72">
+    <p class="kwClosureYears">2023 &ndash; 2026</p>
+    <h1 id="kw-closure-title" class="kwClosureTitle">The end of a journey.</h1>
+    <p class="kwClosureFarewell">Thank you for being part of ours.</p>
+    <p class="kwClosureThanks">To our customers, drivers, and everyone who supported Keenway&#x02E2;&#x1D50;, thank you. Your trust and support will always be part of our story.</p>
+    <p id="kw-closure-description" class="kwClosureCopy">Keenway&#x02E2;&#x1D50; has ceased operations. We are no longer accepting orders. Customer and driver sign-in is unavailable.</p>
+    <div class="kwClosureSupport">
+      <p class="kwClosureHelp">For existing delivery, payment, or account questions:</p>
+      <a class="kwClosureButton" href="mailto:support@gokeenway.com">Contact support</a>
+      <span class="kwClosureEmail">support@gokeenway.com</span>
+    </div>
+  </div>
 </dialog>
 
 </body>

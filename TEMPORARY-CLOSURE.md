@@ -7,3 +7,7 @@ Portal server-side closure guards remain active. No financial wording or reopeni
 ## November 3 cessation correction
 
 Owner confirms operations have ceased. Modal heading: Operations ceased. Body: Keenway has ceased operations; orders and customer/driver sign-in are unavailable. No temporary-pause or financial language and no reopening promise. Admin access, original design and existing server-side restrictions remain. Do not reopen unless the owner explicitly requests it.
+
+## November 3 farewell photograph
+
+Owner requested a wider nostalgic farewell modal with the supplied mountain sunset photograph. Heading: The end of a journey. Active years: 2023–2026. No reference to the number of years or comparison with other carriers. All six marketing dialogs use the same responsive image and farewell. Full photograph remains visible. Blocking behavior and support contact remain active.

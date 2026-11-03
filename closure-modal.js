@@ -23,6 +23,8 @@
   if (typeof dialog.showModal === 'function') {
     dialog.removeAttribute('open');
     dialog.showModal();
+    dialog.focus({ preventScroll: true });
+    dialog.scrollTop = 0;
   } else {
     var button = dialog.querySelector('a');
     if (button) button.focus();
