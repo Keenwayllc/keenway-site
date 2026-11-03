@@ -1,3 +1,5 @@
-# Temporary closure
+# Temporary closure modal
 
-Owner authorized activation November 2, 2026 after completing the final delivery. White minimal notice, original Keenway logo, no financial language. Marketing/home/booking pages temporarily redirect to /closure. Original page files, legal pages and assets remain intact. Companion portal PR130 blocks non-admin sign-ins and new bookings. To reopen, remove the closure redirects/headers from vercel.json and redeploy. Reopen the portal separately through lib/service-availability.ts.
+November 3, 2026 owner correction: compact square modal over the original page design, with complete original vector logo. Homepage, about, contact, services, how-it-works and schedule-a-delivery retain their original HTML/design behind the blocking native dialog. Scoped closure-modal.css and closure-modal.js provide viewport-bounded scrolling, keyboard containment and an inert background. Old /closure bookmarks temporarily redirect to /. Legal pages remain accessible.
+
+Portal server-side closure guards remain active. No financial wording or reopening date. Admin and existing data/payment settlement are retained. To reopen: remove the modal stylesheet/script/markup from the six marketing pages and remove the closure compatibility redirects. Reopen the portal independently through its service-availability switch.
